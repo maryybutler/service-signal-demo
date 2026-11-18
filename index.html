@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Squeak · Demo</title>
+  <title>Squeak</title>
 
   <style>
     :root {
-      font-family: Arial, Helvetica, sans-serif;
-      color: #24303a;
-      background: #f8f9fc;
+      font-family: 'Trebuchet MS', 'Century Gothic', Arial, sans-serif;
+      color: #1d2225;
+      background: #f7f7f9;
       font-synthesis: none;
     }
 
@@ -36,14 +36,21 @@
 
     .shell {
       width: 100%;
-      max-width: 1660px;
+      max-width: 1710px;
       margin: 0 auto;
-      padding: 0 clamp(16px, 3vw, 44px);
+      padding: 0 clamp(14px, 2.2vw, 34px);
     }
 
     .top {
-      background: white;
-      border-bottom: 1px solid #e9e4ee;
+      background:
+        linear-gradient(
+          100deg,
+          #ffdb36 0 33%,
+          #ffc6d6 33% 67%,
+          #b5e5f5 67%
+        ) top / 100% 6px no-repeat,
+        white;
+      border-bottom: 1px solid #e8e9ec;
     }
 
     .top-inner {
@@ -51,19 +58,20 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      min-height: 72px;
+      min-height: 78px;
     }
 
     .brand {
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: -.45px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.8px;
+      color: #15191b;
     }
 
     .subbrand {
-      color: #78828c;
+      color: #64717a;
       font-size: 12px;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .top-actions,
@@ -77,23 +85,27 @@
     }
 
     .button {
-      border: 1px solid #d9e0e4;
+      border: 1px solid #d6dde1;
       background: #fff;
-      color: #2d3942;
-      border-radius: 10px;
+      color: #25313b;
+      border-radius: 9px;
       padding: 9px 13px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .button:hover { background: #f2f5f6; }
+    .button:hover {
+      background: #f2f5f6;
+    }
 
     .button.primary {
-      background: #30635c;
+      background: #087fa7;
       color: white;
-      border-color: #30635c;
+      border-color: #087fa7;
     }
 
-    .button.primary:hover { background: #25544d; }
+    .button.primary:hover {
+      background: #066e91;
+    }
 
     .button.tiny {
       padding: 6px 9px;
@@ -125,7 +137,7 @@
     }
 
     main {
-      padding-top: 26px;
+      padding-top: 24px;
       padding-bottom: 40px;
     }
 
@@ -138,20 +150,33 @@
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       margin: 0 0 6px;
-      letter-spacing: -.6px;
+      letter-spacing: -.7px;
     }
 
-    h2 { font-size: 18px; margin: 0; }
-    h3 { font-size: 15px; margin: 0; }
+    h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 0;
+    }
+
     p { margin: 0; }
 
-    .muted { color: #75818b; }
-    .intro .muted { max-width: 600px; }
+    .muted {
+      color: #75818b;
+    }
+
+    .intro .muted {
+      max-width: 600px;
+    }
 
     .toolbar {
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       justify-content: space-between;
     }
 
@@ -163,72 +188,120 @@
       width: min(100%, 370px);
     }
 
+    .category-jump {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 0 0 18px;
+    }
+
+    .category-jump a {
+      background: white;
+      color: #28343c;
+      text-decoration: none;
+      border: 1px solid #e0e4e8;
+      padding: 6px 11px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .category-jump a:hover {
+      border-color: #9bc9dc;
+      background: #eef9fd;
+    }
+
+    .category-jump a::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: var(--dot, #ffdf55);
+    }
+
     .board {
       display: grid;
       grid-template-columns: repeat(
         auto-fit,
-        minmax(min(100%, 295px), 1fr)
+        minmax(min(100%, 230px), 1fr)
       );
-      gap: 18px;
+      gap: 14px;
       align-items: start;
     }
 
     .category {
-      border-radius: 16px;
-      padding: 15px;
+      position: relative;
+      border-radius: 14px;
+      padding: 13px;
       border: 1px solid #e1e7eb;
       background: #fff;
       min-width: 0;
+      scroll-margin-top: 18px;
+    }
+
+    .category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 23px;
+      width: 44px;
+      height: 9px;
+      transform: skewX(-23deg);
+      border-radius: 0 0 5px 5px;
+      background: #ffffff9c;
     }
 
     .category[data-tone="0"] {
-      background: #ede4ff;
-      border-color: #dfd0fa;
+      background: #efe6ff;
+      border-color: #e1d1f8;
     }
 
     .category[data-tone="1"] {
-      background: #fff0c8;
-      border-color: #f3e1aa;
+      background: #fff0ad;
+      border-color: #f5df83;
     }
 
     .category[data-tone="2"] {
-      background: #dcf6e8;
-      border-color: #bdebd1;
+      background: #d6f4dd;
+      border-color: #bfe9cb;
     }
 
     .category[data-tone="3"] {
-      background: #dfeeff;
-      border-color: #c8ddf8;
+      background: #cdeeff;
+      border-color: #b1dff5;
     }
 
     .category[data-tone="4"] {
-      background: #ffe7d6;
-      border-color: #f7d3bb;
+      background: #ffe2d4;
+      border-color: #f9c9b1;
     }
 
     .category[data-tone="5"] {
-      background: #ffe2ea;
-      border-color: #f5cbd8;
+      background: #ffdce7;
+      border-color: #f2c2d1;
     }
 
     .category[data-tone="6"] {
-      background: #e4e7ff;
-      border-color: #d2d6f7;
+      background: #e3e8ff;
+      border-color: #d0d8fb;
     }
 
     .category[data-tone="7"] {
-      background: #f8eacc;
-      border-color: #ebd6ae;
+      background: #fff4cc;
+      border-color: #f2e2a1;
     }
 
     .category[data-tone="8"] {
-      background: #f1e4da;
-      border-color: #e6d0c0;
+      background: #f5e5d8;
+      border-color: #ead0bc;
     }
 
     .category[data-tone="9"] {
-      background: #d9f5f3;
-      border-color: #c0e7e4;
+      background: #d8f5f1;
+      border-color: #bce9e2;
     }
 
     .category-head {
@@ -240,8 +313,8 @@
     }
 
     .category-head h2 {
-      font-size: 18px;
-      letter-spacing: -.3px;
+      font-size: 17px;
+      letter-spacing: -.35px;
     }
 
     .category-count {
@@ -257,9 +330,9 @@
     .issue {
       background: #fff;
       border: 1px solid #ffffff;
-      border-radius: 12px;
-      padding: 13px;
-      box-shadow: 0 2px 7px #1b344011;
+      border-radius: 10px;
+      padding: 11px;
+      box-shadow: 0 2px 7px #1b344010;
     }
 
     .issue-title {
@@ -278,14 +351,21 @@
       color: #7e8b93;
     }
 
-    .issue .actions { gap: 6px; }
-    .issue .actions .button { width: 100%; }
+    .issue .actions {
+      gap: 6px;
+    }
+
+    .issue .actions .button {
+      width: 100%;
+    }
 
     .issue .actions .button.tiny {
       white-space: nowrap;
     }
 
-    .more-issues { margin-top: 11px; }
+    .more-issues {
+      margin-top: 11px;
+    }
 
     .more-issues summary {
       padding: 9px 12px;
@@ -324,7 +404,7 @@
       text-align: center;
     }
 
-    .demo-note {
+    .sample-note {
       display: flex;
       align-items: flex-start;
       gap: 9px;
@@ -337,7 +417,7 @@
       margin-top: 23px;
     }
 
-    .demo-note strong {
+    .sample-note strong {
       color: #455660;
     }
 
@@ -357,7 +437,9 @@
       margin-bottom: 14px;
     }
 
-    .panel-head p { margin-top: 4px; }
+    .panel-head p {
+      margin-top: 4px;
+    }
 
     .metrics {
       display: grid;
@@ -410,8 +492,8 @@
       width: 100%;
       max-width: 39px;
       min-height: 3px;
-      background: #a7ddd0;
-      border: 1px solid #86c5b6;
+      background: #b7e4f5;
+      border: 1px solid #8dcde4;
       border-radius: 5px 5px 0 0;
     }
 
@@ -421,7 +503,9 @@
       color: #7b8790;
     }
 
-    .bar-label { padding-top: 6px; }
+    .bar-label {
+      padding-top: 6px;
+    }
 
     .fields {
       display: grid;
@@ -456,8 +540,8 @@
       align-items: center;
       gap: 10px;
       padding: 12px;
-      background: #eef8f5;
-      border: 1px solid #d5eae2;
+      background: #eaf8fd;
+      border: 1px solid #cce9f4;
       border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
@@ -466,7 +550,7 @@
     .check-row input {
       width: 17px;
       height: 17px;
-      accent-color: #30635c;
+      accent-color: #087fa7;
     }
 
     .dialog-explanation {
@@ -503,7 +587,9 @@
       overflow-wrap: anywhere;
     }
 
-    .table-wrap { overflow: auto; }
+    .table-wrap {
+      overflow: auto;
+    }
 
     table {
       width: 100%;
@@ -536,7 +622,9 @@
       background: #19252d66;
     }
 
-    .dialog-body { padding: 24px; }
+    .dialog-body {
+      padding: 24px;
+    }
 
     .dialog-head {
       display: flex;
@@ -545,7 +633,9 @@
       margin-bottom: 17px;
     }
 
-    .dialog-head h2 { font-size: 19px; }
+    .dialog-head h2 {
+      font-size: 19px;
+    }
 
     .dialog-body .form-actions {
       justify-content: flex-end;
@@ -561,9 +651,13 @@
       padding: 9px 0;
     }
 
-    .category-edit span { font-weight: 600; }
+    .category-edit span {
+      font-weight: 600;
+    }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
     #toast {
       position: fixed;
@@ -580,7 +674,9 @@
     }
 
     @media (max-width: 720px) {
-      .shell { padding: 0 15px; }
+      .shell {
+        padding: 0 15px;
+      }
 
       .top-inner {
         align-items: flex-start;
@@ -588,22 +684,31 @@
         flex-direction: column;
       }
 
-      .intro { flex-direction: column; }
+      .intro {
+        flex-direction: column;
+      }
 
       .insight-grid,
       .metrics {
         grid-template-columns: 1fr;
       }
 
-      .toolbar { align-items: stretch; }
+      .toolbar {
+        align-items: stretch;
+      }
 
       .search {
         width: 100%;
         max-width: none;
       }
 
-      .pair { grid-template-columns: 1fr; }
-      .panel { padding: 15px; }
+      .pair {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -613,20 +718,29 @@
   <header class="top">
     <div class="shell top-inner">
       <div>
-        <div class="brand">
-          Squeak <span class="tag">Demo</span>
-        </div>
+        <div class="brand">Squeak</div>
         <div class="subbrand">
           Little issues. Bigger patterns.
         </div>
       </div>
 
       <div class="top-actions">
-        <button class="button" id="boardTab" type="button" aria-pressed="true">
+        <button
+          class="button"
+          id="boardTab"
+          type="button"
+          aria-pressed="true"
+        >
           Issue board
         </button>
-        <button class="button" id="insightsTab" type="button" aria-pressed="false">
-          Demo insights
+
+        <button
+          class="button"
+          id="insightsTab"
+          type="button"
+          aria-pressed="false"
+        >
+          Insights
         </button>
       </div>
     </div>
@@ -644,7 +758,8 @@
             confirm a few details, and you're done.
           </p>
         </div>
-        <span class="tag">Sample issues only</span>
+
+        <span class="tag">Early prototype</span>
       </div>
 
       <div class="toolbar">
@@ -657,14 +772,29 @@
         >
 
         <div class="actions">
-          <button class="button" id="manageCategories" type="button">
+          <button
+            class="button"
+            id="manageCategories"
+            type="button"
+          >
             Edit categories
           </button>
-          <button class="button primary" id="addIssue" type="button">
+
+          <button
+            class="button primary"
+            id="addIssue"
+            type="button"
+          >
             + Add issue
           </button>
         </div>
       </div>
+
+      <nav
+        id="categoryJump"
+        class="category-jump"
+        aria-label="Jump to a category"
+      ></nav>
 
       <div class="board" id="board"></div>
 
@@ -673,17 +803,18 @@
     <section
       id="insightsView"
       class="hidden"
-      aria-label="Demonstration insights"
+      aria-label="Insights"
     >
 
       <div class="intro">
         <div>
-          <h1>Demo insights</h1>
+          <h1>Insights</h1>
           <p class="muted">
-            An example of the reporting a team lead might use.
-            All figures are fictional and local to this browser.
+            An overview of the squeaks logged in this browser.
+            These figures are not shared with other people.
           </p>
         </div>
+
         <span class="tag">Not access-controlled</span>
       </div>
 
@@ -700,6 +831,7 @@
               </p>
             </div>
           </div>
+
           <div class="bars" id="bars"></div>
         </div>
 
@@ -714,6 +846,7 @@
           </div>
 
           <form id="connectForm" class="pair">
+
             <div class="field">
               <label for="linkA">Issue one</label>
               <select id="linkA" required></select>
@@ -727,9 +860,13 @@
             <button class="button" type="submit">
               Connect
             </button>
+
           </form>
 
-          <ul id="connectionList" class="connection-list"></ul>
+          <ul
+            id="connectionList"
+            class="connection-list"
+          ></ul>
         </div>
 
       </div>
@@ -746,10 +883,19 @@
           </div>
 
           <div class="actions">
-            <button class="button tiny" type="button" id="exportCsv">
+            <button
+              class="button tiny"
+              type="button"
+              id="exportCsv"
+            >
               Export CSV
             </button>
-            <button class="button tiny" type="button" id="exportJson">
+
+            <button
+              class="button tiny"
+              type="button"
+              id="exportJson"
+            >
               Export JSON
             </button>
           </div>
@@ -766,6 +912,7 @@
                 <th>Ticket reference</th>
               </tr>
             </thead>
+
             <tbody id="events"></tbody>
           </table>
         </div>
@@ -774,16 +921,21 @@
 
     </section>
 
-    <div class="demo-note">
+    <div class="sample-note">
       <span aria-hidden="true">ⓘ</span>
-      <p>
-        <strong>Public demonstration only.</strong>
-        All starting data is fictional. Anything you add is stored
-        only in this browser, not shared with colleagues.
-        Please don't enter real customer details, internal
-        ticket links or confidential information.
 
-        <button type="button" class="button text-button" id="reset">
+      <p>
+        <strong>Prototype with example issue titles.</strong>
+        This is not a live system status.
+        Counts start at zero and only reflect entries in this browser.
+        Please don't enter real customer details,
+        internal ticket links or confidential information.
+
+        <button
+          type="button"
+          class="button text-button"
+          id="reset"
+        >
           Reset sample data
         </button>
       </p>
@@ -795,7 +947,8 @@
     <div class="dialog-body">
 
       <div class="dialog-head">
-        <h2 id="issueDialogTitle">Add a demo issue</h2>
+        <h2 id="issueDialogTitle">Add an issue</h2>
+
         <button
           type="button"
           class="button tiny"
@@ -809,11 +962,12 @@
 
         <div class="field">
           <label for="newTitle">What happened?</label>
+
           <input
             id="newTitle"
             maxlength="120"
             required
-            placeholder="e.g. Demo: confirmation screen paused"
+            placeholder="e.g. Confirmation screen not loading"
           >
         </div>
 
@@ -823,14 +977,18 @@
         </div>
 
         <div class="field">
-          <label for="newTicket">Example ticket link (optional)</label>
+          <label for="newTicket">
+            Example ticket link (optional)
+          </label>
+
           <input
             id="newTicket"
             type="url"
-            placeholder="https://example.com/demo-ticket/123"
+            placeholder="https://example.com/ticket/123"
           >
+
           <small>
-            Fictional example.com links only. No real internal URLs.
+            Example.com links only. No real internal URLs.
           </small>
         </div>
 
@@ -840,9 +998,14 @@
         </label>
 
         <div class="form-actions">
-          <button class="button" type="button" data-close="issueDialog">
+          <button
+            class="button"
+            type="button"
+            data-close="issueDialog"
+          >
             Cancel
           </button>
+
           <button class="button primary" type="submit">
             Add issue
           </button>
@@ -857,6 +1020,7 @@
 
       <div class="dialog-head">
         <h2 id="signalDialogTitle">Add a squeak</h2>
+
         <button
           type="button"
           class="button tiny"
@@ -866,7 +1030,10 @@
         </button>
       </div>
 
-      <p class="dialog-explanation" id="signalIssueName"></p>
+      <p
+        class="dialog-explanation"
+        id="signalIssueName"
+      ></p>
 
       <form id="signalForm" class="fields">
 
@@ -876,14 +1043,16 @@
           <label for="signalTicket">
             Example ticket link (optional)
           </label>
+
           <input
             id="signalTicket"
             type="url"
-            placeholder="https://example.com/demo-ticket/123"
+            placeholder="https://example.com/ticket/123"
           >
+
           <small>
             Leave blank if you don't have one.
-            Demo links must use example.com.
+            Only example.com links are accepted here.
           </small>
         </div>
 
@@ -893,10 +1062,18 @@
         </label>
 
         <div class="form-actions">
-          <button class="button" type="button" data-close="signalDialog">
+          <button
+            class="button"
+            type="button"
+            data-close="signalDialog"
+          >
             Cancel
           </button>
-          <button class="button primary" type="submit">
+
+          <button
+            class="button primary"
+            type="submit"
+          >
             Confirm + Add
           </button>
         </div>
@@ -905,11 +1082,17 @@
     </div>
   </dialog>
 
-  <dialog id="categoriesDialog" aria-labelledby="categoriesDialogTitle">
+  <dialog
+    id="categoriesDialog"
+    aria-labelledby="categoriesDialogTitle"
+  >
     <div class="dialog-body">
 
       <div class="dialog-head">
-        <h2 id="categoriesDialogTitle">Edit categories</h2>
+        <h2 id="categoriesDialogTitle">
+          Edit categories
+        </h2>
+
         <button
           type="button"
           class="button tiny"
@@ -921,10 +1104,17 @@
 
       <div id="categoryEditor"></div>
 
-      <form id="categoryForm" class="fields" style="margin-top:16px">
+      <form
+        id="categoryForm"
+        class="fields"
+        style="margin-top:16px"
+      >
 
         <div class="field">
-          <label for="newCategoryName">New category</label>
+          <label for="newCategoryName">
+            New category
+          </label>
+
           <input
             id="newCategoryName"
             maxlength="35"
@@ -933,29 +1123,35 @@
           >
         </div>
 
-        <button type="submit" class="button primary">
+        <button
+          type="submit"
+          class="button primary"
+        >
           + Add category
         </button>
 
       </form>
-
     </div>
   </dialog>
 
-  <div id="toast" role="status" aria-live="polite"></div>
+  <div
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
 
   <script>
     (() => {
       'use strict';
 
-      const KEY = 'service-signal-public-demo-v1';
+      const KEY = 'squeak-preview-v1';
 
-      const $ = (id) => document.getElementById(id);
+      const $ = id => document.getElementById(id);
 
-      const esc = (value) =>
+      const esc = value =>
         String(value ?? '').replace(
           /[&<>"']/g,
-          (c) => ({
+          c => ({
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
@@ -969,90 +1165,80 @@
           ? crypto.randomUUID()
           : String(Date.now()) + Math.random().toString(36).slice(2);
 
-      const daysAgo = (n, hour = 10) => {
-        const d = new Date();
-        d.setDate(d.getDate() - n);
-        d.setHours(hour, 15, 0, 0);
-        return d.toISOString();
-      };
-
       function seed() {
 
         const categories = [
-          { id: 'app', name: 'App' },
-          { id: 'billing', name: 'Billing' },
-          { id: 'broadband', name: 'Broadband' },
-          { id: 'mobile', name: 'Mobile' },
-          { id: 'power', name: 'Power' },
-          { id: 'debt', name: 'Debt' },
-          { id: 'online-account', name: 'Online Account' },
-          { id: 'bikkie', name: 'Bikkie' },
-          { id: 'brownie', name: 'Brownie' },
-          { id: 'flex', name: 'Flex' }
+          { id:'app', name:'App' },
+          { id:'billing', name:'Billing' },
+          { id:'broadband', name:'Broadband' },
+          { id:'mobile', name:'Mobile' },
+          { id:'power', name:'Power' },
+          { id:'debt', name:'Debt' },
+          { id:'online-account', name:'Online Account' },
+          { id:'bikkie', name:'Bikkie' },
+          { id:'brownie', name:'Brownie' },
+          { id:'flex', name:'Flex' }
         ];
+
+        const createdAt = new Date().toISOString();
 
         const issues = [
-          { id:'i1', categoryId:'app', title:'Demo: Settings page takes a while to load', status:'Open', createdAt:daysAgo(6) },
-          { id:'i2', categoryId:'app', title:'Demo: Confirmation screen not appearing', status:'Open', createdAt:daysAgo(4) },
-          { id:'i3', categoryId:'billing', title:'Demo: Billing email arrives late', status:'Open', createdAt:daysAgo(5) },
-          { id:'i4', categoryId:'billing', title:'Demo: Payment history shows a delay', status:'Resolved', createdAt:daysAgo(6) },
-          { id:'i5', categoryId:'broadband', title:'Demo: Setup progress not refreshing', status:'Open', createdAt:daysAgo(3) },
-          { id:'i6', categoryId:'mobile', title:'Demo: Activation message delayed', status:'Open', createdAt:daysAgo(2) },
-          { id:'i7', categoryId:'mobile', title:'Demo: Usage display needs refreshing', status:'Resolved', createdAt:daysAgo(5) },
-          { id:'i8', categoryId:'power', title:'Demo: Plan summary takes time to refresh', status:'Open', createdAt:daysAgo(3) },
-          { id:'i9', categoryId:'debt', title:'Demo: Arrangement screen loads slowly', status:'Open', createdAt:daysAgo(6) },
-          { id:'i10', categoryId:'online-account', title:'Demo: Profile preferences do not save', status:'Open', createdAt:daysAgo(1) },
-          { id:'i11', categoryId:'bikkie', title:'Demo: Sample item takes time to refresh', status:'Open', createdAt:daysAgo(2) },
-          { id:'i12', categoryId:'brownie', title:'Demo: Sample queue update delayed', status:'Open', createdAt:daysAgo(1) },
-          { id:'i13', categoryId:'flex', title:'Demo: Sample field is not refreshing', status:'Open', createdAt:daysAgo(4) },
-          { id:'i14', categoryId:'app', title:'Demo: Sample banner not appearing', status:'Open', createdAt:daysAgo(2) },
-          { id:'i15', categoryId:'app', title:'Demo: Preferences display is blank', status:'Open', createdAt:daysAgo(1) },
-          { id:'i16', categoryId:'app', title:'Demo: Search results take a while', status:'Open', createdAt:daysAgo(4) },
-          { id:'i17', categoryId:'app', title:'Demo: Help section does not open', status:'Open', createdAt:daysAgo(0) }
+          {
+            id:'i1',
+            categoryId:'app',
+            title:"Can't add/change payment method",
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i2',
+            categoryId:'billing',
+            title:'Payment taken on wrong date',
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i3',
+            categoryId:'app',
+            title:"Can't make payment through app",
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i4',
+            categoryId:'bikkie',
+            title:'Plan change not working',
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i5',
+            categoryId:'broadband',
+            title:'Broadband usage not visible in insights',
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i6',
+            categoryId:'mobile',
+            title:'Premium mobile charges',
+            status:'Tracking',
+            createdAt
+          },
+          {
+            id:'i7',
+            categoryId:'billing',
+            title:"Refund won't process",
+            status:'Tracking',
+            createdAt
+          }
         ];
-
-        const counts = [
-          ['i1',[6,4,1]],
-          ['i2',[4]],
-          ['i3',[5,3,0]],
-          ['i4',[6,5]],
-          ['i5',[3,2,1]],
-          ['i6',[2,0]],
-          ['i7',[5]],
-          ['i8',[3,0]],
-          ['i9',[6]],
-          ['i10',[1,0]],
-          ['i11',[2]],
-          ['i12',[1]],
-          ['i13',[4]],
-          ['i14',[2]],
-          ['i15',[1]],
-          ['i16',[4]],
-          ['i17',[0]]
-        ];
-
-        const occurrences = counts.flatMap(
-          ([issueId, days]) =>
-            days.map((d, i) => ({
-              id: uid(),
-              issueId,
-              at: daysAgo(d, 10 + i * 2),
-              ticketUrl: i === 0
-                ? `https://example.com/demo-ticket/${issueId}`
-                : '',
-              rpRaised: i === 0 &&
-                ['i1','i5','i10'].includes(issueId)
-            }))
-        );
 
         return {
           categories,
           issues,
-          occurrences,
-          connections: [
-            { id:'c1', a:'i1', b:'i2' },
-            { id:'c2', a:'i3', b:'i4' }
-          ]
+          occurrences: [],
+          connections: []
         };
       }
 
@@ -1067,40 +1253,7 @@
       function load() {
         try {
           const v = JSON.parse(localStorage.getItem(KEY));
-
-          if (!validState(v)) return seed();
-
-          const defaults = seed();
-
-          defaults.categories.forEach(c => {
-            if (!v.categories.some(
-              x => x.id === c.id ||
-                x.name.toLowerCase() === c.name.toLowerCase()
-            )) {
-              v.categories.push(c);
-            }
-          });
-
-          const addedIds = new Set();
-
-          defaults.issues.forEach(i => {
-            if (
-              !v.issues.some(x => x.id === i.id) &&
-              v.categories.some(c => c.id === i.categoryId)
-            ) {
-              v.issues.push(i);
-              addedIds.add(i.id);
-            }
-          });
-
-          v.occurrences.push(
-            ...defaults.occurrences.filter(
-              r => addedIds.has(r.issueId)
-            )
-          );
-
-          return v;
-
+          return validState(v) ? v : seed();
         } catch {
           return seed();
         }
@@ -1112,7 +1265,9 @@
         try {
           localStorage.setItem(KEY, JSON.stringify(state));
         } catch {
-          notice('Browser storage unavailable; changes may not persist.');
+          notice(
+            'Browser storage unavailable; changes may not persist.'
+          );
         }
       };
 
@@ -1123,33 +1278,56 @@
         state.categories.find(c => c.id === id);
 
       const countFor = id =>
-        state.occurrences.filter(r => r.issueId === id).length;
+        state.occurrences.filter(
+          r => r.issueId === id
+        ).length;
 
       const expandedCategories = new Set();
 
       function rankIssues(items) {
         const now = Date.now();
-        const lastWeek = now - 7 * 24 * 60 * 60 * 1000;
-        const lastDay = now - 24 * 60 * 60 * 1000;
+
+        const lastWeek =
+          now - 7 * 24 * 60 * 60 * 1000;
+
+        const lastDay =
+          now - 24 * 60 * 60 * 1000;
 
         const scores = new Map(
           items.map(i => [
             i.id,
-            { recent:0, today:0, total:0, last:0 }
+            {
+              recent: 0,
+              today: 0,
+              total: 0,
+              last: 0
+            }
           ])
         );
 
         state.occurrences.forEach(r => {
           const score = scores.get(r.issueId);
+
           if (!score) return;
 
           const when = new Date(r.at).getTime();
+
           if (!Number.isFinite(when)) return;
 
           score.total++;
-          if (when >= lastWeek) score.recent++;
-          if (when >= lastDay) score.today++;
-          score.last = Math.max(score.last, when);
+
+          if (when >= lastWeek) {
+            score.recent++;
+          }
+
+          if (when >= lastDay) {
+            score.today++;
+          }
+
+          score.last = Math.max(
+            score.last,
+            when
+          );
         });
 
         return [...items].sort((a, b) => {
@@ -1174,7 +1352,10 @@
 
           return (
             u.protocol === 'https:' &&
-            ['example.com','www.example.com'].includes(u.hostname)
+            [
+              'example.com',
+              'www.example.com'
+            ].includes(u.hostname)
           ) ? u.href : null;
 
         } catch {
@@ -1208,96 +1389,156 @@
         `).join('');
       }
 
-      function renderBoard() {
-        const q = $('search').value.trim().toLowerCase();
+      function renderCategoryJump() {
 
-        $('board').innerHTML = state.categories.map((c, index) => {
+        const dots = [
+          '#af94e7',
+          '#f4c727',
+          '#85cdaa',
+          '#81c6e7',
+          '#edb08b',
+          '#e99aaf',
+          '#a5ade9',
+          '#e5c764',
+          '#cda88b',
+          '#84cbbd'
+        ];
 
-          const issues = rankIssues(
-            state.issues.filter(i =>
-              i.categoryId === c.id &&
-              (
-                !q ||
-                i.title.toLowerCase().includes(q) ||
-                c.name.toLowerCase().includes(q)
-              )
-            )
-          );
-
-          const card = i => `
-            <article class="issue">
-              <div class="issue-title">
-                ${esc(i.title)}
-              </div>
-
-              <div class="issue-meta">
-                <span>${esc(i.status)}</span>
-                <span>
-                  ${countFor(i.id)}
-                  ${countFor(i.id) === 1 ? 'squeak' : 'squeaks'}
-                </span>
-              </div>
-
-              <div class="actions">
-                <button
-                  class="button primary tiny"
-                  data-action="report"
-                  data-id="${esc(i.id)}"
-                  type="button"
-                >
-                  + Add
-                </button>
-              </div>
-            </article>
-          `;
-
-          const visible = issues.slice(0, 5).map(card).join('');
-          const remaining = issues.slice(5);
-
-          const more = remaining.length ? `
-            <details
-              class="more-issues"
-              data-more="${esc(c.id)}"
-              ${expandedCategories.has(c.id) ? 'open' : ''}
+        $('categoryJump').innerHTML =
+          state.categories.map((c, index) => `
+            <a
+              href="#category-${esc(c.id)}"
+              style="--dot:${dots[index % dots.length]}"
             >
-              <summary>
-                See ${remaining.length} more
-              </summary>
+              ${esc(c.name)}
+            </a>
+          `).join('');
+      }
 
-              <div class="issue-list">
-                ${remaining.map(card).join('')}
-              </div>
-            </details>
-          ` : '';
+      function renderBoard() {
 
-          return `
-            <section class="category" data-tone="${index % 10}">
+        const q = $('search').value
+          .trim()
+          .toLowerCase();
 
-              <div class="category-head">
-                <h2>${esc(c.name)}</h2>
-                <span class="category-count">
-                  ${issues.length}
-                  ${issues.length === 1 ? 'issue' : 'issues'}
-                </span>
-              </div>
+        $('board').innerHTML =
+          state.categories.map((c, index) => {
 
-              <div class="issue-list">
-                ${visible || '<div class="empty">No matching issues yet.</div>'}
-              </div>
+            const issues = rankIssues(
+              state.issues.filter(i =>
+                i.categoryId === c.id &&
+                (
+                  !q ||
+                  i.title.toLowerCase().includes(q) ||
+                  c.name.toLowerCase().includes(q)
+                )
+              )
+            );
 
-              ${more}
+            const card = i => `
+              <article class="issue">
 
-            </section>
-          `;
-        }).join('');
+                <div class="issue-title">
+                  ${esc(i.title)}
+                </div>
+
+                <div class="issue-meta">
+                  <span>${esc(i.status)}</span>
+
+                  <span>
+                    ${countFor(i.id)}
+                    ${
+                      countFor(i.id) === 1
+                        ? 'squeak'
+                        : 'squeaks'
+                    }
+                  </span>
+                </div>
+
+                <div class="actions">
+                  <button
+                    class="button primary tiny"
+                    data-action="report"
+                    data-id="${esc(i.id)}"
+                    type="button"
+                  >
+                    + Add
+                  </button>
+                </div>
+
+              </article>
+            `;
+
+            const visible = issues
+              .slice(0, 3)
+              .map(card)
+              .join('');
+
+            const remaining = issues.slice(3);
+
+            const more = remaining.length ? `
+              <details
+                class="more-issues"
+                data-more="${esc(c.id)}"
+                ${
+                  expandedCategories.has(c.id)
+                    ? 'open'
+                    : ''
+                }
+              >
+                <summary>
+                  See ${remaining.length} more
+                </summary>
+
+                <div class="issue-list">
+                  ${remaining.map(card).join('')}
+                </div>
+              </details>
+            ` : '';
+
+            return `
+              <section
+                class="category"
+                id="category-${esc(c.id)}"
+                data-tone="${index % 10}"
+              >
+
+                <div class="category-head">
+                  <h2>${esc(c.name)}</h2>
+
+                  <span class="category-count">
+                    ${issues.length}
+                    ${
+                      issues.length === 1
+                        ? 'issue'
+                        : 'issues'
+                    }
+                  </span>
+                </div>
+
+                <div class="issue-list">
+                  ${
+                    visible ||
+                    '<div class="empty">No issues listed yet.</div>'
+                  }
+                </div>
+
+                ${more}
+
+              </section>
+            `;
+          }).join('');
       }
 
       function renderCategories() {
-        $('newCategory').innerHTML = optionsHTML();
+
+        $('newCategory').innerHTML =
+          optionsHTML();
 
         $('categoryEditor').innerHTML =
           state.categories.map(c => `
             <div class="category-edit">
+
               <span>${esc(c.name)}</span>
 
               <button
@@ -1308,6 +1549,7 @@
               >
                 Rename
               </button>
+
             </div>
           `).join('');
       }
@@ -1324,7 +1566,11 @@
       function renderInsights() {
 
         const weekStart = new Date();
-        weekStart.setDate(weekStart.getDate() - 6);
+
+        weekStart.setDate(
+          weekStart.getDate() - 6
+        );
+
         weekStart.setHours(0, 0, 0, 0);
 
         const week = state.occurrences.filter(
@@ -1332,53 +1578,91 @@
         );
 
         const stats = [
-          ['Total squeaks', state.occurrences.length],
-          ['Known issues', state.issues.length],
-          ['Last 7 days', week.length],
+          [
+            'Total squeaks',
+            state.occurrences.length
+          ],
+          [
+            'Known issues',
+            state.issues.length
+          ],
+          [
+            'Last 7 days',
+            week.length
+          ],
           [
             'RP Raised',
-            state.occurrences.filter(r => r.rpRaised).length
+            state.occurrences.filter(
+              r => r.rpRaised
+            ).length
           ]
         ];
 
-        $('metrics').innerHTML = stats.map(([k, v]) => `
-          <div class="metric">
-            <span class="muted">${k}</span>
-            <div class="value">${v}</div>
-          </div>
-        `).join('');
+        $('metrics').innerHTML =
+          stats.map(([k, v]) => `
+            <div class="metric">
+              <span class="muted">${k}</span>
+              <div class="value">${v}</div>
+            </div>
+          `).join('');
 
-        const labels = Array.from({ length:7 }, (_, i) => {
-          const d = new Date();
-          d.setDate(d.getDate() - (6 - i));
-          return d;
-        });
+        const labels = Array.from(
+          { length: 7 },
+          (_, i) => {
+            const d = new Date();
+
+            d.setDate(
+              d.getDate() - (6 - i)
+            );
+
+            return d;
+          }
+        );
 
         const counts = labels.map(d =>
           state.occurrences.filter(
-            r => new Date(r.at).toDateString() === d.toDateString()
+            r =>
+              new Date(r.at).toDateString() ===
+              d.toDateString()
           ).length
         );
 
-        const max = Math.max(1, ...counts);
+        const max = Math.max(
+          1,
+          ...counts
+        );
 
-        $('bars').innerHTML = labels.map((d, i) => `
-          <div class="bar-col">
-            <span class="bar-value">${counts[i]}</span>
+        $('bars').innerHTML =
+          labels.map((d, i) => `
+            <div class="bar-col">
 
-            <div
-              class="bar"
-              style="height:${Math.max(
-                3,
-                Math.round(counts[i] / max * 125)
-              )}px"
-            ></div>
+              <span class="bar-value">
+                ${counts[i]}
+              </span>
 
-            <span class="bar-label">
-              ${d.toLocaleDateString('en-NZ', { weekday:'short' })}
-            </span>
-          </div>
-        `).join('');
+              <div
+                class="bar"
+                style="height:${
+                  Math.max(
+                    3,
+                    Math.round(
+                      counts[i] / max * 125
+                    )
+                  )
+                }px"
+              ></div>
+
+              <span class="bar-label">
+                ${
+                  d.toLocaleDateString(
+                    'en-NZ',
+                    { weekday:'short' }
+                  )
+                }
+              </span>
+
+            </div>
+          `).join('');
 
         const opts = state.issues.map(i => `
           <option value="${esc(i.id)}">
@@ -1397,10 +1681,21 @@
           state.connections.length
             ? state.connections.map(c => `
               <li>
+
                 <span>
-                  ${esc(issueFor(c.a)?.title || 'Removed issue')}
+                  ${
+                    esc(
+                      issueFor(c.a)?.title ||
+                      'Removed issue'
+                    )
+                  }
                   ↔
-                  ${esc(issueFor(c.b)?.title || 'Removed issue')}
+                  ${
+                    esc(
+                      issueFor(c.b)?.title ||
+                      'Removed issue'
+                    )
+                  }
                 </span>
 
                 <button
@@ -1411,273 +1706,440 @@
                 >
                   Remove
                 </button>
+
               </li>
             `).join('')
             : '<li>No connections yet.</li>';
 
         const sorted = [...state.occurrences]
-          .sort((a, b) => new Date(b.at) - new Date(a.at))
+          .sort(
+            (a, b) =>
+              new Date(b.at) -
+              new Date(a.at)
+          )
           .slice(0, 30);
 
-        $('events').innerHTML = sorted.map(r => {
-          const i = issueFor(r.issueId);
-          const c = catFor(i?.categoryId);
+        $('events').innerHTML =
+          sorted.map(r => {
 
-          return `
-            <tr>
-              <td>${dateTime(r.at)}</td>
-              <td>${esc(i?.title || 'Removed issue')}</td>
-              <td>${esc(c?.name || 'Other')}</td>
-              <td>${r.rpRaised ? 'Yes' : '—'}</td>
-              <td>
-                ${r.ticketUrl ? `
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="${esc(r.ticketUrl)}"
-                  >
-                    Example link ↗
-                  </a>
-                ` : '—'}
-              </td>
-            </tr>
-          `;
-        }).join('') ||
-        '<tr><td colspan="5">No squeaks logged.</td></tr>';
+            const i = issueFor(r.issueId);
+            const c = catFor(i?.categoryId);
+
+            return `
+              <tr>
+
+                <td>
+                  ${dateTime(r.at)}
+                </td>
+
+                <td>
+                  ${
+                    esc(
+                      i?.title ||
+                      'Removed issue'
+                    )
+                  }
+                </td>
+
+                <td>
+                  ${
+                    esc(
+                      c?.name ||
+                      'Other'
+                    )
+                  }
+                </td>
+
+                <td>
+                  ${r.rpRaised ? 'Yes' : '—'}
+                </td>
+
+                <td>
+                  ${
+                    r.ticketUrl
+                      ? `
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="${esc(r.ticketUrl)}"
+                        >
+                          Example link ↗
+                        </a>
+                      `
+                      : '—'
+                  }
+                </td>
+
+              </tr>
+            `;
+          }).join('')
+          ||
+          '<tr><td colspan="5">No squeaks logged yet.</td></tr>';
       }
 
       function render() {
         renderBoard();
+        renderCategoryJump();
         renderCategories();
 
-        if (!$('insightsView').classList.contains('hidden')) {
+        if (
+          !$('insightsView')
+            .classList
+            .contains('hidden')
+        ) {
           renderInsights();
         }
       }
 
       function openSignal(issueId) {
+
         const i = issueFor(issueId);
+
         if (!i) return;
 
         $('signalForm').reset();
+
         $('signalIssueId').value = i.id;
         $('signalIssueName').textContent = i.title;
 
         $('signalDialog').showModal();
       }
 
-      $('board').addEventListener('click', e => {
-        const b = e.target.closest('[data-action]');
+      $('board').addEventListener(
+        'click',
+        e => {
 
-        if (b?.dataset.action === 'report') {
-          openSignal(b.dataset.id);
+          const b = e.target.closest(
+            '[data-action]'
+          );
+
+          if (
+            b?.dataset.action === 'report'
+          ) {
+            openSignal(b.dataset.id);
+          }
         }
-      });
-
-      $('board').addEventListener('toggle', e => {
-        if (!e.target.matches('details[data-more]')) return;
-
-        const id = e.target.dataset.more;
-
-        if (e.target.open) {
-          expandedCategories.add(id);
-        } else {
-          expandedCategories.delete(id);
-        }
-      }, true);
-
-      $('signalForm').addEventListener('submit', e => {
-        e.preventDefault();
-
-        const issueId = $('signalIssueId').value;
-        const ticketUrl = safeUrl($('signalTicket').value);
-
-        if (!issueFor(issueId)) {
-          return notice('Please choose a valid issue.');
-        }
-
-        if (ticketUrl === null) {
-          return notice('Please use a fictional example.com link only.');
-        }
-
-        state.occurrences.push({
-          id: uid(),
-          issueId,
-          at: new Date().toISOString(),
-          ticketUrl,
-          rpRaised: $('signalRp').checked
-        });
-
-        save();
-        render();
-
-        $('signalDialog').close();
-        notice('Squeak added.');
-      });
-
-      $('search').addEventListener('input', renderBoard);
-
-      $('addIssue').addEventListener('click', () => {
-        renderCategories();
-        $('issueForm').reset();
-        $('issueDialog').showModal();
-      });
-
-      $('manageCategories').addEventListener('click', () => {
-        renderCategories();
-        $('categoriesDialog').showModal();
-      });
-
-      document.querySelectorAll('[data-close]').forEach(b =>
-        b.addEventListener('click', () =>
-          $(b.dataset.close).close()
-        )
       );
 
-      $('issueForm').addEventListener('submit', e => {
-        e.preventDefault();
+      $('board').addEventListener(
+        'toggle',
+        e => {
 
-        const title = $('newTitle').value.trim();
-        const categoryId = $('newCategory').value;
-        const url = safeUrl($('newTicket').value);
+          if (
+            !e.target.matches(
+              'details[data-more]'
+            )
+          ) return;
 
-        if (!title || !catFor(categoryId)) return;
+          const id = e.target.dataset.more;
 
-        if (url === null) {
-          return notice('Please use only example.com links in the public demo.');
+          if (e.target.open) {
+            expandedCategories.add(id);
+          } else {
+            expandedCategories.delete(id);
+          }
+
+        },
+        true
+      );
+
+      $('signalForm').addEventListener(
+        'submit',
+        e => {
+
+          e.preventDefault();
+
+          const issueId =
+            $('signalIssueId').value;
+
+          const ticketUrl =
+            safeUrl(
+              $('signalTicket').value
+            );
+
+          if (!issueFor(issueId)) {
+            return notice(
+              'Please choose a valid issue.'
+            );
+          }
+
+          if (ticketUrl === null) {
+            return notice(
+              'Please use a fictional example.com link only.'
+            );
+          }
+
+          state.occurrences.push({
+            id: uid(),
+            issueId,
+            at: new Date().toISOString(),
+            ticketUrl,
+            rpRaised: $('signalRp').checked
+          });
+
+          save();
+          render();
+
+          $('signalDialog').close();
+
+          notice('Squeak added.');
         }
+      );
 
-        const id = uid();
+      $('search').addEventListener(
+        'input',
+        renderBoard
+      );
 
-        state.issues.push({
-          id,
-          categoryId,
-          title,
-          status: 'Open',
-          createdAt: new Date().toISOString()
-        });
+      $('addIssue').addEventListener(
+        'click',
+        () => {
+          renderCategories();
+          $('issueForm').reset();
+          $('issueDialog').showModal();
+        }
+      );
 
-        state.occurrences.push({
-          id: uid(),
-          issueId: id,
-          at: new Date().toISOString(),
-          ticketUrl: url,
-          rpRaised: $('newRp').checked
-        });
+      $('manageCategories').addEventListener(
+        'click',
+        () => {
+          renderCategories();
+          $('categoriesDialog').showModal();
+        }
+      );
 
-        save();
-        render();
-
-        $('issueDialog').close();
-        notice('Demo issue added.');
-      });
-
-      $('categoryForm').addEventListener('submit', e => {
-        e.preventDefault();
-
-        const name = $('newCategoryName').value.trim();
-        if (!name) return;
-
-        if (
-          state.categories.some(
-            c => c.name.toLowerCase() === name.toLowerCase()
+      document
+        .querySelectorAll('[data-close]')
+        .forEach(b =>
+          b.addEventListener(
+            'click',
+            () => $(b.dataset.close).close()
           )
-        ) {
-          return notice('That category already exists.');
-        }
-
-        state.categories.push({
-          id: uid(),
-          name
-        });
-
-        $('newCategoryName').value = '';
-
-        save();
-        render();
-
-        notice('Category added.');
-      });
-
-      $('categoryEditor').addEventListener('click', e => {
-        const b = e.target.closest('[data-action="rename"]');
-        if (!b) return;
-
-        const c = catFor(b.dataset.id);
-        if (!c) return;
-
-        const name = prompt('Rename category:', c.name);
-        if (name === null) return;
-
-        const v = name.trim().slice(0, 35);
-        if (!v) return;
-
-        if (
-          state.categories.some(
-            x =>
-              x.id !== c.id &&
-              x.name.toLowerCase() === v.toLowerCase()
-          )
-        ) {
-          return notice('That name is already in use.');
-        }
-
-        c.name = v;
-
-        save();
-        render();
-
-        notice('Category renamed.');
-      });
-
-      $('connectForm').addEventListener('submit', e => {
-        e.preventDefault();
-
-        const a = $('linkA').value;
-        const b = $('linkB').value;
-
-        if (!a || !b || a === b) {
-          return notice('Choose two different issues.');
-        }
-
-        if (
-          state.connections.some(c =>
-            (c.a === a && c.b === b) ||
-            (c.a === b && c.b === a)
-          )
-        ) {
-          return notice('Those issues are already connected.');
-        }
-
-        state.connections.push({
-          id: uid(),
-          a,
-          b
-        });
-
-        save();
-        renderInsights();
-
-        notice('Issues connected.');
-      });
-
-      $('connectionList').addEventListener('click', e => {
-        const b = e.target.closest('[data-action="disconnect"]');
-        if (!b) return;
-
-        state.connections = state.connections.filter(
-          c => c.id !== b.dataset.id
         );
 
-        save();
-        renderInsights();
+      $('issueForm').addEventListener(
+        'submit',
+        e => {
 
-        notice('Connection removed.');
-      });
+          e.preventDefault();
+
+          const title =
+            $('newTitle').value.trim();
+
+          const categoryId =
+            $('newCategory').value;
+
+          const url =
+            safeUrl(
+              $('newTicket').value
+            );
+
+          if (
+            !title ||
+            !catFor(categoryId)
+          ) return;
+
+          if (url === null) {
+            return notice(
+              'Please use only example.com links in this prototype.'
+            );
+          }
+
+          const id = uid();
+
+          state.issues.push({
+            id,
+            categoryId,
+            title,
+            status: 'Tracking',
+            createdAt: new Date().toISOString()
+          });
+
+          state.occurrences.push({
+            id: uid(),
+            issueId: id,
+            at: new Date().toISOString(),
+            ticketUrl: url,
+            rpRaised: $('newRp').checked
+          });
+
+          save();
+          render();
+
+          $('issueDialog').close();
+
+          notice('Issue added.');
+        }
+      );
+
+      $('categoryForm').addEventListener(
+        'submit',
+        e => {
+
+          e.preventDefault();
+
+          const name =
+            $('newCategoryName').value.trim();
+
+          if (!name) return;
+
+          if (
+            state.categories.some(
+              c =>
+                c.name.toLowerCase() ===
+                name.toLowerCase()
+            )
+          ) {
+            return notice(
+              'That category already exists.'
+            );
+          }
+
+          state.categories.push({
+            id: uid(),
+            name
+          });
+
+          $('newCategoryName').value = '';
+
+          save();
+          render();
+
+          notice('Category added.');
+        }
+      );
+
+      $('categoryEditor').addEventListener(
+        'click',
+        e => {
+
+          const b = e.target.closest(
+            '[data-action="rename"]'
+          );
+
+          if (!b) return;
+
+          const c = catFor(
+            b.dataset.id
+          );
+
+          if (!c) return;
+
+          const name = prompt(
+            'Rename category:',
+            c.name
+          );
+
+          if (name === null) return;
+
+          const v = name.trim().slice(0, 35);
+
+          if (!v) return;
+
+          if (
+            state.categories.some(
+              x =>
+                x.id !== c.id &&
+                x.name.toLowerCase() ===
+                v.toLowerCase()
+            )
+          ) {
+            return notice(
+              'That name is already in use.'
+            );
+          }
+
+          c.name = v;
+
+          save();
+          render();
+
+          notice('Category renamed.');
+        }
+      );
+
+      $('connectForm').addEventListener(
+        'submit',
+        e => {
+
+          e.preventDefault();
+
+          const a = $('linkA').value;
+          const b = $('linkB').value;
+
+          if (
+            !a ||
+            !b ||
+            a === b
+          ) {
+            return notice(
+              'Choose two different issues.'
+            );
+          }
+
+          if (
+            state.connections.some(
+              c =>
+                (
+                  c.a === a &&
+                  c.b === b
+                ) ||
+                (
+                  c.a === b &&
+                  c.b === a
+                )
+            )
+          ) {
+            return notice(
+              'Those issues are already connected.'
+            );
+          }
+
+          state.connections.push({
+            id: uid(),
+            a,
+            b
+          });
+
+          save();
+          renderInsights();
+
+          notice('Issues connected.');
+        }
+      );
+
+      $('connectionList').addEventListener(
+        'click',
+        e => {
+
+          const b = e.target.closest(
+            '[data-action="disconnect"]'
+          );
+
+          if (!b) return;
+
+          state.connections =
+            state.connections.filter(
+              c =>
+                c.id !== b.dataset.id
+            );
+
+          save();
+          renderInsights();
+
+          notice('Connection removed.');
+        }
+      );
 
       function showView(insights) {
-        $('boardView').classList.toggle('hidden', insights);
-        $('insightsView').classList.toggle('hidden', !insights);
+
+        $('boardView')
+          .classList
+          .toggle('hidden', insights);
+
+        $('insightsView')
+          .classList
+          .toggle('hidden', !insights);
 
         $('boardTab').setAttribute(
           'aria-pressed',
@@ -1689,99 +2151,140 @@
           String(insights)
         );
 
-        if (insights) renderInsights();
+        if (insights) {
+          renderInsights();
+        }
       }
 
-      $('boardTab').addEventListener('click', () =>
-        showView(false)
+      $('boardTab').addEventListener(
+        'click',
+        () => showView(false)
       );
 
-      $('insightsTab').addEventListener('click', () =>
-        showView(true)
+      $('insightsTab').addEventListener(
+        'click',
+        () => showView(true)
       );
 
       const csvCell = v => {
+
         let s = String(v ?? '');
 
         if (/^[=+@-]/.test(s)) {
           s = "'" + s;
         }
 
-        return '"' + s.replace(/"/g, '""') + '"';
+        return '"' +
+          s.replace(/"/g, '""') +
+          '"';
       };
 
       function download(name, contents, mime) {
-        const blob = new Blob([contents], { type:mime });
+
+        const blob = new Blob(
+          [contents],
+          { type: mime }
+        );
+
         const u = URL.createObjectURL(blob);
+
         const a = document.createElement('a');
 
         a.href = u;
         a.download = name;
 
         document.body.appendChild(a);
+
         a.click();
         a.remove();
 
-        setTimeout(() => URL.revokeObjectURL(u), 1000);
+        setTimeout(
+          () => URL.revokeObjectURL(u),
+          1000
+        );
       }
 
       const exportRows = () =>
         state.occurrences.map(r => ({
           dateTime: r.at,
-          issue: issueFor(r.issueId)?.title || '',
+          issue:
+            issueFor(r.issueId)?.title || '',
           category:
-            catFor(issueFor(r.issueId)?.categoryId)?.name || '',
+            catFor(
+              issueFor(r.issueId)?.categoryId
+            )?.name || '',
           rpRaised: !!r.rpRaised,
           exampleTicketUrl: r.ticketUrl
         }));
 
-      $('exportCsv').addEventListener('click', () => {
-        const rows = exportRows();
+      $('exportCsv').addEventListener(
+        'click',
+        () => {
 
-        const head = [
-          'dateTime',
-          'issue',
-          'category',
-          'rpRaised',
-          'exampleTicketUrl'
-        ];
+          const rows = exportRows();
 
-        download(
-          'squeak-demo.csv',
-          [
-            head.join(','),
-            ...rows.map(
-              r => head.map(h => csvCell(r[h])).join(',')
-            )
-          ].join('\r\n'),
-          'text/csv;charset=utf-8'
-        );
-      });
+          const head = [
+            'dateTime',
+            'issue',
+            'category',
+            'rpRaised',
+            'exampleTicketUrl'
+          ];
 
-      $('exportJson').addEventListener('click', () =>
-        download(
-          'squeak-demo.json',
-          JSON.stringify({
-            demoOnly: true,
-            ...state
-          }, null, 2),
-          'application/json'
-        )
+          download(
+            'squeak-export.csv',
+            [
+              head.join(','),
+              ...rows.map(
+                r =>
+                  head.map(
+                    h => csvCell(r[h])
+                  ).join(',')
+              )
+            ].join('\r\n'),
+            'text/csv;charset=utf-8'
+          );
+        }
       );
 
-      $('reset').addEventListener('click', () => {
-        if (
-          !confirm('Reset this browser back to fictional sample data?')
-        ) return;
+      $('exportJson').addEventListener(
+        'click',
+        () =>
+          download(
+            'squeak-export.json',
+            JSON.stringify(
+              {
+                prototype: true,
+                ...state
+              },
+              null,
+              2
+            ),
+            'application/json'
+          )
+      );
 
-        state = seed();
+      $('reset').addEventListener(
+        'click',
+        () => {
 
-        save();
-        $('search').value = '';
-        render();
+          if (
+            !confirm(
+              'Reset this browser to the starter issue list?'
+            )
+          ) return;
 
-        notice('Demo reset.');
-      });
+          state = seed();
+
+          save();
+
+          $('search').value = '';
+
+          render();
+
+          notice('Starter list restored.');
+        }
+      );
 
       save();
       render();
