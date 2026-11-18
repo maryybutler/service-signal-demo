@@ -8,151 +8,341 @@
   <title>Squeak</title>
   <style>
     :root {
-      font-family: 'Trebuchet MS', 'Century Gothic', Arial, sans-serif;
-      color: #1d2225;
-      background: #f7f7f9;
+      font-family: 'Avenir Next', 'Century Gothic', 'Trebuchet MS', Arial, sans-serif;
+      color: #151515;
+      background: #f5f3f4;
       font-synthesis: none;
     }
+
     * { box-sizing: border-box; }
-    body { margin: 0; font-size: 14px; line-height: 1.45; }
+
+    body {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.42;
+    }
+
     button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
-    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
       outline: 3px solid #92bde6;
       outline-offset: 2px;
     }
+
     a { color: #225a8c; }
+
     .shell {
       width: 100%;
       max-width: 1710px;
       margin: 0 auto;
       padding: 0 clamp(14px, 2.2vw, 34px);
     }
+
+    /* Header */
+
     .top {
-      background: linear-gradient(100deg,#ffdb36 0 33%,#ffc6d6 33% 67%,#b5e5f5 67%) top / 100% 6px no-repeat, white;
-      border-bottom: 1px solid #e8e9ec;
+      background: #fff;
+      border-bottom: 0;
     }
+
     .top-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      min-height: 78px;
+      min-height: 75px;
     }
+
     .brand {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
-      letter-spacing: -.8px;
-      color: #15191b;
+      letter-spacing: -.9px;
+      color: #080808;
     }
+
     .subbrand {
-      color: #64717a;
+      color: #595959;
       font-size: 12px;
       margin-top: 1px;
     }
-    .top-actions, .actions, .toolbar, .form-actions {
+
+    .top-actions,
+    .actions,
+    .toolbar,
+    .form-actions {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       align-items: center;
     }
+
+    .top-actions {
+      gap: clamp(12px, 2.3vw, 34px);
+    }
+
+    .top-actions .button {
+      color: #141414;
+      border: 0;
+      background: transparent;
+      border-radius: 0;
+      padding: 17px 2px 14px;
+      border-bottom: 3px solid transparent;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .top-actions .button[aria-pressed="true"] {
+      border-bottom-color: #029fd2;
+    }
+
+    .top-actions .button:hover {
+      background: transparent;
+      color: #007dac;
+      border-color: transparent;
+    }
+
+    .top-actions .button[aria-pressed="true"]:hover {
+      border-bottom-color: #029fd2;
+    }
+
+    .roadtrip-strip {
+      background: #323031;
+      color: #fff;
+    }
+
+    .roadtrip-strip .shell {
+      min-height: 31px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+    }
+
+    .roadtrip-strip .separator {
+      color: #b1acac;
+    }
+
+    /* Buttons */
+
     .button {
-      border: 1px solid #d6dde1;
+      border: 1px solid #c8c8c8;
       background: #fff;
-      color: #25313b;
-      border-radius: 9px;
-      padding: 9px 13px;
-      font-weight: 700;
+      color: #202020;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-weight: 600;
     }
-    .button:hover { background: #f2f5f6; }
+
+    .button:hover {
+      background: #f4fbfe;
+      border-color: #94cfe3;
+    }
+
     .button.primary {
-      background: #087fa7;
-      color: white;
-      border-color: #087fa7;
+      background: #009dd1;
+      color: #fff;
+      border-color: #009dd1;
     }
-    .button.primary:hover { background: #066e91; }
+
+    .button.primary:hover {
+      background: #007fac;
+      border-color: #007fac;
+    }
+
     .button.tiny {
       padding: 6px 9px;
       font-size: 12px;
     }
+
     .button.text-button {
       border: 0;
       background: transparent;
       padding: 6px;
       color: #4b626e;
     }
+
     .button:disabled {
       opacity: .48;
       cursor: not-allowed;
     }
+
     .tag {
       display: inline-flex;
       align-items: center;
       padding: 3px 8px;
       border: 1px solid #dae2e5;
-      border-radius: 20px;
+      border-radius: 4px;
       color: #65737e;
       background: #fafbfc;
       font-size: 11px;
       font-weight: 600;
     }
+
+    /* Page introduction */
+
     main {
-      padding-top: 24px;
+      padding-top: 16px;
       padding-bottom: 40px;
     }
+
     .intro {
       display: flex;
       justify-content: space-between;
       gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 24px;
+      align-items: center;
+      margin-bottom: 22px;
+      background: linear-gradient(
+        127deg,
+        transparent 0 88%,
+        #ffc3d5 88% 93%,
+        transparent 93%
+      ), #fff;
+      min-height: 154px;
+      padding: clamp(25px, 3vw, 38px) clamp(23px, 3.3vw, 46px);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
     }
+
+    .intro::before,
+    .intro::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .intro::before {
+      top: -110px;
+      left: -185px;
+      height: 210px;
+      width: 380px;
+      background: #ffda05;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        58% 100%,
+        50% 90%,
+        56% 54%,
+        42% 100%,
+        0 100%
+      );
+    }
+
+    .intro::after {
+      right: -8px;
+      bottom: -28px;
+      width: clamp(110px, 17vw, 280px);
+      height: 180px;
+      background: #b0e4f6;
+      clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%,
+        35% 56%,
+        29% 70%,
+        42% 67%
+      );
+    }
+
+    .intro > * {
+      position: relative;
+      z-index: 1;
+    }
+
     h1 {
       font-size: 28px;
       margin: 0 0 6px;
       letter-spacing: -.7px;
     }
-    h2 { font-size: 18px; margin: 0; }
-    h3 { font-size: 15px; margin: 0; }
+
+    .intro h1 {
+      font-size: clamp(29px, 3vw, 41px);
+      color: #070707;
+      letter-spacing: -1.15px;
+      line-height: 1.1;
+      margin-bottom: 11px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 0;
+    }
+
     p { margin: 0; }
-    .muted { color: #75818b; }
-    .intro .muted { max-width: 600px; }
+
+    .muted {
+      color: #75818b;
+    }
+
+    .intro .muted {
+      color: #313131;
+      font-size: 15px;
+      max-width: 650px;
+    }
+
+    .intro .tag {
+      background: #fff;
+      border-color: #eee;
+      color: #515151;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Search and categories */
+
     .toolbar {
       margin-bottom: 12px;
       justify-content: space-between;
     }
+
     .search {
-      background: white;
-      border: 1px solid #dce3e7;
-      padding: 11px 12px;
-      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #d1d1d1;
+      padding: 12px 15px;
+      border-radius: 5px;
       width: min(100%, 370px);
     }
+
     .category-jump {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 7px;
-      margin: 0 0 18px;
+      gap: 8px;
+      margin: 0 0 24px;
     }
+
     .category-jump button {
-      background: white;
+      background: #fff;
       color: #28343c;
-      border: 1px solid #e0e4e8;
-      padding: 8px 12px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
+      border: 1px solid #e5e2e2;
+      padding: 10px 13px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
     }
+
     .category-jump button:hover {
-      border-color: #9bc9dc;
-      background: #eef9fd;
+      background: #ebf8fc;
+      border-color: #00a2d5;
     }
+
     .category-jump button[aria-pressed="true"] {
-      background: #283b43;
-      border-color: #283b43;
-      color: #fff;
+      color: #121212;
+      background: #fff;
+      border-color: #00a2d5;
+      box-shadow: inset 0 -3px 0 #00a2d5;
     }
+
     .category-jump button::before {
       content: '';
       display: inline-block;
@@ -162,94 +352,167 @@
       border-radius: 50%;
       background: var(--dot, #ffdf55);
     }
+
+    /* Board */
+
     .board-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin: 5px 0 14px;
+      margin: 5px 0 13px;
     }
+
     .board-title h2 {
-      font-size: 21px;
+      font-size: 24px;
       letter-spacing: -.5px;
+      color: #0b0b0b;
     }
+
     .board-title p {
-      color: #72818a;
-      font-size: 12px;
+      color: #4c5154;
+      font-size: 13px;
       margin-top: 3px;
     }
+
     .board {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 230px), 1fr)
+      );
       gap: 14px;
       align-items: stretch;
     }
+
+    .issue {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e4e1e1;
+      border-radius: 5px;
+      padding: 11px;
+      box-shadow: none;
+    }
+
+    .issue::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: min(32%, 150px);
+      height: 47%;
+      background: var(--tint, #e0f4fc);
+      clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .issue > * {
+      position: relative;
+      z-index: 1;
+    }
+
     .board > .issue {
       min-height: 158px;
       display: flex;
       flex-direction: column;
-      border: 1px solid #e3e6e8;
-      border-top: 7px solid var(--accent,#a8dfef);
-      border-radius: 15px;
+      border: 1px solid #e4e1e1;
+      border-top: 6px solid var(--accent, #95d4e7);
+      border-radius: 5px;
       padding: 14px;
-      box-shadow: 0 4px 13px #2b46500b;
+      background: #fff;
+      box-shadow: none;
     }
+
     .board > .issue .issue-title {
       font-size: 15px;
       margin: 10px 0 12px;
     }
-    .board > .issue .issue-meta { margin-top: auto; }
 
-    /* Top five layout */
+    .board > .issue .issue-meta {
+      margin-top: auto;
+    }
+
+    /* Top 5 layout */
+
     .board.featured-board {
       grid-template-columns: repeat(6, minmax(0, 1fr));
       grid-auto-rows: minmax(185px, 1fr);
-      min-height: clamp(400px, calc(100dvh - 410px), 680px);
+      min-height: clamp(
+        400px,
+        calc(100dvh - 410px),
+        680px
+      );
     }
+
     .board.featured-board > .issue {
       grid-column: span 2;
       padding: clamp(18px, 2vw, 28px);
-      background: linear-gradient(140deg, #fff 64%, var(--tint, #edf8fb));
+      background: #fff;
+      border: 1px solid #e4e1e1;
+      border-top: 6px solid var(--accent, #95d4e7);
+      border-radius: 5px;
+      box-shadow: none;
     }
+
     .board.featured-board > .issue:nth-child(4),
     .board.featured-board > .issue:nth-child(5) {
       grid-column: span 3;
     }
+
     .board.featured-board > .issue .issue-category {
       padding: 6px 12px;
       font-size: 12px;
+      border-radius: 3px;
     }
+
     .board.featured-board > .issue .issue-title {
       font-size: clamp(17px, 1.45vw, 23px);
       line-height: 1.3;
       margin: 18px 0;
       max-width: 36ch;
     }
+
     .board.featured-board > .issue .actions .button.tiny {
-      min-width: 122px;
-      padding: 12px 22px;
+      min-width: 120px;
+      padding: 11px 24px;
       font-size: 15px;
+      font-weight: 700;
+      border-radius: 5px;
     }
 
-    /* Larger boxes represent more recent reports */
+    /* Weighted issue sizing */
+
     .board.weighted-board {
       display: flex;
       flex-direction: column;
-      height: clamp(450px, calc(100dvh - 410px), 680px);
+      height: clamp(
+        450px,
+        calc(100dvh - 410px),
+        680px
+      );
       gap: 14px;
     }
+
     .board.weighted-board .tile-row {
       display: flex;
       gap: 14px;
       flex: var(--row-share) 1 0;
       min-height: 0;
     }
+
     .board.weighted-board .tile-slot {
       display: flex;
       flex: var(--tile-weight) 1 0;
       min-width: 0;
       min-height: 0;
     }
+
     .board.weighted-board .issue {
       flex: 1 1 auto;
       width: 100%;
@@ -257,103 +520,62 @@
       min-height: 175px;
       display: flex;
       flex-direction: column;
-      border: 1px solid #e3e6e8;
-      border-top: 7px solid var(--accent, #a8dfef);
-      border-radius: 15px;
+      border: 1px solid #e4e1e1;
+      border-top: 6px solid var(--accent, #95d4e7);
+      border-radius: 5px;
       padding: clamp(16px, 1.8vw, 27px);
-      background: linear-gradient(140deg, #fff 64%, var(--tint, #edf8fb));
-      box-shadow: 0 4px 13px #2b46500b;
+      background: #fff;
+      box-shadow: none;
     }
+
     .board.weighted-board .issue-title {
       font-size: clamp(16px, 1.4vw, 23px);
       line-height: 1.3;
       margin: 17px 0;
     }
-    .board.weighted-board .issue-meta { margin-top: auto; }
+
+    .board.weighted-board .issue-meta {
+      margin-top: auto;
+    }
+
     .board.weighted-board .issue-category {
       padding: 6px 12px;
       font-size: 12px;
+      border-radius: 3px;
     }
+
     .board.weighted-board .issue .actions .button.tiny {
-      min-width: 122px;
-      padding: 12px 22px;
+      min-width: 120px;
+      padding: 11px 24px;
       font-size: 15px;
+      font-weight: 700;
+      border-radius: 5px;
     }
+
+    /* Issue card contents */
 
     .issue-category {
       display: inline-flex;
       align-self: flex-start;
-      background: var(--tint,#eaf7fc);
-      border-radius: 20px;
+      background: var(--tint, #eaf7fc);
+      border-radius: 3px;
       padding: 4px 9px;
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 700;
       color: #3a4b52;
     }
-    .board > .empty { grid-column: 1/-1; }
-    .category {
-      position: relative;
-      border-radius: 14px;
-      padding: 13px;
-      border: 1px solid #e1e7eb;
-      background: #fff;
-      min-width: 0;
-      scroll-margin-top: 18px;
-    }
-    .category::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 23px;
-      width: 44px;
-      height: 9px;
-      transform: skewX(-23deg);
-      border-radius: 0 0 5px 5px;
-      background: #ffffff9c;
-    }
-    .category[data-tone="0"] { background: #efe6ff; border-color: #e1d1f8; }
-    .category[data-tone="1"] { background: #fff0ad; border-color: #f5df83; }
-    .category[data-tone="2"] { background: #d6f4dd; border-color: #bfe9cb; }
-    .category[data-tone="3"] { background: #cdeeff; border-color: #b1dff5; }
-    .category[data-tone="4"] { background: #ffe2d4; border-color: #f9c9b1; }
-    .category[data-tone="5"] { background: #ffdce7; border-color: #f2c2d1; }
-    .category[data-tone="6"] { background: #e3e8ff; border-color: #d0d8fb; }
-    .category[data-tone="7"] { background: #fff4cc; border-color: #f2e2a1; }
-    .category[data-tone="8"] { background: #f5e5d8; border-color: #ead0bc; }
-    .category[data-tone="9"] { background: #d8f5f1; border-color: #bce9e2; }
-    .category-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 3px 2px 13px;
-      gap: 8px;
-    }
-    .category-head h2 {
-      font-size: 17px;
-      letter-spacing: -.35px;
-    }
-    .category-count {
-      color: #7d8993;
-      font-size: 12px;
-    }
-    .issue-list { display: grid; gap: 10px; }
-    .issue {
-      background: #fff;
-      border: 1px solid #ffffff;
-      border-radius: 10px;
-      padding: 11px;
-      box-shadow: 0 2px 7px #1b344010;
-    }
+
     .issue-title {
-      font-weight: 600;
+      font-weight: 750;
+      color: #111;
+      letter-spacing: -.3px;
       overflow-wrap: anywhere;
       margin-bottom: 10px;
     }
 
-    /* NEW: Description displayed beneath each issue title */
     .issue-description {
-      color: #5d6f79;
-      font-size: 13px;
+      color: #454b50;
+      font-size: 14px;
       line-height: 1.5;
       margin-bottom: 13px;
       overflow-wrap: anywhere;
@@ -364,6 +586,7 @@
       line-clamp: 3;
       overflow: hidden;
     }
+
     .board.weighted-board .issue-description {
       -webkit-line-clamp: 2;
       line-clamp: 2;
@@ -376,41 +599,39 @@
       margin-bottom: 12px;
       gap: 8px;
       font-size: 12px;
-      color: #7e8b93;
+      color: #656b70;
     }
-    .issue .actions { gap: 6px; }
-    .issue .actions .button { width: auto; }
+
+    .issue .actions {
+      gap: 6px;
+    }
+
+    .issue .actions .button {
+      width: auto;
+    }
+
     .issue .actions .button.tiny {
-      min-width: 110px;
-      padding: 10px 19px;
-      font-size: 14px;
+      min-width: 120px;
+      padding: 11px 24px;
+      font-size: 15px;
+      font-weight: 700;
       white-space: nowrap;
+      border-radius: 5px;
     }
-    .more-issues { margin-top: 11px; }
-    .more-issues summary {
-      padding: 9px 12px;
-      border-radius: 9px;
-      background: #ffffffa8;
-      border: 1px dashed #c8cdd7;
-      text-align: center;
-      font-weight: 600;
-      color: #52626e;
-      cursor: pointer;
-      list-style: none;
+
+    .board > .empty {
+      grid-column: 1 / -1;
     }
-    .more-issues summary::-webkit-details-marker { display: none; }
-    .more-issues summary::after { content: '  ▾'; }
-    .more-issues[open] summary::after { content: '  ▴'; }
-    .more-issues .issue-list { margin-top: 10px; }
-    .mini-link { font-size: 12px; color: #607582; }
+
     .empty {
       border: 1px dashed #d3dce0;
       background: #ffffffa8;
       color: #7b8790;
-      border-radius: 8px;
+      border-radius: 5px;
       padding: 20px;
       text-align: center;
     }
+
     .sample-note {
       display: flex;
       align-items: flex-start;
@@ -418,19 +639,27 @@
       background: #fff;
       border: 1px solid #e2e7e9;
       padding: 11px 13px;
-      border-radius: 8px;
+      border-radius: 5px;
       font-size: 12px;
-      color: #6a7981;
+      color: #464646;
       margin-top: 23px;
     }
-    .sample-note strong { color: #455660; }
+
+    .sample-note strong {
+      color: #455660;
+    }
+
+    /* Insights */
+
     .panel {
-      background: white;
+      background: #fff;
       border: 1px solid #e1e6e8;
-      border-radius: 17px;
+      border-radius: 5px;
       padding: 21px;
       margin-bottom: 17px;
+      box-shadow: none;
     }
+
     .panel-head {
       display: flex;
       justify-content: space-between;
@@ -438,47 +667,79 @@
       gap: 14px;
       margin-bottom: 14px;
     }
-    .panel-head p { margin-top: 4px; }
+
+    .panel-head p {
+      margin-top: 4px;
+    }
+
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 17px;
     }
+
     .metric {
+      position: relative;
+      overflow: hidden;
       background: #fff0aa;
       padding: 19px;
       border: 1px solid #f0db7b;
-      border-radius: 18px;
+      border-radius: 5px;
+      box-shadow: none;
     }
+
     .metric:nth-child(2) {
       background: #ffdde9;
       border-color: #f2bfce;
     }
+
     .metric:nth-child(3) {
       background: #c9eefa;
       border-color: #ade0f2;
     }
+
     .metric:nth-child(4) {
       background: #d8f3df;
       border-color: #c1e8ca;
     }
+
+    .metric::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 90px;
+      height: 90px;
+      background: #ffffff68;
+      clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+      );
+    }
+
     .metric .value {
+      position: relative;
+      z-index: 1;
       font-size: 38px;
       font-weight: 800;
       margin-top: 12px;
       line-height: 1;
       letter-spacing: -1px;
     }
+
     .metric .muted {
       color: #374850;
       font-weight: 700;
     }
+
     .insight-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 17px;
     }
+
     .bars {
       height: 170px;
       display: flex;
@@ -488,6 +749,7 @@
       margin-top: 14px;
       padding: 0 5px;
     }
+
     .bar-col {
       flex: 1;
       min-width: 0;
@@ -498,6 +760,7 @@
       justify-content: flex-end;
       gap: 5px;
     }
+
     .bar {
       width: 100%;
       max-width: 52px;
@@ -506,34 +769,44 @@
       border: 1px solid #7bcee6;
       border-radius: 12px 12px 0 0;
     }
+
     .bar-col:nth-child(3n+2) .bar {
       background: #ffd044;
       border-color: #f6c52b;
     }
+
     .bar-col:nth-child(3n) .bar {
       background: #ffadca;
       border-color: #f0a2be;
     }
-    .hot-list { display: grid; gap: 12px; }
+
+    .hot-list {
+      display: grid;
+      gap: 12px;
+    }
+
     .hot-row {
       display: flex;
       gap: 11px;
       align-items: center;
     }
+
     .hot-index {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
+      border-radius: 4px;
       display: grid;
       place-items: center;
       background: #fff1b8;
       font-weight: 800;
       flex: none;
     }
+
     .hot-detail {
       flex: 1;
       min-width: 0;
     }
+
     .hot-title {
       display: flex;
       gap: 8px;
@@ -542,71 +815,104 @@
       font-size: 12px;
       font-weight: 700;
     }
-    .hot-title span:first-child { overflow-wrap: anywhere; }
+
+    .hot-title span:first-child {
+      overflow-wrap: anywhere;
+    }
+
     .hot-title small {
       white-space: nowrap;
       color: #6b7c84;
       font-weight: 600;
     }
+
     .hot-track {
       margin-top: 7px;
       height: 7px;
-      border-radius: 12px;
+      border-radius: 2px;
       background: #f0f3f5;
       overflow: hidden;
     }
+
     .hot-fill {
       height: 100%;
       background: #ffca33;
-      border-radius: inherit;
+      border-radius: 2px;
     }
+
     .fold-panel {
       background: #fff;
       border: 1px solid #e2e7e9;
-      border-radius: 16px;
+      border-radius: 5px;
       margin: 0 0 16px;
       overflow: hidden;
     }
+
     .fold-panel > summary {
       padding: 18px 20px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
     }
+
     .fold-panel[open] > summary {
       border-bottom: 1px solid #edf0f2;
     }
-    .fold-content { padding: 18px 20px; }
-    .fold-content > p { margin-bottom: 15px; }
-    .bar-value, .bar-label {
+
+    .fold-content {
+      padding: 18px 20px;
+    }
+
+    .fold-content > p {
+      margin-bottom: 15px;
+    }
+
+    .bar-value,
+    .bar-label {
       font-size: 11px;
       color: #7b8790;
     }
-    .bar-label { padding-top: 6px; }
-    .fields { display: grid; gap: 13px; }
+
+    .bar-label {
+      padding-top: 6px;
+    }
+
+    /* Forms and dialogs */
+
+    .fields {
+      display: grid;
+      gap: 13px;
+    }
+
     .field label {
       display: block;
       font-size: 12px;
       font-weight: 600;
       margin-bottom: 5px;
     }
-    .field input, .field select, .field textarea {
+
+    .field input,
+    .field select,
+    .field textarea {
       display: block;
       width: 100%;
       padding: 10px;
       background: #fff;
       border: 1px solid #d5dfe3;
-      border-radius: 7px;
+      border-radius: 4px;
     }
+
     .field textarea {
       min-height: 90px;
       resize: vertical;
     }
+
     .field small {
       color: #74818a;
       display: block;
       margin-top: 4px;
     }
+
     .check-row {
       display: flex;
       align-items: center;
@@ -614,27 +920,31 @@
       padding: 12px;
       background: #eaf8fd;
       border: 1px solid #cce9f4;
-      border-radius: 10px;
+      border-radius: 5px;
       font-weight: 600;
       cursor: pointer;
     }
+
     .check-row input {
       width: 17px;
       height: 17px;
       accent-color: #087fa7;
     }
+
     .dialog-explanation {
       margin: -4px 0 17px;
       font-size: 13px;
       color: #64747d;
       overflow-wrap: anywhere;
     }
+
     .pair {
       display: grid;
       grid-template-columns: 1fr 1fr auto;
       gap: 8px;
       align-items: end;
     }
+
     .connection-list {
       padding: 0;
       list-style: none;
@@ -642,6 +952,7 @@
       gap: 7px;
       margin: 12px 0 0;
     }
+
     .connection-list li {
       display: flex;
       justify-content: space-between;
@@ -653,43 +964,62 @@
       border-radius: 6px;
       overflow-wrap: anywhere;
     }
-    .table-wrap { overflow: auto; }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
       min-width: 530px;
     }
+
     th, td {
       text-align: left;
       padding: 11px;
       border-bottom: 1px solid #edf0f2;
     }
+
     th {
       color: #667580;
       font-weight: 600;
       background: #fafbfc;
     }
+
     dialog {
       border: 1px solid #dce3e7;
-      border-radius: 12px;
+      border-radius: 6px;
       padding: 0;
       width: min(94vw, 460px);
       box-shadow: 0 20px 60px #1d2b3650;
     }
-    dialog::backdrop { background: #19252d66; }
-    .dialog-body { padding: 24px; }
+
+    dialog::backdrop {
+      background: #19252d66;
+    }
+
+    .dialog-body {
+      padding: 24px;
+    }
+
     .dialog-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 17px;
     }
-    .dialog-head h2 { font-size: 19px; }
+
+    .dialog-head h2 {
+      font-size: 19px;
+    }
+
     .dialog-body .form-actions {
       justify-content: flex-end;
       margin-top: 20px;
     }
+
     .category-edit {
       display: flex;
       justify-content: space-between;
@@ -698,8 +1028,15 @@
       border-bottom: 1px solid #eef0f1;
       padding: 9px 0;
     }
-    .category-edit span { font-weight: 600; }
-    .hidden { display: none !important; }
+
+    .category-edit span {
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
     #toast {
       position: fixed;
       bottom: 18px;
@@ -714,26 +1051,37 @@
       display: none;
     }
 
+    /* Responsive layout */
+
     @media (max-width: 1050px) {
       .board.featured-board {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-auto-rows: minmax(170px, 1fr);
       }
+
       .board.featured-board > .issue,
       .board.featured-board > .issue:nth-child(4),
       .board.featured-board > .issue:nth-child(5) {
         grid-column: auto;
       }
+
       .board.featured-board > .issue:nth-child(5) {
         grid-column: 1 / -1;
       }
+
       .board.weighted-board {
         display: grid;
         height: auto;
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .board.weighted-board .tile-row { display: contents; }
-      .board.weighted-board .issue { min-height: 190px; }
+
+      .board.weighted-board .tile-row {
+        display: contents;
+      }
+
+      .board.weighted-board .issue {
+        min-height: 190px;
+      }
     }
 
     @media (max-width: 650px) {
@@ -742,34 +1090,93 @@
         grid-auto-rows: minmax(175px, auto);
         min-height: 0;
       }
+
       .board.featured-board > .issue:nth-child(5) {
         grid-column: auto;
       }
-      .board.weighted-board { grid-template-columns: 1fr; }
+
+      .board.weighted-board {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 720px) {
-      .shell { padding: 0 15px; }
+      .shell {
+        padding: 0 15px;
+      }
+
       .top-inner {
         align-items: flex-start;
         padding: 15px 0;
         flex-direction: column;
       }
-      .intro { flex-direction: column; }
-      .insight-grid { grid-template-columns: 1fr; }
-      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .toolbar { align-items: stretch; }
+
+      .top-actions .button {
+        padding-top: 8px;
+        padding-bottom: 9px;
+      }
+
+      .roadtrip-strip .shell {
+        min-height: 29px;
+      }
+
+      .intro {
+        flex-direction: column;
+        padding: 25px 20px;
+        min-height: 140px;
+      }
+
+      .intro::before {
+        left: -250px;
+      }
+
+      .intro::after {
+        width: 120px;
+        height: 135px;
+      }
+
+      .intro .tag {
+        align-self: flex-start;
+      }
+
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
       .search {
         width: 100%;
         max-width: none;
       }
-      .pair { grid-template-columns: 1fr; }
-      .panel { padding: 15px; }
+
+      .pair {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 15px;
+      }
     }
+
     @media (max-width: 420px) {
-      .metrics { grid-template-columns: 1fr 1fr; }
-      .metric { padding: 12px; }
-      .metric .value { font-size: 30px; }
+      .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .metric {
+        padding: 12px;
+      }
+
+      .metric .value {
+        font-size: 30px;
+      }
     }
   </style>
 </head>
@@ -781,37 +1188,80 @@
         <div class="brand">Squeak</div>
         <div class="subbrand">Little issues. Bigger patterns.</div>
       </div>
+
       <div class="top-actions">
-        <button class="button" id="boardTab" type="button" aria-pressed="true">Issue board</button>
-        <button class="button" id="insightsTab" type="button" aria-pressed="false">Insights</button>
+        <button
+          class="button"
+          id="boardTab"
+          type="button"
+          aria-pressed="true"
+        >
+          Issue board
+        </button>
+
+        <button
+          class="button"
+          id="insightsTab"
+          type="button"
+          aria-pressed="false"
+        >
+          Insights
+        </button>
       </div>
     </div>
   </header>
+
+  <div class="roadtrip-strip" aria-label="Squeak breadcrumb">
+    <div class="shell">
+      <span>Service tools</span>
+      <span class="separator">/</span>
+      <span>Squeak</span>
+    </div>
+  </div>
 
   <main class="shell">
     <section id="boardView">
       <div class="intro">
         <div>
           <h1>What are you seeing?</h1>
-          <p class="muted">Spotted a recurring issue? Select + Add, confirm a few details, and you're done.</p>
+          <p class="muted">
+            Spotted a recurring issue? Select + Add, confirm a few details, and you're done.
+          </p>
         </div>
         <span class="tag">Early prototype</span>
       </div>
 
       <div class="toolbar">
-        <input id="search" class="search" type="search" placeholder="Search issues…" aria-label="Search issues">
+        <input
+          id="search"
+          class="search"
+          type="search"
+          placeholder="Search issues…"
+          aria-label="Search issues"
+        >
+
         <div class="actions">
-          <button class="button" id="manageCategories" type="button">Edit categories</button>
-          <button class="button primary" id="addIssue" type="button">+ Add issue</button>
+          <button class="button" id="manageCategories" type="button">
+            Edit categories
+          </button>
+          <button class="button primary" id="addIssue" type="button">
+            + Add issue
+          </button>
         </div>
       </div>
 
-      <nav id="categoryJump" class="category-jump" aria-label="Filter by category"></nav>
+      <nav
+        id="categoryJump"
+        class="category-jump"
+        aria-label="Filter by category"
+      ></nav>
 
       <div class="board-title">
         <div>
           <h2 id="boardHeading">Top 5 squeaks</h2>
-          <p id="boardSubheading">The busiest and most recent issues, from every category.</p>
+          <p id="boardSubheading">
+            The busiest and most recent issues, from every category.
+          </p>
         </div>
       </div>
 
@@ -822,7 +1272,9 @@
       <div class="intro">
         <div>
           <h1>The squeak report</h1>
-          <p class="muted">What's making noise? Here's the picture from this browser's reports.</p>
+          <p class="muted">
+            What's making noise? Here's the picture from this browser's reports.
+          </p>
         </div>
         <span class="tag">Local browser figures only</span>
       </div>
@@ -834,7 +1286,9 @@
           <div class="panel-head">
             <div>
               <h2>The last 7 days</h2>
-              <p class="muted">Every + Add puts a little mark on the board.</p>
+              <p class="muted">
+                Every + Add puts a little mark on the board.
+              </p>
             </div>
           </div>
           <div class="bars" id="bars"></div>
@@ -844,7 +1298,9 @@
           <div class="panel-head">
             <div>
               <h2>The loudest squeaks</h2>
-              <p class="muted">Most reported lately, with newer activity bumped up.</p>
+              <p class="muted">
+                Most reported lately, with newer activity bumped up.
+              </p>
             </div>
           </div>
           <div id="hotList" class="hot-list"></div>
@@ -854,18 +1310,24 @@
       <details class="fold-panel">
         <summary>Link related issues</summary>
         <div class="fold-content">
-          <p class="muted">Connect two issues when they appear to be part of the same problem.</p>
+          <p class="muted">
+            Connect two issues when they appear to be part of the same problem.
+          </p>
+
           <form id="connectForm" class="pair">
             <div class="field">
               <label for="linkA">Issue one</label>
               <select id="linkA" required></select>
             </div>
+
             <div class="field">
               <label for="linkB">Issue two</label>
               <select id="linkB" required></select>
             </div>
+
             <button class="button" type="submit">Connect</button>
           </form>
+
           <ul id="connectionList" class="connection-list"></ul>
         </div>
       </details>
@@ -874,10 +1336,17 @@
         <summary>View detailed log and exports</summary>
         <div class="fold-content">
           <div class="panel-head">
-            <p class="muted">Times, RP markers and optional example links.</p>
+            <p class="muted">
+              Times, RP markers and optional example links.
+            </p>
+
             <div class="actions">
-              <button class="button tiny" type="button" id="exportCsv">Export CSV</button>
-              <button class="button tiny" type="button" id="exportJson">Export JSON</button>
+              <button class="button tiny" type="button" id="exportCsv">
+                Export CSV
+              </button>
+              <button class="button tiny" type="button" id="exportJson">
+                Export JSON
+              </button>
             </div>
           </div>
 
@@ -903,25 +1372,35 @@
       <span aria-hidden="true">ⓘ</span>
       <p>
         <strong>Prototype with example issue titles.</strong>
-        This is not a live system status. Counts start at zero and only reflect entries in this browser.
-        Please don't enter real customer details, internal ticket links or confidential information.
-        <button type="button" class="button text-button" id="reset">Reset sample data</button>
+        This is not a live system status. Counts start at zero and only
+        reflect entries in this browser. Please don't enter real customer
+        details, internal ticket links or confidential information.
+        <button type="button" class="button text-button" id="reset">
+          Reset sample data
+        </button>
       </p>
     </div>
   </main>
 
-  <!-- Create a new issue, including its description -->
+  <!-- Add a new issue -->
   <dialog id="issueDialog" aria-labelledby="issueDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="issueDialogTitle">Add an issue</h2>
-        <button type="button" class="button tiny" data-close="issueDialog">Close</button>
+        <button type="button" class="button tiny" data-close="issueDialog">
+          Close
+        </button>
       </div>
 
       <form id="issueForm" class="fields">
         <div class="field">
           <label for="newTitle">What happened?</label>
-          <input id="newTitle" maxlength="120" required placeholder="e.g. Confirmation screen not loading">
+          <input
+            id="newTitle"
+            maxlength="120"
+            required
+            placeholder="e.g. Confirmation screen not loading"
+          >
         </div>
 
         <div class="field">
@@ -946,7 +1425,11 @@
 
         <div class="field">
           <label for="newTicket">Example ticket link (optional)</label>
-          <input id="newTicket" type="url" placeholder="https://example.com/ticket/123">
+          <input
+            id="newTicket"
+            type="url"
+            placeholder="https://example.com/ticket/123"
+          >
           <small>Example.com links only. No real internal URLs.</small>
         </div>
 
@@ -956,19 +1439,25 @@
         </label>
 
         <div class="form-actions">
-          <button class="button" type="button" data-close="issueDialog">Cancel</button>
-          <button class="button primary" type="submit">Add issue</button>
+          <button class="button" type="button" data-close="issueDialog">
+            Cancel
+          </button>
+          <button class="button primary" type="submit">
+            Add issue
+          </button>
         </div>
       </form>
     </div>
   </dialog>
 
-  <!-- Report an occurrence of an existing issue -->
+  <!-- Report another occurrence -->
   <dialog id="signalDialog" aria-labelledby="signalDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="signalDialogTitle">Add a squeak</h2>
-        <button type="button" class="button tiny" data-close="signalDialog">Close</button>
+        <button type="button" class="button tiny" data-close="signalDialog">
+          Close
+        </button>
       </div>
 
       <p class="dialog-explanation" id="signalIssueName"></p>
@@ -978,8 +1467,15 @@
 
         <div class="field">
           <label for="signalTicket">Example ticket link (optional)</label>
-          <input id="signalTicket" type="url" placeholder="https://example.com/ticket/123">
-          <small>Leave blank if you don't have one. Only example.com links are accepted here.</small>
+          <input
+            id="signalTicket"
+            type="url"
+            placeholder="https://example.com/ticket/123"
+          >
+          <small>
+            Leave blank if you don't have one.
+            Only example.com links are accepted here.
+          </small>
         </div>
 
         <label class="check-row" for="signalRp">
@@ -988,19 +1484,25 @@
         </label>
 
         <div class="form-actions">
-          <button class="button" type="button" data-close="signalDialog">Cancel</button>
-          <button class="button primary" type="submit">Confirm + Add</button>
+          <button class="button" type="button" data-close="signalDialog">
+            Cancel
+          </button>
+          <button class="button primary" type="submit">
+            Confirm + Add
+          </button>
         </div>
       </form>
     </div>
   </dialog>
 
-  <!-- Category management -->
+  <!-- Edit categories -->
   <dialog id="categoriesDialog" aria-labelledby="categoriesDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="categoriesDialogTitle">Edit categories</h2>
-        <button type="button" class="button tiny" data-close="categoriesDialog">Close</button>
+        <button type="button" class="button tiny" data-close="categoriesDialog">
+          Close
+        </button>
       </div>
 
       <div id="categoryEditor"></div>
@@ -1008,9 +1510,17 @@
       <form id="categoryForm" class="fields" style="margin-top:16px">
         <div class="field">
           <label for="newCategoryName">New category</label>
-          <input id="newCategoryName" maxlength="35" placeholder="e.g. Website" required>
+          <input
+            id="newCategoryName"
+            maxlength="35"
+            placeholder="e.g. Website"
+            required
+          >
         </div>
-        <button type="submit" class="button primary">+ Add category</button>
+
+        <button type="submit" class="button primary">
+          + Add category
+        </button>
       </form>
     </div>
   </dialog>
@@ -1026,19 +1536,18 @@
 
       const esc = (value) =>
         String(value ?? '').replace(/[&<>"']/g, (c) => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#39;'
         }[c]));
 
       const uid = () =>
-        (crypto.randomUUID
+        crypto.randomUUID
           ? crypto.randomUUID()
-          : String(Date.now()) + Math.random().toString(36).slice(2));
+          : String(Date.now()) + Math.random().toString(36).slice(2);
 
-      /* Example descriptions for starter issues */
       const sampleDescriptions = {
         i1: 'The app may reject attempts to add a new card or change the saved payment method.',
         i2: 'A payment appears to have been collected on a different day than expected.',
@@ -1081,8 +1590,8 @@
         return {
           categories,
           issues,
-          occurrences: [],
-          connections: []
+          occurrences:[],
+          connections:[]
         };
       }
 
@@ -1100,7 +1609,6 @@
 
           if (!validState(v)) return seed();
 
-          // Update older starter issues without erasing saved reports.
           v.issues.forEach(i => {
             if (
               typeof i.description !== 'string' &&
@@ -1128,6 +1636,7 @@
 
       const issueFor = (id) => state.issues.find(i => i.id === id);
       const catFor = (id) => state.categories.find(c => c.id === id);
+
       const countFor = (id) =>
         state.occurrences.filter(r => r.issueId === id).length;
 
@@ -1163,8 +1672,10 @@
           if (!Number.isFinite(when)) return;
 
           score.total++;
+
           if (when >= lastWeek) score.recent++;
           if (when >= lastDay) score.today++;
+
           score.last = Math.max(score.last, when);
         });
 
@@ -1221,27 +1732,35 @@
       }
 
       function optionsHTML(selected = '') {
-        return state.categories.map(c =>
-          `<option value="${esc(c.id)}" ${c.id === selected ? 'selected' : ''}>
+        return state.categories.map(c => `
+          <option
+            value="${esc(c.id)}"
+            ${c.id === selected ? 'selected' : ''}
+          >
             ${esc(c.name)}
-          </option>`
-        ).join('');
+          </option>
+        `).join('');
       }
 
       function renderCategoryJump() {
         $('categoryJump').innerHTML =
-          `<button type="button" data-category="top"
+          `<button
+            type="button"
+            data-category="top"
             aria-pressed="${activeCategory === 'top'}"
-            style="--dot:#ffcf37">Top 5</button>` +
+            style="--dot:#ffcf37"
+          >Top 5</button>` +
 
-          state.categories.map((c,index) =>
-            `<button type="button"
+          state.categories.map((c,index) => `
+            <button
+              type="button"
               data-category="${esc(c.id)}"
               aria-pressed="${activeCategory === c.id}"
-              style="--dot:${dots[index % dots.length]}">
+              style="--dot:${dots[index % dots.length]}"
+            >
               ${esc(c.name)}
-            </button>`
-          ).join('');
+            </button>
+          `).join('');
       }
 
       function renderBoard() {
@@ -1304,7 +1823,8 @@
             state.categories.findIndex(x => x.id === i.categoryId)
           );
 
-          const description = i.description || 'No description provided yet.';
+          const description =
+            i.description || 'No description provided yet.';
 
           return `
             <article
@@ -1322,7 +1842,10 @@
                 ${esc(i.title)}
               </div>
 
-              <div class="issue-description" title="${esc(description)}">
+              <div
+                class="issue-description"
+                title="${esc(description)}"
+              >
                 ${esc(description)}
               </div>
 
@@ -1369,7 +1892,10 @@
           );
 
           const row = (from,to,share) => `
-            <div class="tile-row" style="--row-share:${share}">
+            <div
+              class="tile-row"
+              style="--row-share:${share}"
+            >
               ${cards.slice(from,to).map((card,n) => `
                 <div
                   class="tile-slot"
@@ -1399,6 +1925,7 @@
           state.categories.map(c => `
             <div class="category-edit">
               <span>${esc(c.name)}</span>
+
               <button
                 type="button"
                 class="button tiny"
@@ -1422,6 +1949,7 @@
 
       function renderInsights() {
         const weekStart = new Date();
+
         weekStart.setDate(weekStart.getDate() - 6);
         weekStart.setHours(0,0,0,0);
 
@@ -1462,10 +1990,12 @@
           labels.map((d,i) => `
             <div class="bar-col">
               <span class="bar-value">${counts[i]}</span>
+
               <div
                 class="bar"
                 style="height:${Math.max(3,Math.round(counts[i] / max * 125))}px"
               ></div>
+
               <span class="bar-label">
                 ${d.toLocaleDateString('en-NZ',{weekday:'short'})}
               </span>
@@ -1487,6 +2017,7 @@
               <div class="hot-detail">
                 <div class="hot-title">
                   <span>${esc(i.title)}</span>
+
                   <small>
                     ${countFor(i.id)}
                     ${countFor(i.id) === 1 ? 'squeak' : 'squeaks'}
@@ -1527,6 +2058,7 @@
                     ↔
                     ${esc(issueFor(c.b)?.title || 'Removed issue')}
                   </span>
+
                   <button
                     class="button tiny"
                     type="button"
@@ -1586,6 +2118,7 @@
         $('signalForm').reset();
         $('signalIssueId').value = i.id;
         $('signalIssueName').textContent = i.title;
+
         $('signalDialog').showModal();
       }
 
@@ -1633,6 +2166,7 @@
         save();
         render();
         $('signalDialog').close();
+
         notice('Squeak added.');
       });
 
@@ -1655,7 +2189,6 @@
         )
       );
 
-      /* NEW: Save the creator's description with the issue */
       $('issueForm').addEventListener('submit', e => {
         e.preventDefault();
 
@@ -1694,6 +2227,7 @@
         save();
         render();
         $('issueDialog').close();
+
         notice('Issue added.');
       });
 
@@ -1718,6 +2252,7 @@
 
         save();
         render();
+
         notice('Category added.');
       });
 
@@ -1745,6 +2280,7 @@
 
         save();
         render();
+
         notice('Category renamed.');
       });
 
@@ -1773,6 +2309,7 @@
 
         save();
         renderInsights();
+
         notice('Issues connected.');
       });
 
@@ -1786,6 +2323,7 @@
 
         save();
         renderInsights();
+
         notice('Connection removed.');
       });
 
