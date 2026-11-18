@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Service Signal · Demo</title>
+  <style>
+    :root {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #24303a;
+      background: #f7f8fa;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-size: 14px; line-height: 1.45; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #92bde6; outline-offset: 2px; }
+    a { color: #225a8c; }
+    .shell { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .top { background: white; border-bottom: 1px solid #e3e7e9; }
+    .top-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
+    .brand { font-size: 21px; font-weight: 700; letter-spacing: -.45px; }
+    .subbrand { color: #78828c; font-size: 12px; margin-top: 2px; }
+    .top-actions, .actions, .toolbar, .form-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .button { border: 1px solid #d9e0e4; background: #fff; color: #2d3942; border-radius: 7px; padding: 9px 13px; font-weight: 600; }
+    .button:hover { background: #f2f5f6; }
+    .button.primary { background: #2b4d58; color: white; border-color: #2b4d58; }
+    .button.primary:hover { background: #1f3e48; }
+    .button.tiny { padding: 6px 9px; font-size: 12px; }
+    .button.text-button { border: 0; background: transparent; padding: 6px; color: #4b626e; }
+    .button:disabled { opacity: .48; cursor: not-allowed; }
+    .tag { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid #dae2e5; border-radius: 20px; color: #65737e; background: #fafbfc; font-size: 11px; font-weight: 600; }
+    main { padding-top: 26px; padding-bottom: 40px; }
+    .intro { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
+    h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -.6px; }
+    h2 { font-size: 18px; margin: 0; }
+    h3 { font-size: 15px; margin: 0; }
+    p { margin: 0; }
+    .muted { color: #75818b; }
+    .intro .muted { max-width: 600px; }
+    .toolbar { margin-bottom: 18px; justify-content: space-between; }
+    .search { background: white; border: 1px solid #dce3e7; padding: 11px 12px; border-radius: 7px; width: min(100%, 350px); }
+    .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .category { border-radius: 10px; padding: 14px; border: 1px solid #e1e7eb; background: #fff; min-width: 0; }
+    .category[data-tone="0"] { background: #f2effa; border-color: #e8e3f4; }
+    .category[data-tone="1"] { background: #fbf6e8; border-color: #f2ead2; }
+    .category[data-tone="2"] { background: #ebf5ef; border-color: #dcece2; }
+    .category[data-tone="3"] { background: #eaf2f9; border-color: #dce8f4; }
+    .category[data-tone="4"] { background: #faedf0; border-color: #f3e2e8; }
+    .category[data-tone="5"] { background: #f0f3f5; border-color: #e1e7eb; }
+    .category-head { display: flex; justify-content: space-between; align-items: center; padding: 3px 2px 12px; gap: 8px; }
+    .category-count { color: #7d8993; font-size: 12px; }
+    .issue-list { display: grid; gap: 10px; }
+    .issue { background: #fff; border: 1px solid #e2e6e9; border-radius: 8px; padding: 13px; box-shadow: 0 1px 2px #1b34400a; }
+    .issue-title { font-weight: 600; overflow-wrap: anywhere; margin-bottom: 10px; }
+    .issue-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; font-size: 12px; color: #7e8b93; }
+    .issue .actions { gap: 6px; }
+    .issue .actions .button { flex: 1; }
+    .issue .actions .button.tiny { white-space: nowrap; }
+    .mini-link { font-size: 12px; color: #607582; }
+    .empty { border: 1px dashed #d3dce0; background: #ffffffa8; color: #7b8790; border-radius: 8px; padding: 20px; text-align: center; }
+    .demo-note { display: flex; align-items: flex-start; gap: 9px; background: #fff; border: 1px solid #e2e7e9; padding: 11px 13px; border-radius: 8px; font-size: 12px; color: #6a7981; margin-top: 23px; }
+    .demo-note strong { color: #455660; }
+    .panel { background: white; border: 1px solid #e1e6e8; border-radius: 10px; padding: 20px; margin-bottom: 17px; }
+    .panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+    .panel-head p { margin-top: 4px; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 17px; }
+    .metric { background: white; padding: 18px; border: 1px solid #e1e6e8; border-radius: 9px; }
+    .metric .value { font-size: 29px; font-weight: 700; margin-top: 8px; }
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .bars { height: 170px; display: flex; gap: 12px; align-items: end; border-bottom: 1px solid #e3e9ec; margin-top: 14px; padding: 0 5px; }
+    .bar-col { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 5px; }
+    .bar { width: 100%; max-width: 39px; min-height: 3px; background: #c8dfdc; border: 1px solid #aed1cd; border-radius: 5px 5px 0 0; }
+    .bar-value, .bar-label { font-size: 11px; color: #7b8790; }
+    .bar-label { padding-top: 6px; }
+    .fields { display: grid; gap: 13px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+    .field input, .field select { display: block; width: 100%; padding: 10px; background: #fff; border: 1px solid #d5dfe3; border-radius: 7px; }
+    .field small { color: #74818a; display: block; margin-top: 4px; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: end; }
+    .connection-list { padding: 0; list-style: none; display: grid; gap: 7px; margin: 12px 0 0; }
+    .connection-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; background: #f7f9fa; padding: 8px; border-radius: 6px; overflow-wrap: anywhere; }
+    .graph { width: 100%; height: auto; display: block; background: #fbfcfc; border: 1px solid #edf0f1; border-radius: 8px; }
+    .graph text { fill: #374751; font: 11px Arial, sans-serif; }
+    .table-wrap { overflow: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 530px; }
+    th, td { text-align: left; padding: 11px; border-bottom: 1px solid #edf0f2; }
+    th { color: #667580; font-weight: 600; background: #fafbfc; }
+    dialog { border: 1px solid #dce3e7; border-radius: 12px; padding: 0; width: min(94vw, 460px); box-shadow: 0 20px 60px #1d2b3650; }
+    dialog::backdrop { background: #19252d66; }
+    .dialog-body { padding: 24px; }
+    .dialog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 17px; }
+    .dialog-head h2 { font-size: 19px; }
+    .dialog-body .form-actions { justify-content: flex-end; margin-top: 20px; }
+    .category-edit { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid #eef0f1; padding: 9px 0; }
+    .category-edit span { font-weight: 600; }
+    .hidden { display: none !important; }
+    #toast { position: fixed; bottom: 18px; right: 20px; max-width: 350px; z-index: 30; padding: 12px 16px; background: #273d45; color: #fff; border-radius: 7px; box-shadow: 0 8px 25px #0002; display: none; }
+    @media (max-width: 1050px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 720px) {
+      .shell { padding: 0 15px; } .top-inner { align-items: flex-start; padding: 15px 0; flex-direction: column; }
+      .intro { flex-direction: column; } .board, .insight-grid, .metrics { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; } .search { width: 100%; max-width: none; }
+      .pair { grid-template-columns: 1fr; } .panel { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="shell top-inner">
+      <div><div class="brand">Service Signal <span class="tag">Demo</span></div><div class="subbrand">A simple place to spot recurring service issues</div></div>
+      <div class="top-actions">
+        <button class="button" id="boardTab" type="button" aria-pressed="true">Issue board</button>
+        <button class="button" id="insightsTab" type="button" aria-pressed="false">Demo insights</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section id="boardView">
+      <div class="intro">
+        <div><h1>What are you seeing?</h1><p class="muted">If something keeps popping up, log it here. Tap an existing issue to flag another occurrence, or add a new one.</p></div>
+        <span class="tag">Sample issues only</span>
+      </div>
+      <div class="toolbar">
+        <input id="search" class="search" type="search" placeholder="Search issues…" aria-label="Search issues">
+        <div class="actions"><button class="button" id="manageCategories" type="button">Edit categories</button><button class="button primary" id="addIssue" type="button">+ Add issue</button></div>
+      </div>
+      <div class="board" id="board"></div>
+    </section>
+
+    <section id="insightsView" class="hidden" aria-label="Demonstration insights">
+      <div class="intro"><div><h1>Demo insights</h1><p class="muted">An example of the reporting a team lead might use. All figures are fictional and local to this browser.</p></div><span class="tag">Not access-controlled</span></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="insight-grid">
+        <div class="panel"><div class="panel-head"><div><h2>Signals over the last 7 days</h2><p class="muted">Every click creates a dated occurrence.</p></div></div><div class="bars" id="bars"></div></div>
+        <div class="panel"><div class="panel-head"><div><h2>Connect related issues</h2><p class="muted">Link two issues to show a shared pattern.</p></div></div>
+          <form id="connectForm" class="pair"><div class="field"><label for="linkA">Issue one</label><select id="linkA" required></select></div><div class="field"><label for="linkB">Issue two</label><select id="linkB" required></select></div><button class="button" type="submit">Connect</button></form>
+          <ul id="connectionList" class="connection-list"></ul>
+        </div>
+      </div>
+      <div class="panel"><div class="panel-head"><div><h2>Connection map</h2><p class="muted">Illustrative view of connected issues (up to 10 shown).</p></div></div><svg class="graph" id="graph" viewBox="0 0 780 260" role="img" aria-label="Graph of linked demo issues"></svg></div>
+      <div class="panel"><div class="panel-head"><div><h2>Recent occurrences</h2><p class="muted">Sample timestamps and optional example ticket references.</p></div><div class="actions"><button class="button tiny" type="button" id="exportCsv">Export CSV</button><button class="button tiny" type="button" id="exportJson">Export JSON</button></div></div><div class="table-wrap"><table><thead><tr><th>Date and time</th><th>Issue</th><th>Category</th><th>Ticket reference</th></tr></thead><tbody id="events"></tbody></table></div></div>
+    </section>
+
+    <div class="demo-note"><span aria-hidden="true">ⓘ</span><p><strong>Public demonstration only.</strong> All starting data is fictional. Anything you add is stored only in this browser, not shared with colleagues. Please don't enter real customer details, internal ticket links or confidential information. <button type="button" class="button text-button" id="reset">Reset sample data</button></p></div>
+  </main>
+
+  <dialog id="issueDialog" aria-labelledby="issueDialogTitle"><div class="dialog-body"><div class="dialog-head"><h2 id="issueDialogTitle">Add a demo issue</h2><button type="button" class="button tiny" data-close="issueDialog">Close</button></div>
+    <form id="issueForm" class="fields"><div class="field"><label for="newTitle">What happened?</label><input id="newTitle" maxlength="120" required placeholder="e.g. Demo: confirmation screen paused"></div><div class="field"><label for="newCategory">Category</label><select id="newCategory" required></select></div><div class="field"><label for="newTicket">Example ticket link (optional)</label><input id="newTicket" type="url" placeholder="https://example.com/demo-ticket/123"><small>Use fictional example links only. No real Zendesk URLs.</small></div><div class="form-actions"><button class="button" type="button" data-close="issueDialog">Cancel</button><button class="button primary" type="submit">Add issue</button></div></form></div></dialog>
+
+  <dialog id="categoriesDialog" aria-labelledby="categoriesDialogTitle"><div class="dialog-body"><div class="dialog-head"><h2 id="categoriesDialogTitle">Edit categories</h2><button type="button" class="button tiny" data-close="categoriesDialog">Close</button></div>
+    <div id="categoryEditor"></div><form id="categoryForm" class="fields" style="margin-top:16px"><div class="field"><label for="newCategoryName">New category</label><input id="newCategoryName" maxlength="35" placeholder="e.g. Website" required></div><button type="submit" class="button primary">+ Add category</button></form></div></dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (() => {
+      'use strict';
+      const KEY = 'service-signal-public-demo-v1';
+      const $ = (id) => document.getElementById(id);
+      const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const uid = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2));
+      const daysAgo = (n, hour = 10) => { const d = new Date(); d.setDate(d.getDate() - n); d.setHours(hour, 15, 0, 0); return d.toISOString(); };
+      function seed() {
+        const categories = [{id:'app',name:'App'}, {id:'billing',name:'Billing'}, {id:'broadband',name:'Broadband'}, {id:'mobile',name:'Mobile'}];
+        const issues = [
+          {id:'i1',categoryId:'app',title:'Demo: Settings page takes a while to load',status:'Open',createdAt:daysAgo(6)},
+          {id:'i2',categoryId:'app',title:'Demo: Confirmation screen not appearing',status:'Open',createdAt:daysAgo(4)},
+          {id:'i3',categoryId:'billing',title:'Demo: Billing email arrives late',status:'Open',createdAt:daysAgo(5)},
+          {id:'i4',categoryId:'billing',title:'Demo: Payment history shows a delay',status:'Resolved',createdAt:daysAgo(6)},
+          {id:'i5',categoryId:'broadband',title:'Demo: Setup progress not refreshing',status:'Open',createdAt:daysAgo(3)},
+          {id:'i6',categoryId:'mobile',title:'Demo: Activation message delayed',status:'Open',createdAt:daysAgo(2)},
+          {id:'i7',categoryId:'mobile',title:'Demo: Usage display needs refreshing',status:'Resolved',createdAt:daysAgo(5)}
+        ];
+        const counts = [['i1',[6,4,1]],['i2',[4]],['i3',[5,3,0]],['i4',[6,5]],['i5',[3,2,1]],['i6',[2,0]],['i7',[5]]];
+        const occurrences = counts.flatMap(([issueId, days]) => days.map((d, i) => ({id:uid(),issueId,at:daysAgo(d,10+i*2),ticketUrl: i === 0 ? `https://example.com/demo-ticket/${issueId}` : ''})));
+        return {categories,issues,occurrences,connections:[{id:'c1',a:'i1',b:'i2'},{id:'c2',a:'i3',b:'i4'}]};
+      }
+      function validState(v) { return v && Array.isArray(v.categories) && Array.isArray(v.issues) && Array.isArray(v.occurrences) && Array.isArray(v.connections); }
+      function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); return validState(v) ? v : seed(); } catch { return seed(); } }
+      let state = load();
+      const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { notice('Browser storage unavailable; changes may not persist.'); } };
+      const issueFor = (id) => state.issues.find(i => i.id === id);
+      const catFor = (id) => state.categories.find(c => c.id === id);
+      const countFor = (id) => state.occurrences.filter(r => r.issueId === id).length;
+      const safeUrl = (value) => { if (!value.trim()) return ''; try { const u = new URL(value); return u.protocol === 'https:' && ['example.com','www.example.com'].includes(u.hostname) ? u.href : null; } catch { return null; } };
+      let toastTimer;
+      function notice(message) { const t = $('toast'); t.textContent = message; t.style.display='block'; clearTimeout(toastTimer); toastTimer=setTimeout(() => t.style.display='none', 3800); }
+      function optionsHTML(selected = '') { return state.categories.map(c => `<option value="${esc(c.id)}" ${c.id===selected?'selected':''}>${esc(c.name)}</option>`).join(''); }
+      function renderBoard() {
+        const q = $('search').value.trim().toLowerCase();
+        $('board').innerHTML = state.categories.map((c, index) => {
+          const issues = state.issues.filter(i => i.categoryId === c.id && (!q || i.title.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)));
+          const cards = issues.map(i => `<article class="issue"><div class="issue-title">${esc(i.title)}</div>
+            <div class="issue-meta"><span>${esc(i.status)}</span><span>${countFor(i.id)} ${countFor(i.id) === 1?'signal':'signals'}</span></div>
+            <div class="actions"><button class="button primary tiny" data-action="report" data-id="${esc(i.id)}" type="button">+ Saw this</button><button class="button tiny" data-action="reportLink" data-id="${esc(i.id)}" type="button">Add link</button></div></article>`).join('');
+          return `<section class="category" data-tone="${index%6}"><div class="category-head"><h2>${esc(c.name)}</h2><span class="category-count">${issues.length} ${issues.length===1?'issue':'issues'}</span></div><div class="issue-list">${cards||'<div class="empty">No matching issues yet.</div>'}</div></section>`;
+        }).join('');
+      }
+      function renderCategories() {
+        $('newCategory').innerHTML = optionsHTML();
+        $('categoryEditor').innerHTML = state.categories.map(c => `<div class="category-edit"><span>${esc(c.name)}</span><button type="button" class="button tiny" data-action="rename" data-id="${esc(c.id)}">Rename</button></div>`).join('');
+      }
+      const dateTime = (iso) => new Date(iso).toLocaleString('en-NZ', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      function renderInsights() {
+        const weekStart = new Date(); weekStart.setDate(weekStart.getDate()-6); weekStart.setHours(0,0,0,0);
+        const week = state.occurrences.filter(r => new Date(r.at) >= weekStart);
+        const stats = [['Total signals',state.occurrences.length],['Known issues',state.issues.length],['Last 7 days',week.length],['Connected pairs',state.connections.length]];
+        $('metrics').innerHTML = stats.map(([k,v]) => `<div class="metric"><span class="muted">${k}</span><div class="value">${v}</div></div>`).join('');
+        const labels = Array.from({length:7}, (_,i) => { const d = new Date(); d.setDate(d.getDate()-(6-i)); return d; });
+        const counts = labels.map(d => state.occurrences.filter(r => new Date(r.at).toDateString()===d.toDateString()).length);
+        const max = Math.max(1,...counts);
+        $('bars').innerHTML = labels.map((d,i) => `<div class="bar-col"><span class="bar-value">${counts[i]}</span><div class="bar" style="height:${Math.max(3, Math.round(counts[i]/max*125))}px"></div><span class="bar-label">${d.toLocaleDateString('en-NZ',{weekday:'short'})}</span></div>`).join('');
+        const opts = state.issues.map(i => `<option value="${esc(i.id)}">${esc(i.title)}</option>`).join('');
+        $('linkA').innerHTML = opts; $('linkB').innerHTML = opts;
+        if(state.issues.length>1) $('linkB').selectedIndex = 1;
+        $('connectionList').innerHTML = state.connections.length ? state.connections.map(c => `<li><span>${esc(issueFor(c.a)?.title || 'Removed issue')} ↔ ${esc(issueFor(c.b)?.title || 'Removed issue')}</span><button class="button tiny" type="button" data-action="disconnect" data-id="${esc(c.id)}">Remove</button></li>`).join('') : '<li>No connections yet.</li>';
+        const sorted = [...state.occurrences].sort((a,b) => new Date(b.at)-new Date(a.at)).slice(0,30);
+        $('events').innerHTML = sorted.map(r => { const i=issueFor(r.issueId), c=catFor(i?.categoryId); return `<tr><td>${dateTime(r.at)}</td><td>${esc(i?.title || 'Removed issue')}</td><td>${esc(c?.name || 'Other')}</td><td>${r.ticketUrl ? `<a target="_blank" rel="noopener noreferrer" href="${esc(r.ticketUrl)}">Example link ↗</a>` : '—'}</td></tr>`; }).join('') || '<tr><td colspan="4">No signals logged.</td></tr>';
+        drawGraph();
+      }
+      function drawGraph() {
+        const svg=$('graph'); svg.replaceChildren();
+        const shown = state.issues.slice(0,10); const n=shown.length;
+        if (!n) { svg.setAttribute('aria-label','No issues to display'); return; }
+        const pos = new Map(shown.map((i,index) => [i.id,{x:390+285*Math.cos(2*Math.PI*index/n-Math.PI/2),y:130+93*Math.sin(2*Math.PI*index/n-Math.PI/2)}]));
+        const ns='http://www.w3.org/2000/svg';
+        const element=(name,attributes,text) => {const e=document.createElementNS(ns,name); Object.entries(attributes).forEach(([k,v])=>e.setAttribute(k,String(v))); if(text!==undefined)e.textContent=text;svg.appendChild(e);return e;};
+        state.connections.forEach(c => {if(pos.has(c.a)&&pos.has(c.b)){const a=pos.get(c.a),b=pos.get(c.b);element('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'#b6bbc9','stroke-width':3});}});
+        shown.forEach((i,index) => {const p=pos.get(i.id);const colors=['#e0d8f3','#f7e5bb','#d2eadc','#cfe2f1','#f4dce5','#e3e8ed']; const ci=state.categories.findIndex(c=>c.id===i.categoryId);element('circle',{cx:p.x,cy:p.y,r:21,fill:colors[(ci+colors.length)%colors.length],stroke:'#a9b8bf','stroke-width':1.5});element('text',{x:p.x,y:p.y+4,'text-anchor':'middle','font-weight':'700'},String(index+1)); const short=i.title.replace(/^Demo:\s*/,'').slice(0,26);const above=p.y>155;element('text',{x:p.x,y:p.y+(above?-30:39),'text-anchor':'middle'},short+(i.title.length>32?'…':''));});
+        svg.setAttribute('aria-label','Connection graph of '+n+' fictional issues and '+state.connections.length+' links');
+      }
+      function render() { renderBoard(); renderCategories(); if (!$('insightsView').classList.contains('hidden')) renderInsights(); }
+      function logSignal(issueId, withLink) {
+        const i=issueFor(issueId); if (!i) return;
+        let ticketUrl='';
+        if (withLink) { const raw=prompt('Optional FICTIONAL ticket URL (example.com only). Leave blank for none:', 'https://example.com/demo-ticket/'); if (raw===null) return; ticketUrl=safeUrl(raw); if (ticketUrl===null) return notice('Demo links must use https://example.com (no real ticket links).'); }
+        state.occurrences.push({id:uid(),issueId,at:new Date().toISOString(),ticketUrl});save();render();notice('Signal added — counted as another occurrence.');
+      }
+      $('board').addEventListener('click', e => {const b=e.target.closest('[data-action]');if(!b)return;if(b.dataset.action==='report')logSignal(b.dataset.id,false);if(b.dataset.action==='reportLink')logSignal(b.dataset.id,true);});
+      $('search').addEventListener('input',renderBoard);
+      $('addIssue').addEventListener('click',() => {renderCategories();$('issueForm').reset();$('issueDialog').showModal();});
+      $('manageCategories').addEventListener('click',() => {renderCategories();$('categoriesDialog').showModal();});
+      document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+      $('issueForm').addEventListener('submit',e => {e.preventDefault();const title=$('newTitle').value.trim(),categoryId=$('newCategory').value;const url=safeUrl($('newTicket').value);if(!title||!catFor(categoryId))return;if(url===null)return notice('Please use only example.com links in the public demo.'); const id=uid();state.issues.push({id,categoryId,title,status:'Open',createdAt:new Date().toISOString()});state.occurrences.push({id:uid(),issueId:id,at:new Date().toISOString(),ticketUrl:url});save();render();$('issueDialog').close();notice('Demo issue added.');});
+      $('categoryForm').addEventListener('submit',e => {e.preventDefault();const name=$('newCategoryName').value.trim();if(!name)return;if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase()))return notice('That category already exists.');state.categories.push({id:uid(),name});$('newCategoryName').value='';save();render();notice('Category added.');});
+      $('categoryEditor').addEventListener('click',e => {const b=e.target.closest('[data-action="rename"]');if(!b)return;const c=catFor(b.dataset.id);if(!c)return;const name=prompt('Rename category:',c.name);if(name===null)return;const v=name.trim().slice(0,35);if(!v)return;if(state.categories.some(x=>x.id!==c.id&&x.name.toLowerCase()===v.toLowerCase()))return notice('That name is already in use.');c.name=v;save();render();notice('Category renamed.');});
+      $('connectForm').addEventListener('submit',e=>{e.preventDefault();const a=$('linkA').value,b=$('linkB').value;if(!a||!b||a===b)return notice('Choose two different issues.');if(state.connections.some(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a)))return notice('Those issues are already connected.');state.connections.push({id:uid(),a,b});save();renderInsights();notice('Issues connected.');});
+      $('connectionList').addEventListener('click',e=>{const b=e.target.closest('[data-action="disconnect"]');if(!b)return;state.connections=state.connections.filter(c=>c.id!==b.dataset.id);save();renderInsights();notice('Connection removed.');});
+      function showView(insights) { $('boardView').classList.toggle('hidden',insights);$('insightsView').classList.toggle('hidden',!insights);$('boardTab').setAttribute('aria-pressed',String(!insights));$('insightsTab').setAttribute('aria-pressed',String(insights)); if(insights)renderInsights(); }
+      $('boardTab').addEventListener('click',()=>showView(false)); $('insightsTab').addEventListener('click',()=>showView(true));
+      const csvCell=(v)=>'"'+String(v??'').replace(/"/g,'""')+'"';
+      function download(name,contents,mime) {const blob=new Blob([contents],{type:mime}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+      const exportRows=()=>state.occurrences.map(r=>({dateTime:r.at,issue:issueFor(r.issueId)?.title||'',category:catFor(issueFor(r.issueId)?.categoryId)?.name||'',exampleTicketUrl:r.ticketUrl}));
+      $('exportCsv').addEventListener('click',()=>{const rows=exportRows();const head=['dateTime','issue','category','exampleTicketUrl'];download('service-signal-demo.csv',[head.join(','),...rows.map(r=>head.map(h=>csvCell(r[h])).join(','))].join('\r\n'),'text/csv;charset=utf-8');});
+      $('exportJson').addEventListener('click',()=>download('service-signal-demo.json',JSON.stringify({demoOnly:true,...state},null,2),'application/json'));
+      $('reset').addEventListener('click',()=>{if(!confirm('Reset this browser back to fictional sample data?'))return;state=seed();save();$('search').value='';render();notice('Demo reset.');});
+      save();render();
+    })();
+  </script>
+</body>
+</html>
