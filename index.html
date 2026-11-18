@@ -347,9 +347,9 @@
     .tag { border-radius: 4px; }
     .plan-availability { color: #4b5357; font-size: 12px; }
     .plan-availability.has-plan { color: #155e73; font-weight: 700; }
-    .button.plan-button { border-color: #a9d7e7; color: #087fa7; background: #f1fafe; padding: 6px 11px; font-size: 12px; font-weight: 700; }
+    .button.plan-button { border-color: #a9d7e7; color: #087fa7; background: #f1fafe; padding: 11px 20px; font-size: 14px; font-weight: 700; }
     .button.plan-button:hover { background: #dff4fc; border-color: #009dd1; }   
-    .board.featured-board {grid-auto-rows: minmax(215px, auto);min-height: 0;}
+    .board.featured-board {grid-auto-rows: minmax(215px, auto);min-height: 43;}
     .board.weighted-board {height: auto;}
     .board.weighted-board .tile-row {flex: 0 0 auto;}
     .board.weighted-board .issue {min-height: 225px;}
@@ -413,7 +413,7 @@
 <body>
   <header class="top">
     <div class="shell top-inner">
-      <div><div class="brand">Squeak</div><div class="subbrand">Little issues. Bigger patterns.</div></div>
+      <div><div class="brand">Squeak</div><div class="subbrand">track and identify bumps in the road.</div></div>
       <div class="top-actions">
         <button class="button" id="boardTab" type="button" aria-pressed="true">Issue board</button>
         <button class="button" id="insightsTab" type="button" aria-pressed="false">Insights</button>
@@ -474,9 +474,9 @@
       <div class="field"><label for="planStatus">Where are we at?</label><select id="planStatus"><option value="Under review">Under review</option><option value="Investigating">Investigating</option><option value="Workaround available">Workaround available</option><option value="Fix in progress">Fix in progress</option><option value="Resolved">Resolved</option></select></div>
       <div class="field"><label for="planAction">What's happening behind the scenes?</label><textarea id="planAction" rows="3" maxlength="1200" placeholder="Who is looking into it, what's being done, or where the investigation is up to."></textarea></div>
       <div class="field"><label for="planCustomer">What are we telling customers?</label><textarea id="planCustomer" rows="3" maxlength="1200" placeholder="Example wording or guidance for service agents."></textarea><small>This is a public fictional-data demo. Do not enter real internal instructions or customer information.</small></div>
-      <div class="field"><label for="planRedpickle">Redpickle / GitLab issue link (optional)</label><input id="planRedpickle" type="url" placeholder="https://example.com/redpickle/123"></div>
+      <div class="field"><label for="planRedpickle">Red Pickle link (optional)</label><input id="planRedpickle" type="url" placeholder="https://example.com/redpickle/123"></div>
       <div class="field"><label for="planZendesk">Zendesk Problem link (optional)</label><input id="planZendesk" type="url" placeholder="https://example.com/problem/456"></div>
-      <p class="plan-form-note">Example.com links only in this public prototype. A future company-approved version could use real internal references and editing permissions.</p>
+      <p class="plan-form-note">prototype.</p>
       <div class="form-actions"><button class="button" type="button" id="cancelPlanEdit">Cancel</button><button class="button primary" type="submit">Save game plan</button></div>
     </form>
   </div></dialog>
@@ -714,7 +714,7 @@
         const customerGuidance=$('planCustomer').value.trim();
         const redpickleUrl=safeUrl($('planRedpickle').value);
         const zendeskUrl=safeUrl($('planZendesk').value);
-        if(redpickleUrl===null||zendeskUrl===null)return notice('Use only fictional example.com links in this public prototype.');
+        if(redpickleUrl===null||zendeskUrl===null)return notice('prototype.');
         if(!internalAction&&!customerGuidance&&!redpickleUrl&&!zendeskUrl)return notice('Add a note or example tracking link to save the game plan.');
         i.plan={status:$('planStatus').value,internalAction,customerGuidance,redpickleUrl,zendeskUrl,updatedAt:new Date().toISOString(),sample:false};
         save();render();showPlanView();notice('Game plan saved.');
