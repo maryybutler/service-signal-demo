@@ -262,7 +262,8 @@
     }
 
     /* ==========================================
-       EXPANDED TOP 5 DESKTOP LAYOUT
+       BALANCED TOP 5 LAYOUT
+       Used when no reports have been logged
        ========================================== */
 
     .board.featured-board {
@@ -274,14 +275,13 @@
     .board.featured-board > .issue {
       grid-column: span 2;
       padding: clamp(18px, 2vw, 28px);
+
       background: linear-gradient(
         140deg,
-        #ffffff 64%,
+        #fff 64%,
         var(--tint, #edf8fb)
       );
     }
-
-    /* Three cards above, two wider cards below */
 
     .board.featured-board > .issue:nth-child(4),
     .board.featured-board > .issue:nth-child(5) {
@@ -301,6 +301,81 @@
     }
 
     .board.featured-board > .issue .actions .button.tiny {
+      min-width: 122px;
+      padding: 12px 22px;
+      font-size: 15px;
+    }
+
+    /* ==========================================
+       WEIGHTED TREEMAP LAYOUT
+
+       Cards grow or shrink according to reports
+       in the previous seven days.
+
+       Actual report counts stay hidden.
+       ========================================== */
+
+    .board.weighted-board {
+      display: flex;
+      flex-direction: column;
+      height: clamp(450px, calc(100dvh - 410px), 680px);
+      gap: 14px;
+    }
+
+    .board.weighted-board .tile-row {
+      display: flex;
+      gap: 14px;
+      flex: var(--row-share) 1 0;
+      min-height: 0;
+    }
+
+    .board.weighted-board .tile-slot {
+      display: flex;
+      flex: var(--tile-weight) 1 0;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .board.weighted-board .issue {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      min-height: 175px;
+
+      display: flex;
+      flex-direction: column;
+
+      border: 1px solid #e3e6e8;
+      border-top: 7px solid var(--accent, #a8dfef);
+      border-radius: 15px;
+
+      padding: clamp(16px, 1.8vw, 27px);
+
+      background: linear-gradient(
+        140deg,
+        #fff 64%,
+        var(--tint, #edf8fb)
+      );
+
+      box-shadow: 0 4px 13px #2b46500b;
+    }
+
+    .board.weighted-board .issue-title {
+      font-size: clamp(16px, 1.4vw, 23px);
+      line-height: 1.3;
+      margin: 17px 0;
+    }
+
+    .board.weighted-board .issue-meta {
+      margin-top: auto;
+    }
+
+    .board.weighted-board .issue-category {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .board.weighted-board .issue .actions .button.tiny {
       min-width: 122px;
       padding: 12px 22px;
       font-size: 15px;
@@ -766,7 +841,7 @@
       display: none;
     }
 
-    /* RESPONSIVE LAYOUT */
+    /* RESPONSIVE */
 
     @media (max-width: 1050px) {
       .board.featured-board {
@@ -782,6 +857,20 @@
 
       .board.featured-board > .issue:nth-child(5) {
         grid-column: 1 / -1;
+      }
+
+      .board.weighted-board {
+        display: grid;
+        height: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .board.weighted-board .tile-row {
+        display: contents;
+      }
+
+      .board.weighted-board .issue {
+        min-height: 190px;
       }
     }
 
@@ -836,6 +925,10 @@
       .board.featured-board > .issue:nth-child(5) {
         grid-column: auto;
       }
+
+      .board.weighted-board {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 420px) {
@@ -855,7 +948,7 @@
     <div class="shell top-inner">
       <div>
         <div class="brand">Squeak</div>
-        <div class="subbrand">Small issues. Big patterns.</div>
+        <div class="subbrand">Little issues. Bigger patterns.</div>
       </div>
 
       <div class="top-actions">
@@ -932,7 +1025,7 @@
         <div>
           <h2 id="boardHeading">Top 5 squeaks</h2>
           <p id="boardSubheading">
-            The busiest and most recent issues.
+            Bigger boxes mean more recent reports.
           </p>
         </div>
       </div>
@@ -949,7 +1042,8 @@
         <div>
           <h1>The squeak report</h1>
           <p class="muted">
-            What's making noise?.
+            What's making noise? Here's the picture
+            from this browser's reports.
           </p>
         </div>
 
@@ -1064,6 +1158,7 @@
 
     <div class="sample-note">
       <span aria-hidden="true">ⓘ</span>
+
       <p>
         <strong>Prototype with example issue titles.</strong>
         This is not a live system status. Counts start at zero and
@@ -1432,7 +1527,7 @@
 
       let activeCategory = 'top';
 
-      /* RANK ISSUES BY POPULARITY + RECENCY */
+      /* RANK ISSUES BY POPULARITY AND RECENCY */
 
       function rankIssues(items) {
         const now = Date.now();
@@ -1456,6 +1551,7 @@
           if (!score) return;
 
           const when = new Date(r.at).getTime();
+
           if (!Number.isFinite(when)) return;
 
           score.total++;
@@ -1479,6 +1575,18 @@
             new Date(b.createdAt || 0) -
             new Date(a.createdAt || 0);
         });
+      }
+
+      /* COUNT REPORTS WITHIN THE LAST 7 DAYS */
+
+      function recentReports(issueId) {
+        const cutoff =
+          Date.now() - 7 * 24 * 60 * 60 * 1000;
+
+        return state.occurrences.filter(r =>
+          r.issueId === issueId &&
+          new Date(r.at).getTime() >= cutoff
+        ).length;
       }
 
       /* FICTIONAL LINKS ONLY */
@@ -1550,13 +1658,6 @@
       function renderBoard() {
         const q = $('search').value.trim().toLowerCase();
 
-        /* Larger layout only for the main Top 5 */
-
-        $('board').classList.toggle(
-          'featured-board',
-          !q && activeCategory === 'top'
-        );
-
         const category = catFor(activeCategory);
 
         const matching = state.issues.filter(i =>
@@ -1576,6 +1677,32 @@
             ? ranked
             : ranked.slice(0, 5);
 
+        const isTop =
+          !q && activeCategory === 'top';
+
+        /* Find how many recent reports each card has */
+
+        const counts = shown.map(i =>
+          recentReports(i.id)
+        );
+
+        /* Enable the weighted layout once reports exist */
+
+        const weighted =
+          isTop &&
+          shown.length === 5 &&
+          counts.some(c => c > 0);
+
+        $('board').classList.toggle(
+          'featured-board',
+          isTop && !weighted
+        );
+
+        $('board').classList.toggle(
+          'weighted-board',
+          weighted
+        );
+
         $('boardHeading').textContent = q
           ? 'Search results'
           : category
@@ -1586,9 +1713,11 @@
           ? 'Matching issues across all categories.'
           : category
             ? `All issues in ${category.name}, with the most active first.`
-            : 'The busiest and most recent issues, from every category.';
+            : 'Bigger boxes mean more reports in the last 7 days. Exact totals are kept off this board.';
 
-        $('board').innerHTML = shown.map(i => {
+        /* Build issue cards without visible counts */
+
+        const cards = shown.map(i => {
           const c = catFor(i.categoryId);
 
           const idx = Math.max(
@@ -1628,12 +1757,105 @@
               </div>
             </article>
           `;
-        }).join('') || `
-          <div class="empty">
-            Nothing here yet. Try another category or add a new issue.
-          </div>
-        `;
+        });
+
+        /* ======================================
+           TREEMAP SIZE CALCULATION
+           ====================================== */
+
+        if (weighted) {
+
+          /*
+            A baseline ensures every issue stays usable.
+
+            Square-root scaling means a very popular issue
+            becomes significantly larger, but less-reported
+            issues don't shrink to unusable sizes.
+          */
+
+          const weights = counts.map(
+            c => 1 + Math.sqrt(c)
+          );
+
+          const total = weights.reduce(
+            (sum, w) => sum + w,
+            0
+          );
+
+          /*
+            Choose how many cards appear in the first
+            row based on the concentration of reports.
+          */
+
+          const split =
+            weights[0] / total > .42
+              ? 1
+              : (weights[0] + weights[1]) / total > .65
+                ? 2
+                : 3;
+
+          const topWeight = weights
+            .slice(0, split)
+            .reduce(
+              (sum, w) => sum + w,
+              0
+            );
+
+          /*
+            Keep each row between 40% and 60%
+            of the available height.
+          */
+
+          const topShare = Math.max(
+            .4,
+            Math.min(.6, topWeight / total)
+          );
+
+          /*
+            Each tile's flex weight determines
+            its share of horizontal space.
+          */
+
+          const row = (from, to, share) => `
+            <div
+              class="tile-row"
+              style="--row-share:${share}"
+            >
+              ${
+                cards.slice(from, to)
+                  .map((card, n) => `
+                    <div
+                      class="tile-slot"
+                      style="--tile-weight:${
+                        weights[from + n]
+                      }"
+                    >
+                      ${card}
+                    </div>
+                  `)
+                  .join('')
+              }
+            </div>
+          `;
+
+          $('board').innerHTML =
+            row(0, split, topShare) +
+            row(split, 5, 1 - topShare);
+
+        } else {
+
+          /* Balanced layout before reports exist */
+
+          $('board').innerHTML =
+            cards.join('') ||
+            `<div class="empty">
+              Nothing here yet. Try another category
+              or add a new issue.
+            </div>`;
+        }
       }
+
+      /* CATEGORY EDITOR */
 
       function renderCategories() {
         $('newCategory').innerHTML = optionsHTML();
@@ -1899,7 +2121,7 @@
         $('signalDialog').showModal();
       }
 
-      /* REPORT AN EXISTING ISSUE */
+      /* REPORT EXISTING ISSUE */
 
       $('board').addEventListener('click', e => {
         const b = e.target.closest('[data-action]');
@@ -1909,7 +2131,7 @@
         }
       });
 
-      /* CHANGE CATEGORY */
+      /* SWITCH CATEGORY */
 
       $('categoryJump').addEventListener('click', e => {
         const b = e.target.closest('[data-category]');
@@ -1922,12 +2144,13 @@
         renderBoard();
       });
 
-      /* CONFIRM A SQUEAK */
+      /* CONFIRM A REPORT */
 
       $('signalForm').addEventListener('submit', e => {
         e.preventDefault();
 
         const issueId = $('signalIssueId').value;
+
         const ticketUrl = safeUrl(
           $('signalTicket').value
         );
@@ -2171,7 +2394,7 @@
         }
       );
 
-      /* SWITCH BETWEEN BOARD AND INSIGHTS */
+      /* SWITCH BOARD AND INSIGHTS */
 
       function showView(insights) {
         $('boardView').classList.toggle(
