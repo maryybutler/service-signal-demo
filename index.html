@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en-NZ">
 <head>
@@ -5,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>Squeak</title>
-
   <style>
     :root {
       font-family: 'Trebuchet MS', 'Century Gothic', Arial, sans-serif;
@@ -13,46 +13,25 @@
       background: #f7f7f9;
       font-synthesis: none;
     }
-
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    button, input, select { font: inherit; }
+    body { margin: 0; font-size: 14px; line-height: 1.45; }
+    button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
-
-    button:focus-visible,
-    input:focus-visible,
-    select:focus-visible {
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
       outline: 3px solid #92bde6;
       outline-offset: 2px;
     }
-
     a { color: #225a8c; }
-
     .shell {
       width: 100%;
       max-width: 1710px;
       margin: 0 auto;
       padding: 0 clamp(14px, 2.2vw, 34px);
     }
-
     .top {
-      background:
-        linear-gradient(
-          100deg,
-          #ffdb36 0 33%,
-          #ffc6d6 33% 67%,
-          #b5e5f5 67%
-        ) top / 100% 6px no-repeat,
-        white;
+      background: linear-gradient(100deg,#ffdb36 0 33%,#ffc6d6 33% 67%,#b5e5f5 67%) top / 100% 6px no-repeat, white;
       border-bottom: 1px solid #e8e9ec;
     }
-
     .top-inner {
       display: flex;
       align-items: center;
@@ -60,30 +39,23 @@
       gap: 16px;
       min-height: 78px;
     }
-
     .brand {
       font-size: 26px;
       font-weight: 800;
       letter-spacing: -.8px;
       color: #15191b;
     }
-
     .subbrand {
       color: #64717a;
       font-size: 12px;
       margin-top: 1px;
     }
-
-    .top-actions,
-    .actions,
-    .toolbar,
-    .form-actions {
+    .top-actions, .actions, .toolbar, .form-actions {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       align-items: center;
     }
-
     .button {
       border: 1px solid #d6dde1;
       background: #fff;
@@ -92,34 +64,27 @@
       padding: 9px 13px;
       font-weight: 700;
     }
-
     .button:hover { background: #f2f5f6; }
-
     .button.primary {
       background: #087fa7;
       color: white;
       border-color: #087fa7;
     }
-
     .button.primary:hover { background: #066e91; }
-
     .button.tiny {
       padding: 6px 9px;
       font-size: 12px;
     }
-
     .button.text-button {
       border: 0;
       background: transparent;
       padding: 6px;
       color: #4b626e;
     }
-
     .button:disabled {
       opacity: .48;
       cursor: not-allowed;
     }
-
     .tag {
       display: inline-flex;
       align-items: center;
@@ -131,12 +96,10 @@
       font-size: 11px;
       font-weight: 600;
     }
-
     main {
       padding-top: 24px;
       padding-bottom: 40px;
     }
-
     .intro {
       display: flex;
       justify-content: space-between;
@@ -144,25 +107,20 @@
       align-items: flex-start;
       margin-bottom: 24px;
     }
-
     h1 {
       font-size: 28px;
       margin: 0 0 6px;
       letter-spacing: -.7px;
     }
-
     h2 { font-size: 18px; margin: 0; }
     h3 { font-size: 15px; margin: 0; }
     p { margin: 0; }
-
     .muted { color: #75818b; }
     .intro .muted { max-width: 600px; }
-
     .toolbar {
       margin-bottom: 12px;
       justify-content: space-between;
     }
-
     .search {
       background: white;
       border: 1px solid #dce3e7;
@@ -170,9 +128,6 @@
       border-radius: 10px;
       width: min(100%, 370px);
     }
-
-    /* CATEGORY NAVIGATION */
-
     .category-jump {
       display: flex;
       align-items: center;
@@ -180,7 +135,6 @@
       gap: 7px;
       margin: 0 0 18px;
     }
-
     .category-jump button {
       background: white;
       color: #28343c;
@@ -190,18 +144,15 @@
       font-size: 12px;
       font-weight: 700;
     }
-
     .category-jump button:hover {
       border-color: #9bc9dc;
       background: #eef9fd;
     }
-
     .category-jump button[aria-pressed="true"] {
       background: #283b43;
       border-color: #283b43;
       color: #fff;
     }
-
     .category-jump button::before {
       content: '';
       display: inline-block;
@@ -211,7 +162,6 @@
       border-radius: 50%;
       background: var(--dot, #ffdf55);
     }
-
     .board-title {
       display: flex;
       justify-content: space-between;
@@ -219,185 +169,174 @@
       gap: 12px;
       margin: 5px 0 14px;
     }
-
     .board-title h2 {
       font-size: 21px;
       letter-spacing: -.5px;
     }
-
     .board-title p {
       color: #72818a;
       font-size: 12px;
       margin-top: 3px;
     }
-
-    /* STANDARD ISSUE BOARD */
-
     .board {
       display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
       gap: 14px;
       align-items: stretch;
     }
-
     .board > .issue {
       min-height: 158px;
       display: flex;
       flex-direction: column;
       border: 1px solid #e3e6e8;
-      border-top: 7px solid var(--accent, #a8dfef);
+      border-top: 7px solid var(--accent,#a8dfef);
       border-radius: 15px;
       padding: 14px;
       box-shadow: 0 4px 13px #2b46500b;
     }
-
     .board > .issue .issue-title {
       font-size: 15px;
       margin: 10px 0 12px;
     }
+    .board > .issue .issue-meta { margin-top: auto; }
 
-    .board > .issue .issue-meta {
-      margin-top: auto;
-    }
-
-    /* ==========================================
-       BALANCED TOP 5 LAYOUT
-       Used when no reports have been logged
-       ========================================== */
-
+    /* Top five layout */
     .board.featured-board {
       grid-template-columns: repeat(6, minmax(0, 1fr));
       grid-auto-rows: minmax(185px, 1fr);
       min-height: clamp(400px, calc(100dvh - 410px), 680px);
     }
-
     .board.featured-board > .issue {
       grid-column: span 2;
       padding: clamp(18px, 2vw, 28px);
-
-      background: linear-gradient(
-        140deg,
-        #fff 64%,
-        var(--tint, #edf8fb)
-      );
+      background: linear-gradient(140deg, #fff 64%, var(--tint, #edf8fb));
     }
-
     .board.featured-board > .issue:nth-child(4),
     .board.featured-board > .issue:nth-child(5) {
       grid-column: span 3;
     }
-
     .board.featured-board > .issue .issue-category {
       padding: 6px 12px;
       font-size: 12px;
     }
-
     .board.featured-board > .issue .issue-title {
       font-size: clamp(17px, 1.45vw, 23px);
       line-height: 1.3;
       margin: 18px 0;
       max-width: 36ch;
     }
-
     .board.featured-board > .issue .actions .button.tiny {
       min-width: 122px;
       padding: 12px 22px;
       font-size: 15px;
     }
 
-    /* ==========================================
-       WEIGHTED TREEMAP LAYOUT
-
-       Cards grow or shrink according to reports
-       in the previous seven days.
-
-       Actual report counts stay hidden.
-       ========================================== */
-
+    /* Larger boxes represent more recent reports */
     .board.weighted-board {
       display: flex;
       flex-direction: column;
       height: clamp(450px, calc(100dvh - 410px), 680px);
       gap: 14px;
     }
-
     .board.weighted-board .tile-row {
       display: flex;
       gap: 14px;
       flex: var(--row-share) 1 0;
       min-height: 0;
     }
-
     .board.weighted-board .tile-slot {
       display: flex;
       flex: var(--tile-weight) 1 0;
       min-width: 0;
       min-height: 0;
     }
-
     .board.weighted-board .issue {
       flex: 1 1 auto;
       width: 100%;
       min-width: 0;
       min-height: 175px;
-
       display: flex;
       flex-direction: column;
-
       border: 1px solid #e3e6e8;
       border-top: 7px solid var(--accent, #a8dfef);
       border-radius: 15px;
-
       padding: clamp(16px, 1.8vw, 27px);
-
-      background: linear-gradient(
-        140deg,
-        #fff 64%,
-        var(--tint, #edf8fb)
-      );
-
+      background: linear-gradient(140deg, #fff 64%, var(--tint, #edf8fb));
       box-shadow: 0 4px 13px #2b46500b;
     }
-
     .board.weighted-board .issue-title {
       font-size: clamp(16px, 1.4vw, 23px);
       line-height: 1.3;
       margin: 17px 0;
     }
-
-    .board.weighted-board .issue-meta {
-      margin-top: auto;
-    }
-
+    .board.weighted-board .issue-meta { margin-top: auto; }
     .board.weighted-board .issue-category {
       padding: 6px 12px;
       font-size: 12px;
     }
-
     .board.weighted-board .issue .actions .button.tiny {
       min-width: 122px;
       padding: 12px 22px;
       font-size: 15px;
     }
 
-    /* ISSUE CARDS */
-
     .issue-category {
       display: inline-flex;
       align-self: flex-start;
-      background: var(--tint, #eaf7fc);
+      background: var(--tint,#eaf7fc);
       border-radius: 20px;
       padding: 4px 9px;
       font-size: 11px;
       font-weight: 800;
       color: #3a4b52;
     }
-
-    .board > .empty {
-      grid-column: 1 / -1;
+    .board > .empty { grid-column: 1/-1; }
+    .category {
+      position: relative;
+      border-radius: 14px;
+      padding: 13px;
+      border: 1px solid #e1e7eb;
+      background: #fff;
+      min-width: 0;
+      scroll-margin-top: 18px;
     }
-
+    .category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 23px;
+      width: 44px;
+      height: 9px;
+      transform: skewX(-23deg);
+      border-radius: 0 0 5px 5px;
+      background: #ffffff9c;
+    }
+    .category[data-tone="0"] { background: #efe6ff; border-color: #e1d1f8; }
+    .category[data-tone="1"] { background: #fff0ad; border-color: #f5df83; }
+    .category[data-tone="2"] { background: #d6f4dd; border-color: #bfe9cb; }
+    .category[data-tone="3"] { background: #cdeeff; border-color: #b1dff5; }
+    .category[data-tone="4"] { background: #ffe2d4; border-color: #f9c9b1; }
+    .category[data-tone="5"] { background: #ffdce7; border-color: #f2c2d1; }
+    .category[data-tone="6"] { background: #e3e8ff; border-color: #d0d8fb; }
+    .category[data-tone="7"] { background: #fff4cc; border-color: #f2e2a1; }
+    .category[data-tone="8"] { background: #f5e5d8; border-color: #ead0bc; }
+    .category[data-tone="9"] { background: #d8f5f1; border-color: #bce9e2; }
+    .category-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 2px 13px;
+      gap: 8px;
+    }
+    .category-head h2 {
+      font-size: 17px;
+      letter-spacing: -.35px;
+    }
+    .category-count {
+      color: #7d8993;
+      font-size: 12px;
+    }
+    .issue-list { display: grid; gap: 10px; }
     .issue {
       background: #fff;
       border: 1px solid #ffffff;
@@ -405,11 +344,29 @@
       padding: 11px;
       box-shadow: 0 2px 7px #1b344010;
     }
-
     .issue-title {
       font-weight: 600;
       overflow-wrap: anywhere;
       margin-bottom: 10px;
+    }
+
+    /* NEW: Description displayed beneath each issue title */
+    .issue-description {
+      color: #5d6f79;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 13px;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+    }
+    .board.weighted-board .issue-description {
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
     }
 
     .issue-meta {
@@ -421,22 +378,31 @@
       font-size: 12px;
       color: #7e8b93;
     }
-
-    .issue .actions {
-      gap: 6px;
-    }
-
-    .issue .actions .button {
-      width: auto;
-    }
-
+    .issue .actions { gap: 6px; }
+    .issue .actions .button { width: auto; }
     .issue .actions .button.tiny {
       min-width: 110px;
       padding: 10px 19px;
       font-size: 14px;
       white-space: nowrap;
     }
-
+    .more-issues { margin-top: 11px; }
+    .more-issues summary {
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: #ffffffa8;
+      border: 1px dashed #c8cdd7;
+      text-align: center;
+      font-weight: 600;
+      color: #52626e;
+      cursor: pointer;
+      list-style: none;
+    }
+    .more-issues summary::-webkit-details-marker { display: none; }
+    .more-issues summary::after { content: '  ▾'; }
+    .more-issues[open] summary::after { content: '  ▴'; }
+    .more-issues .issue-list { margin-top: 10px; }
+    .mini-link { font-size: 12px; color: #607582; }
     .empty {
       border: 1px dashed #d3dce0;
       background: #ffffffa8;
@@ -445,7 +411,6 @@
       padding: 20px;
       text-align: center;
     }
-
     .sample-note {
       display: flex;
       align-items: flex-start;
@@ -458,13 +423,7 @@
       color: #6a7981;
       margin-top: 23px;
     }
-
-    .sample-note strong {
-      color: #455660;
-    }
-
-    /* INSIGHTS */
-
+    .sample-note strong { color: #455660; }
     .panel {
       background: white;
       border: 1px solid #e1e6e8;
@@ -472,7 +431,6 @@
       padding: 21px;
       margin-bottom: 17px;
     }
-
     .panel-head {
       display: flex;
       justify-content: space-between;
@@ -480,40 +438,31 @@
       gap: 14px;
       margin-bottom: 14px;
     }
-
-    .panel-head p {
-      margin-top: 4px;
-    }
-
+    .panel-head p { margin-top: 4px; }
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 17px;
     }
-
     .metric {
       background: #fff0aa;
       padding: 19px;
       border: 1px solid #f0db7b;
       border-radius: 18px;
     }
-
     .metric:nth-child(2) {
       background: #ffdde9;
       border-color: #f2bfce;
     }
-
     .metric:nth-child(3) {
       background: #c9eefa;
       border-color: #ade0f2;
     }
-
     .metric:nth-child(4) {
       background: #d8f3df;
       border-color: #c1e8ca;
     }
-
     .metric .value {
       font-size: 38px;
       font-weight: 800;
@@ -521,18 +470,15 @@
       line-height: 1;
       letter-spacing: -1px;
     }
-
     .metric .muted {
       color: #374850;
       font-weight: 700;
     }
-
     .insight-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 17px;
     }
-
     .bars {
       height: 170px;
       display: flex;
@@ -542,7 +488,6 @@
       margin-top: 14px;
       padding: 0 5px;
     }
-
     .bar-col {
       flex: 1;
       min-width: 0;
@@ -553,7 +498,6 @@
       justify-content: flex-end;
       gap: 5px;
     }
-
     .bar {
       width: 100%;
       max-width: 52px;
@@ -562,38 +506,20 @@
       border: 1px solid #7bcee6;
       border-radius: 12px 12px 0 0;
     }
-
     .bar-col:nth-child(3n+2) .bar {
       background: #ffd044;
       border-color: #f6c52b;
     }
-
     .bar-col:nth-child(3n) .bar {
       background: #ffadca;
       border-color: #f0a2be;
     }
-
-    .bar-value,
-    .bar-label {
-      font-size: 11px;
-      color: #7b8790;
-    }
-
-    .bar-label {
-      padding-top: 6px;
-    }
-
-    .hot-list {
-      display: grid;
-      gap: 12px;
-    }
-
+    .hot-list { display: grid; gap: 12px; }
     .hot-row {
       display: flex;
       gap: 11px;
       align-items: center;
     }
-
     .hot-index {
       width: 28px;
       height: 28px;
@@ -604,12 +530,10 @@
       font-weight: 800;
       flex: none;
     }
-
     .hot-detail {
       flex: 1;
       min-width: 0;
     }
-
     .hot-title {
       display: flex;
       gap: 8px;
@@ -618,17 +542,12 @@
       font-size: 12px;
       font-weight: 700;
     }
-
-    .hot-title span:first-child {
-      overflow-wrap: anywhere;
-    }
-
+    .hot-title span:first-child { overflow-wrap: anywhere; }
     .hot-title small {
       white-space: nowrap;
       color: #6b7c84;
       font-weight: 600;
     }
-
     .hot-track {
       margin-top: 7px;
       height: 7px;
@@ -636,13 +555,11 @@
       background: #f0f3f5;
       overflow: hidden;
     }
-
     .hot-fill {
       height: 100%;
       background: #ffca33;
       border-radius: inherit;
     }
-
     .fold-panel {
       background: #fff;
       border: 1px solid #e2e7e9;
@@ -650,42 +567,30 @@
       margin: 0 0 16px;
       overflow: hidden;
     }
-
     .fold-panel > summary {
       padding: 18px 20px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
     }
-
     .fold-panel[open] > summary {
       border-bottom: 1px solid #edf0f2;
     }
-
-    .fold-content {
-      padding: 18px 20px;
+    .fold-content { padding: 18px 20px; }
+    .fold-content > p { margin-bottom: 15px; }
+    .bar-value, .bar-label {
+      font-size: 11px;
+      color: #7b8790;
     }
-
-    .fold-content > p {
-      margin-bottom: 15px;
-    }
-
-    /* FORMS */
-
-    .fields {
-      display: grid;
-      gap: 13px;
-    }
-
+    .bar-label { padding-top: 6px; }
+    .fields { display: grid; gap: 13px; }
     .field label {
       display: block;
       font-size: 12px;
       font-weight: 600;
       margin-bottom: 5px;
     }
-
-    .field input,
-    .field select {
+    .field input, .field select, .field textarea {
       display: block;
       width: 100%;
       padding: 10px;
@@ -693,13 +598,15 @@
       border: 1px solid #d5dfe3;
       border-radius: 7px;
     }
-
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
     .field small {
       color: #74818a;
       display: block;
       margin-top: 4px;
     }
-
     .check-row {
       display: flex;
       align-items: center;
@@ -711,27 +618,23 @@
       font-weight: 600;
       cursor: pointer;
     }
-
     .check-row input {
       width: 17px;
       height: 17px;
       accent-color: #087fa7;
     }
-
     .dialog-explanation {
       margin: -4px 0 17px;
       font-size: 13px;
       color: #64747d;
       overflow-wrap: anywhere;
     }
-
     .pair {
       display: grid;
       grid-template-columns: 1fr 1fr auto;
       gap: 8px;
       align-items: end;
     }
-
     .connection-list {
       padding: 0;
       list-style: none;
@@ -739,7 +642,6 @@
       gap: 7px;
       margin: 12px 0 0;
     }
-
     .connection-list li {
       display: flex;
       justify-content: space-between;
@@ -751,33 +653,23 @@
       border-radius: 6px;
       overflow-wrap: anywhere;
     }
-
-    .table-wrap {
-      overflow: auto;
-    }
-
+    .table-wrap { overflow: auto; }
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
       min-width: 530px;
     }
-
-    th,
-    td {
+    th, td {
       text-align: left;
       padding: 11px;
       border-bottom: 1px solid #edf0f2;
     }
-
     th {
       color: #667580;
       font-weight: 600;
       background: #fafbfc;
     }
-
-    /* DIALOGS */
-
     dialog {
       border: 1px solid #dce3e7;
       border-radius: 12px;
@@ -785,31 +677,19 @@
       width: min(94vw, 460px);
       box-shadow: 0 20px 60px #1d2b3650;
     }
-
-    dialog::backdrop {
-      background: #19252d66;
-    }
-
-    .dialog-body {
-      padding: 24px;
-    }
-
+    dialog::backdrop { background: #19252d66; }
+    .dialog-body { padding: 24px; }
     .dialog-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 17px;
     }
-
-    .dialog-head h2 {
-      font-size: 19px;
-    }
-
+    .dialog-head h2 { font-size: 19px; }
     .dialog-body .form-actions {
       justify-content: flex-end;
       margin-top: 20px;
     }
-
     .category-edit {
       display: flex;
       justify-content: space-between;
@@ -818,15 +698,8 @@
       border-bottom: 1px solid #eef0f1;
       padding: 9px 0;
     }
-
-    .category-edit span {
-      font-weight: 600;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
+    .category-edit span { font-weight: 600; }
+    .hidden { display: none !important; }
     #toast {
       position: fixed;
       bottom: 18px;
@@ -841,78 +714,26 @@
       display: none;
     }
 
-    /* RESPONSIVE */
-
     @media (max-width: 1050px) {
       .board.featured-board {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-auto-rows: minmax(170px, 1fr);
       }
-
       .board.featured-board > .issue,
       .board.featured-board > .issue:nth-child(4),
       .board.featured-board > .issue:nth-child(5) {
         grid-column: auto;
       }
-
       .board.featured-board > .issue:nth-child(5) {
         grid-column: 1 / -1;
       }
-
       .board.weighted-board {
         display: grid;
         height: auto;
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-
-      .board.weighted-board .tile-row {
-        display: contents;
-      }
-
-      .board.weighted-board .issue {
-        min-height: 190px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .shell {
-        padding: 0 15px;
-      }
-
-      .top-inner {
-        align-items: flex-start;
-        padding: 15px 0;
-        flex-direction: column;
-      }
-
-      .intro {
-        flex-direction: column;
-      }
-
-      .insight-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .toolbar {
-        align-items: stretch;
-      }
-
-      .search {
-        width: 100%;
-        max-width: none;
-      }
-
-      .pair {
-        grid-template-columns: 1fr;
-      }
-
-      .panel {
-        padding: 15px;
-      }
+      .board.weighted-board .tile-row { display: contents; }
+      .board.weighted-board .issue { min-height: 190px; }
     }
 
     @media (max-width: 650px) {
@@ -921,24 +742,34 @@
         grid-auto-rows: minmax(175px, auto);
         min-height: 0;
       }
-
       .board.featured-board > .issue:nth-child(5) {
         grid-column: auto;
       }
-
-      .board.weighted-board {
-        grid-template-columns: 1fr;
-      }
+      .board.weighted-board { grid-template-columns: 1fr; }
     }
 
+    @media (max-width: 720px) {
+      .shell { padding: 0 15px; }
+      .top-inner {
+        align-items: flex-start;
+        padding: 15px 0;
+        flex-direction: column;
+      }
+      .intro { flex-direction: column; }
+      .insight-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .toolbar { align-items: stretch; }
+      .search {
+        width: 100%;
+        max-width: none;
+      }
+      .pair { grid-template-columns: 1fr; }
+      .panel { padding: 15px; }
+    }
     @media (max-width: 420px) {
-      .metric {
-        padding: 12px;
-      }
-
-      .metric .value {
-        font-size: 30px;
-      }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .metric { padding: 12px; }
+      .metric .value { font-size: 30px; }
     }
   </style>
 </head>
@@ -950,25 +781,9 @@
         <div class="brand">Squeak</div>
         <div class="subbrand">Little issues. Bigger patterns.</div>
       </div>
-
       <div class="top-actions">
-        <button
-          class="button"
-          id="boardTab"
-          type="button"
-          aria-pressed="true"
-        >
-          Issue board
-        </button>
-
-        <button
-          class="button"
-          id="insightsTab"
-          type="button"
-          aria-pressed="false"
-        >
-          Insights
-        </button>
+        <button class="button" id="boardTab" type="button" aria-pressed="true">Issue board</button>
+        <button class="button" id="insightsTab" type="button" aria-pressed="false">Insights</button>
       </div>
     </div>
   </header>
@@ -978,75 +793,37 @@
       <div class="intro">
         <div>
           <h1>What are you seeing?</h1>
-          <p class="muted">
-            Spotted a recurring issue? Select + Add,
-            confirm a few details, and you're done.
-          </p>
+          <p class="muted">Spotted a recurring issue? Select + Add, confirm a few details, and you're done.</p>
         </div>
-
         <span class="tag">Early prototype</span>
       </div>
 
       <div class="toolbar">
-        <input
-          id="search"
-          class="search"
-          type="search"
-          placeholder="Search issues…"
-          aria-label="Search issues"
-        >
-
+        <input id="search" class="search" type="search" placeholder="Search issues…" aria-label="Search issues">
         <div class="actions">
-          <button
-            class="button"
-            id="manageCategories"
-            type="button"
-          >
-            Edit categories
-          </button>
-
-          <button
-            class="button primary"
-            id="addIssue"
-            type="button"
-          >
-            + Add issue
-          </button>
+          <button class="button" id="manageCategories" type="button">Edit categories</button>
+          <button class="button primary" id="addIssue" type="button">+ Add issue</button>
         </div>
       </div>
 
-      <nav
-        id="categoryJump"
-        class="category-jump"
-        aria-label="Filter by category"
-      ></nav>
+      <nav id="categoryJump" class="category-jump" aria-label="Filter by category"></nav>
 
       <div class="board-title">
         <div>
           <h2 id="boardHeading">Top 5 squeaks</h2>
-          <p id="boardSubheading">
-            Bigger boxes mean more recent reports.
-          </p>
+          <p id="boardSubheading">The busiest and most recent issues, from every category.</p>
         </div>
       </div>
 
       <div class="board" id="board"></div>
     </section>
 
-    <section
-      id="insightsView"
-      class="hidden"
-      aria-label="Insights"
-    >
+    <section id="insightsView" class="hidden" aria-label="Insights">
       <div class="intro">
         <div>
           <h1>The squeak report</h1>
-          <p class="muted">
-            What's making noise? Here's the picture
-            from this browser's reports.
-          </p>
+          <p class="muted">What's making noise? Here's the picture from this browser's reports.</p>
         </div>
-
         <span class="tag">Local browser figures only</span>
       </div>
 
@@ -1057,12 +834,9 @@
           <div class="panel-head">
             <div>
               <h2>The last 7 days</h2>
-              <p class="muted">
-                Every + Add puts a little mark on the board.
-              </p>
+              <p class="muted">Every + Add puts a little mark on the board.</p>
             </div>
           </div>
-
           <div class="bars" id="bars"></div>
         </div>
 
@@ -1070,70 +844,40 @@
           <div class="panel-head">
             <div>
               <h2>The loudest squeaks</h2>
-              <p class="muted">
-                Most reported lately, with newer activity bumped up.
-              </p>
+              <p class="muted">Most reported lately, with newer activity bumped up.</p>
             </div>
           </div>
-
           <div id="hotList" class="hot-list"></div>
         </div>
       </div>
 
       <details class="fold-panel">
         <summary>Link related issues</summary>
-
         <div class="fold-content">
-          <p class="muted">
-            Connect two issues when they appear to be
-            part of the same problem.
-          </p>
-
+          <p class="muted">Connect two issues when they appear to be part of the same problem.</p>
           <form id="connectForm" class="pair">
             <div class="field">
               <label for="linkA">Issue one</label>
               <select id="linkA" required></select>
             </div>
-
             <div class="field">
               <label for="linkB">Issue two</label>
               <select id="linkB" required></select>
             </div>
-
-            <button class="button" type="submit">
-              Connect
-            </button>
+            <button class="button" type="submit">Connect</button>
           </form>
-
           <ul id="connectionList" class="connection-list"></ul>
         </div>
       </details>
 
       <details class="fold-panel">
         <summary>View detailed log and exports</summary>
-
         <div class="fold-content">
           <div class="panel-head">
-            <p class="muted">
-              Times, RP markers and optional example links.
-            </p>
-
+            <p class="muted">Times, RP markers and optional example links.</p>
             <div class="actions">
-              <button
-                class="button tiny"
-                type="button"
-                id="exportCsv"
-              >
-                Export CSV
-              </button>
-
-              <button
-                class="button tiny"
-                type="button"
-                id="exportJson"
-              >
-                Export JSON
-              </button>
+              <button class="button tiny" type="button" id="exportCsv">Export CSV</button>
+              <button class="button tiny" type="button" id="exportJson">Export JSON</button>
             </div>
           </div>
 
@@ -1148,7 +892,6 @@
                   <th>Ticket reference</th>
                 </tr>
               </thead>
-
               <tbody id="events"></tbody>
             </table>
           </div>
@@ -1158,51 +901,42 @@
 
     <div class="sample-note">
       <span aria-hidden="true">ⓘ</span>
-
       <p>
         <strong>Prototype with example issue titles.</strong>
-        This is not a live system status. Counts start at zero and
-        only reflect entries in this browser. Please don't enter
-        real customer details, internal ticket links or confidential
-        information.
-
-        <button
-          type="button"
-          class="button text-button"
-          id="reset"
-        >
-          Reset sample data
-        </button>
+        This is not a live system status. Counts start at zero and only reflect entries in this browser.
+        Please don't enter real customer details, internal ticket links or confidential information.
+        <button type="button" class="button text-button" id="reset">Reset sample data</button>
       </p>
     </div>
   </main>
 
-  <!-- ADD ISSUE DIALOG -->
-
+  <!-- Create a new issue, including its description -->
   <dialog id="issueDialog" aria-labelledby="issueDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="issueDialogTitle">Add an issue</h2>
-
-        <button
-          type="button"
-          class="button tiny"
-          data-close="issueDialog"
-        >
-          Close
-        </button>
+        <button type="button" class="button tiny" data-close="issueDialog">Close</button>
       </div>
 
       <form id="issueForm" class="fields">
         <div class="field">
           <label for="newTitle">What happened?</label>
+          <input id="newTitle" maxlength="120" required placeholder="e.g. Confirmation screen not loading">
+        </div>
 
-          <input
-            id="newTitle"
-            maxlength="120"
+        <div class="field">
+          <label for="newDescription">Description</label>
+          <textarea
+            id="newDescription"
+            maxlength="400"
+            rows="3"
             required
-            placeholder="e.g. Confirmation screen not loading"
-          >
+            placeholder="Briefly explain what happens, and when."
+          ></textarea>
+          <small>
+            Written by the person adding the issue.
+            Please don't include customer details or confidential information.
+          </small>
         </div>
 
         <div class="field">
@@ -1211,19 +945,9 @@
         </div>
 
         <div class="field">
-          <label for="newTicket">
-            Example ticket link (optional)
-          </label>
-
-          <input
-            id="newTicket"
-            type="url"
-            placeholder="https://example.com/ticket/123"
-          >
-
-          <small>
-            Example.com links only. No real internal URLs.
-          </small>
+          <label for="newTicket">Example ticket link (optional)</label>
+          <input id="newTicket" type="url" placeholder="https://example.com/ticket/123">
+          <small>Example.com links only. No real internal URLs.</small>
         </div>
 
         <label class="check-row" for="newRp">
@@ -1232,61 +956,30 @@
         </label>
 
         <div class="form-actions">
-          <button
-            class="button"
-            type="button"
-            data-close="issueDialog"
-          >
-            Cancel
-          </button>
-
-          <button class="button primary" type="submit">
-            Add issue
-          </button>
+          <button class="button" type="button" data-close="issueDialog">Cancel</button>
+          <button class="button primary" type="submit">Add issue</button>
         </div>
       </form>
     </div>
   </dialog>
 
-  <!-- ADD SQUEAK DIALOG -->
-
+  <!-- Report an occurrence of an existing issue -->
   <dialog id="signalDialog" aria-labelledby="signalDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="signalDialogTitle">Add a squeak</h2>
-
-        <button
-          type="button"
-          class="button tiny"
-          data-close="signalDialog"
-        >
-          Close
-        </button>
+        <button type="button" class="button tiny" data-close="signalDialog">Close</button>
       </div>
 
-      <p
-        class="dialog-explanation"
-        id="signalIssueName"
-      ></p>
+      <p class="dialog-explanation" id="signalIssueName"></p>
 
       <form id="signalForm" class="fields">
         <input id="signalIssueId" type="hidden">
 
         <div class="field">
-          <label for="signalTicket">
-            Example ticket link (optional)
-          </label>
-
-          <input
-            id="signalTicket"
-            type="url"
-            placeholder="https://example.com/ticket/123"
-          >
-
-          <small>
-            Leave blank if you don't have one.
-            Only example.com links are accepted here.
-          </small>
+          <label for="signalTicket">Example ticket link (optional)</label>
+          <input id="signalTicket" type="url" placeholder="https://example.com/ticket/123">
+          <small>Leave blank if you don't have one. Only example.com links are accepted here.</small>
         </div>
 
         <label class="check-row" for="signalRp">
@@ -1295,78 +988,40 @@
         </label>
 
         <div class="form-actions">
-          <button
-            class="button"
-            type="button"
-            data-close="signalDialog"
-          >
-            Cancel
-          </button>
-
-          <button class="button primary" type="submit">
-            Confirm + Add
-          </button>
+          <button class="button" type="button" data-close="signalDialog">Cancel</button>
+          <button class="button primary" type="submit">Confirm + Add</button>
         </div>
       </form>
     </div>
   </dialog>
 
-  <!-- CATEGORY EDITOR -->
-
-  <dialog
-    id="categoriesDialog"
-    aria-labelledby="categoriesDialogTitle"
-  >
+  <!-- Category management -->
+  <dialog id="categoriesDialog" aria-labelledby="categoriesDialogTitle">
     <div class="dialog-body">
       <div class="dialog-head">
         <h2 id="categoriesDialogTitle">Edit categories</h2>
-
-        <button
-          type="button"
-          class="button tiny"
-          data-close="categoriesDialog"
-        >
-          Close
-        </button>
+        <button type="button" class="button tiny" data-close="categoriesDialog">Close</button>
       </div>
 
       <div id="categoryEditor"></div>
 
-      <form
-        id="categoryForm"
-        class="fields"
-        style="margin-top:16px"
-      >
+      <form id="categoryForm" class="fields" style="margin-top:16px">
         <div class="field">
           <label for="newCategoryName">New category</label>
-
-          <input
-            id="newCategoryName"
-            maxlength="35"
-            placeholder="e.g. Website"
-            required
-          >
+          <input id="newCategoryName" maxlength="35" placeholder="e.g. Website" required>
         </div>
-
-        <button type="submit" class="button primary">
-          + Add category
-        </button>
+        <button type="submit" class="button primary">+ Add category</button>
       </form>
     </div>
   </dialog>
 
-  <div
-    id="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
+  <div id="toast" role="status" aria-live="polite"></div>
 
   <script>
     (() => {
       'use strict';
 
       const KEY = 'squeak-preview-v1';
-
       const $ = (id) => document.getElementById(id);
 
       const esc = (value) =>
@@ -1379,79 +1034,49 @@
         }[c]));
 
       const uid = () =>
-        crypto.randomUUID
+        (crypto.randomUUID
           ? crypto.randomUUID()
-          : String(Date.now()) + Math.random().toString(36).slice(2);
+          : String(Date.now()) + Math.random().toString(36).slice(2));
 
-      /* SAMPLE DATA */
+      /* Example descriptions for starter issues */
+      const sampleDescriptions = {
+        i1: 'The app may reject attempts to add a new card or change the saved payment method.',
+        i2: 'A payment appears to have been collected on a different day than expected.',
+        i3: 'The in-app payment flow does not complete or show confirmation.',
+        i4: 'A plan change cannot be submitted or does not appear to take effect.',
+        i5: 'Broadband usage is missing from the insights view.',
+        i6: 'Unexpected premium charges appear on a mobile account.',
+        i7: 'A refund request does not complete successfully.'
+      };
 
       function seed() {
         const categories = [
-          { id: 'app', name: 'App' },
-          { id: 'billing', name: 'Billing' },
-          { id: 'broadband', name: 'Broadband' },
-          { id: 'mobile', name: 'Mobile' },
-          { id: 'power', name: 'Power' },
-          { id: 'debt', name: 'Debt' },
-          { id: 'online-account', name: 'Online Account' },
-          { id: 'bikkie', name: 'Bikkie' },
-          { id: 'brownie', name: 'Brownie' },
-          { id: 'flex', name: 'Flex' }
+          {id:'app',name:'App'},
+          {id:'billing',name:'Billing'},
+          {id:'broadband',name:'Broadband'},
+          {id:'mobile',name:'Mobile'},
+          {id:'power',name:'Power'},
+          {id:'debt',name:'Debt'},
+          {id:'online-account',name:'Online Account'},
+          {id:'bikkie',name:'Bikkie'},
+          {id:'brownie',name:'Brownie'},
+          {id:'flex',name:'Flex'}
         ];
 
         const createdAt = new Date().toISOString();
 
         const issues = [
-          {
-            id: 'i1',
-            categoryId: 'app',
-            title: "Can't add/change payment method",
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i2',
-            categoryId: 'billing',
-            title: 'Payment taken on wrong date',
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i3',
-            categoryId: 'app',
-            title: "Can't make payment through app",
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i4',
-            categoryId: 'bikkie',
-            title: 'Plan change not working',
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i5',
-            categoryId: 'broadband',
-            title: 'Broadband usage not visible in insights',
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i6',
-            categoryId: 'mobile',
-            title: 'Premium mobile charges',
-            status: 'Tracking',
-            createdAt
-          },
-          {
-            id: 'i7',
-            categoryId: 'billing',
-            title: "Refund won't process",
-            status: 'Tracking',
-            createdAt
-          }
-        ];
+          {id:'i1',categoryId:'app',title:"Can't add/change payment method",status:'Tracking',createdAt},
+          {id:'i2',categoryId:'billing',title:'Payment taken on wrong date',status:'Tracking',createdAt},
+          {id:'i3',categoryId:'app',title:"Can't make payment through app",status:'Tracking',createdAt},
+          {id:'i4',categoryId:'bikkie',title:'Plan change not working',status:'Tracking',createdAt},
+          {id:'i5',categoryId:'broadband',title:'Broadband usage not visible in insights',status:'Tracking',createdAt},
+          {id:'i6',categoryId:'mobile',title:'Premium mobile charges',status:'Tracking',createdAt},
+          {id:'i7',categoryId:'billing',title:"Refund won't process",status:'Tracking',createdAt}
+        ].map(i => ({
+          ...i,
+          description: sampleDescriptions[i.id] || ''
+        }));
 
         return {
           categories,
@@ -1472,7 +1097,20 @@
       function load() {
         try {
           const v = JSON.parse(localStorage.getItem(KEY));
-          return validState(v) ? v : seed();
+
+          if (!validState(v)) return seed();
+
+          // Update older starter issues without erasing saved reports.
+          v.issues.forEach(i => {
+            if (
+              typeof i.description !== 'string' &&
+              Object.hasOwn(sampleDescriptions, i.id)
+            ) {
+              i.description = sampleDescriptions[i.id];
+            }
+          });
+
+          return v;
         } catch {
           return seed();
         }
@@ -1484,50 +1122,26 @@
         try {
           localStorage.setItem(KEY, JSON.stringify(state));
         } catch {
-          notice(
-            'Browser storage unavailable; changes may not persist.'
-          );
+          notice('Browser storage unavailable; changes may not persist.');
         }
       };
 
-      const issueFor = (id) =>
-        state.issues.find(i => i.id === id);
-
-      const catFor = (id) =>
-        state.categories.find(c => c.id === id);
-
+      const issueFor = (id) => state.issues.find(i => i.id === id);
+      const catFor = (id) => state.categories.find(c => c.id === id);
       const countFor = (id) =>
         state.occurrences.filter(r => r.issueId === id).length;
 
       const dots = [
-        '#b69ae6',
-        '#f5d23e',
-        '#94d4a3',
-        '#8ed0ec',
-        '#f0b492',
-        '#eeaac2',
-        '#a5ade9',
-        '#e5c764',
-        '#cda88b',
-        '#84cbbd'
+        '#b69ae6','#f5d23e','#94d4a3','#8ed0ec','#f0b492',
+        '#eeaac2','#a5ade9','#e5c764','#cda88b','#84cbbd'
       ];
 
       const tints = [
-        '#f0e9fe',
-        '#fff4ba',
-        '#e2f5e7',
-        '#e1f4fc',
-        '#fff0e6',
-        '#ffebf1',
-        '#e7eaff',
-        '#fff8d9',
-        '#f9ede3',
-        '#e2f8f3'
+        '#f0e9fe','#fff4ba','#e2f5e7','#e1f4fc','#fff0e6',
+        '#ffebf1','#e7eaff','#fff8d9','#f9ede3','#e2f8f3'
       ];
 
       let activeCategory = 'top';
-
-      /* RANK ISSUES BY POPULARITY AND RECENCY */
 
       function rankIssues(items) {
         const now = Date.now();
@@ -1537,12 +1151,7 @@
         const scores = new Map(
           items.map(i => [
             i.id,
-            {
-              recent: 0,
-              today: 0,
-              total: 0,
-              last: 0
-            }
+            {recent:0,today:0,total:0,last:0}
           ])
         );
 
@@ -1551,18 +1160,15 @@
           if (!score) return;
 
           const when = new Date(r.at).getTime();
-
           if (!Number.isFinite(when)) return;
 
           score.total++;
-
           if (when >= lastWeek) score.recent++;
           if (when >= lastDay) score.today++;
-
           score.last = Math.max(score.last, when);
         });
 
-        return [...items].sort((a, b) => {
+        return [...items].sort((a,b) => {
           const x = scores.get(a.id);
           const y = scores.get(b.id);
 
@@ -1570,26 +1176,20 @@
             (y.recent * 3 + y.today * 4) -
             (x.recent * 3 + x.today * 4)
           ) ||
-            y.last - x.last ||
-            y.total - x.total ||
-            new Date(b.createdAt || 0) -
-            new Date(a.createdAt || 0);
+          y.last - x.last ||
+          y.total - x.total ||
+          new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
         });
       }
 
-      /* COUNT REPORTS WITHIN THE LAST 7 DAYS */
-
       function recentReports(issueId) {
-        const cutoff =
-          Date.now() - 7 * 24 * 60 * 60 * 1000;
+        const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
 
         return state.occurrences.filter(r =>
           r.issueId === issueId &&
           new Date(r.at).getTime() >= cutoff
         ).length;
       }
-
-      /* FICTIONAL LINKS ONLY */
 
       const safeUrl = (value) => {
         if (!value.trim()) return '';
@@ -1598,76 +1198,62 @@
           const u = new URL(value);
 
           return u.protocol === 'https:' &&
-            ['example.com', 'www.example.com'].includes(u.hostname)
-              ? u.href
-              : null;
+            ['example.com','www.example.com'].includes(u.hostname)
+            ? u.href
+            : null;
         } catch {
           return null;
         }
       };
 
-      /* NOTICES */
-
       let toastTimer;
 
       function notice(message) {
         const t = $('toast');
-
         t.textContent = message;
         t.style.display = 'block';
 
         clearTimeout(toastTimer);
 
-        toastTimer = setTimeout(
-          () => t.style.display = 'none',
-          3800
-        );
+        toastTimer = setTimeout(() => {
+          t.style.display = 'none';
+        }, 3800);
       }
 
       function optionsHTML(selected = '') {
         return state.categories.map(c =>
-          `<option value="${esc(c.id)}" ${
-            c.id === selected ? 'selected' : ''
-          }>${esc(c.name)}</option>`
+          `<option value="${esc(c.id)}" ${c.id === selected ? 'selected' : ''}>
+            ${esc(c.name)}
+          </option>`
         ).join('');
       }
 
-      /* CATEGORY BUTTONS */
-
       function renderCategoryJump() {
         $('categoryJump').innerHTML =
-          `<button
-            type="button"
-            data-category="top"
+          `<button type="button" data-category="top"
             aria-pressed="${activeCategory === 'top'}"
-            style="--dot:#ffcf37"
-          >Top 5</button>` +
+            style="--dot:#ffcf37">Top 5</button>` +
 
-          state.categories.map((c, index) =>
-            `<button
-              type="button"
+          state.categories.map((c,index) =>
+            `<button type="button"
               data-category="${esc(c.id)}"
               aria-pressed="${activeCategory === c.id}"
-              style="--dot:${dots[index % dots.length]}"
-            >${esc(c.name)}</button>`
+              style="--dot:${dots[index % dots.length]}">
+              ${esc(c.name)}
+            </button>`
           ).join('');
       }
 
-      /* ISSUE BOARD */
-
       function renderBoard() {
         const q = $('search').value.trim().toLowerCase();
-
         const category = catFor(activeCategory);
 
         const matching = state.issues.filter(i =>
           q
             ? i.title.toLowerCase().includes(q) ||
-              (catFor(i.categoryId)?.name || '')
-                .toLowerCase()
-                .includes(q)
-            : activeCategory === 'top' ||
-              i.categoryId === activeCategory
+              (i.description || '').toLowerCase().includes(q) ||
+              (catFor(i.categoryId)?.name || '').toLowerCase().includes(q)
+            : activeCategory === 'top' || i.categoryId === activeCategory
         );
 
         const ranked = rankIssues(matching);
@@ -1675,18 +1261,11 @@
         const shown =
           q || activeCategory !== 'top'
             ? ranked
-            : ranked.slice(0, 5);
+            : ranked.slice(0,5);
 
-        const isTop =
-          !q && activeCategory === 'top';
+        const isTop = !q && activeCategory === 'top';
 
-        /* Find how many recent reports each card has */
-
-        const counts = shown.map(i =>
-          recentReports(i.id)
-        );
-
-        /* Enable the weighted layout once reports exist */
+        const counts = shown.map(i => recentReports(i.id));
 
         const weighted =
           isTop &&
@@ -1703,29 +1282,29 @@
           weighted
         );
 
-        $('boardHeading').textContent = q
-          ? 'Search results'
-          : category
-            ? `${category.name} squeaks`
-            : 'Top 5 squeaks';
+        $('boardHeading').textContent =
+          q
+            ? 'Search results'
+            : category
+              ? `${category.name} squeaks`
+              : 'Top 5 squeaks';
 
-        $('boardSubheading').textContent = q
-          ? 'Matching issues across all categories.'
-          : category
-            ? `All issues in ${category.name}, with the most active first.`
-            : 'Bigger boxes mean more reports in the last 7 days. Exact totals are kept off this board.';
-
-        /* Build issue cards without visible counts */
+        $('boardSubheading').textContent =
+          q
+            ? 'Matching issues across all categories.'
+            : category
+              ? `All issues in ${category.name}, with the most active first.`
+              : 'Bigger boxes mean more reports in the last 7 days. Exact totals are kept off this board.';
 
         const cards = shown.map(i => {
           const c = catFor(i.categoryId);
 
           const idx = Math.max(
             0,
-            state.categories.findIndex(
-              x => x.id === i.categoryId
-            )
+            state.categories.findIndex(x => x.id === i.categoryId)
           );
+
+          const description = i.description || 'No description provided yet.';
 
           return `
             <article
@@ -1743,6 +1322,10 @@
                 ${esc(i.title)}
               </div>
 
+              <div class="issue-description" title="${esc(description)}">
+                ${esc(description)}
+              </div>
+
               <div class="issue-meta">
                 <span>${esc(i.status)}</span>
               </div>
@@ -1753,39 +1336,21 @@
                   data-action="report"
                   data-id="${esc(i.id)}"
                   type="button"
-                >+ Add</button>
+                >
+                  + Add
+                </button>
               </div>
             </article>
           `;
         });
 
-        /* ======================================
-           TREEMAP SIZE CALCULATION
-           ====================================== */
-
         if (weighted) {
-
-          /*
-            A baseline ensures every issue stays usable.
-
-            Square-root scaling means a very popular issue
-            becomes significantly larger, but less-reported
-            issues don't shrink to unusable sizes.
-          */
-
-          const weights = counts.map(
-            c => 1 + Math.sqrt(c)
-          );
+          const weights = counts.map(c => 1 + Math.sqrt(c));
 
           const total = weights.reduce(
-            (sum, w) => sum + w,
+            (sum,w) => sum + w,
             0
           );
-
-          /*
-            Choose how many cards appear in the first
-            row based on the concentration of reports.
-          */
 
           const split =
             weights[0] / total > .42
@@ -1795,67 +1360,37 @@
                 : 3;
 
           const topWeight = weights
-            .slice(0, split)
-            .reduce(
-              (sum, w) => sum + w,
-              0
-            );
-
-          /*
-            Keep each row between 40% and 60%
-            of the available height.
-          */
+            .slice(0,split)
+            .reduce((sum,w) => sum + w,0);
 
           const topShare = Math.max(
             .4,
             Math.min(.6, topWeight / total)
           );
 
-          /*
-            Each tile's flex weight determines
-            its share of horizontal space.
-          */
-
-          const row = (from, to, share) => `
-            <div
-              class="tile-row"
-              style="--row-share:${share}"
-            >
-              ${
-                cards.slice(from, to)
-                  .map((card, n) => `
-                    <div
-                      class="tile-slot"
-                      style="--tile-weight:${
-                        weights[from + n]
-                      }"
-                    >
-                      ${card}
-                    </div>
-                  `)
-                  .join('')
-              }
+          const row = (from,to,share) => `
+            <div class="tile-row" style="--row-share:${share}">
+              ${cards.slice(from,to).map((card,n) => `
+                <div
+                  class="tile-slot"
+                  style="--tile-weight:${weights[from + n]}"
+                >
+                  ${card}
+                </div>
+              `).join('')}
             </div>
           `;
 
           $('board').innerHTML =
-            row(0, split, topShare) +
-            row(split, 5, 1 - topShare);
+            row(0,split,topShare) +
+            row(split,5,1 - topShare);
 
         } else {
-
-          /* Balanced layout before reports exist */
-
           $('board').innerHTML =
             cards.join('') ||
-            `<div class="empty">
-              Nothing here yet. Try another category
-              or add a new issue.
-            </div>`;
+            '<div class="empty">Nothing here yet. Try another category or add a new issue.</div>';
         }
       }
-
-      /* CATEGORY EDITOR */
 
       function renderCategories() {
         $('newCategory').innerHTML = optionsHTML();
@@ -1864,7 +1399,6 @@
           state.categories.map(c => `
             <div class="category-edit">
               <span>${esc(c.name)}</span>
-
               <button
                 type="button"
                 class="button tiny"
@@ -1879,143 +1413,102 @@
 
       const dateTime = (iso) =>
         new Date(iso).toLocaleString('en-NZ', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
+          day:'numeric',
+          month:'short',
+          year:'numeric',
+          hour:'2-digit',
+          minute:'2-digit'
         });
-
-      /* INSIGHTS */
 
       function renderInsights() {
         const weekStart = new Date();
-
         weekStart.setDate(weekStart.getDate() - 6);
-        weekStart.setHours(0, 0, 0, 0);
+        weekStart.setHours(0,0,0,0);
 
         const week = state.occurrences.filter(
           r => new Date(r.at) >= weekStart
         );
 
         const stats = [
-          ['Squeaks logged', state.occurrences.length],
-          ["Things we're tracking", state.issues.length],
-          ['This week', week.length],
-          [
-            'RP raised',
-            state.occurrences.filter(
-              r => r.rpRaised
-            ).length
-          ]
+          ['Squeaks logged',state.occurrences.length],
+          ['Things we\'re tracking',state.issues.length],
+          ['This week',week.length],
+          ['RP raised',state.occurrences.filter(r => r.rpRaised).length]
         ];
 
         $('metrics').innerHTML =
-          stats.map(([k, v]) => `
+          stats.map(([k,v]) => `
             <div class="metric">
               <span class="muted">${k}</span>
               <div class="value">${v}</div>
             </div>
           `).join('');
 
-        const labels = Array.from(
-          { length: 7 },
-          (_, i) => {
-            const d = new Date();
-            d.setDate(d.getDate() - (6 - i));
-            return d;
-          }
-        );
+        const labels = Array.from({length:7}, (_,i) => {
+          const d = new Date();
+          d.setDate(d.getDate() - (6 - i));
+          return d;
+        });
 
         const counts = labels.map(d =>
-          state.occurrences.filter(
-            r =>
-              new Date(r.at).toDateString() ===
-              d.toDateString()
+          state.occurrences.filter(r =>
+            new Date(r.at).toDateString() === d.toDateString()
           ).length
         );
 
-        const max = Math.max(1, ...counts);
+        const max = Math.max(1,...counts);
 
-        $('bars').innerHTML = labels.map((d, i) => `
-          <div class="bar-col">
-            <span class="bar-value">
-              ${counts[i]}
-            </span>
+        $('bars').innerHTML =
+          labels.map((d,i) => `
+            <div class="bar-col">
+              <span class="bar-value">${counts[i]}</span>
+              <div
+                class="bar"
+                style="height:${Math.max(3,Math.round(counts[i] / max * 125))}px"
+              ></div>
+              <span class="bar-label">
+                ${d.toLocaleDateString('en-NZ',{weekday:'short'})}
+              </span>
+            </div>
+          `).join('');
 
-            <div
-              class="bar"
-              style="height:${
-                Math.max(
-                  3,
-                  Math.round(counts[i] / max * 125)
-                )
-              }px"
-            ></div>
-
-            <span class="bar-label">
-              ${
-                d.toLocaleDateString(
-                  'en-NZ',
-                  { weekday: 'short' }
-                )
-              }
-            </span>
-          </div>
-        `).join('');
-
-        const top = rankIssues(state.issues).slice(0, 5);
+        const top = rankIssues(state.issues).slice(0,5);
 
         const maxCount = Math.max(
           1,
           ...top.map(i => countFor(i.id))
         );
 
-        $('hotList').innerHTML = top.map((i, n) => `
-          <div class="hot-row">
-            <div class="hot-index">
-              ${n + 1}
-            </div>
+        $('hotList').innerHTML =
+          top.map((i,n) => `
+            <div class="hot-row">
+              <div class="hot-index">${n + 1}</div>
 
-            <div class="hot-detail">
-              <div class="hot-title">
-                <span>${esc(i.title)}</span>
+              <div class="hot-detail">
+                <div class="hot-title">
+                  <span>${esc(i.title)}</span>
+                  <small>
+                    ${countFor(i.id)}
+                    ${countFor(i.id) === 1 ? 'squeak' : 'squeaks'}
+                  </small>
+                </div>
 
-                <small>
-                  ${countFor(i.id)}
-                  ${
-                    countFor(i.id) === 1
-                      ? 'squeak'
-                      : 'squeaks'
-                  }
-                </small>
-              </div>
-
-              <div class="hot-track">
-                <div
-                  class="hot-fill"
-                  style="
-                    width:${
-                      Math.max(
-                        0,
-                        Math.round(
-                          countFor(i.id) / maxCount * 100
-                        )
-                      )
-                    }%;
-                    background:${dots[n % dots.length]}
-                  "
-                ></div>
+                <div class="hot-track">
+                  <div
+                    class="hot-fill"
+                    style="
+                      width:${Math.max(0,Math.round(countFor(i.id) / maxCount * 100))}%;
+                      background:${dots[n % dots.length]}
+                    "
+                  ></div>
+                </div>
               </div>
             </div>
-          </div>
-        `).join('') ||
+          `).join('') ||
           '<p class="muted">No issues yet.</p>';
 
         const opts = state.issues.map(i =>
-          `<option value="${esc(i.id)}">
-            ${esc(i.title)}
-          </option>`
+          `<option value="${esc(i.id)}">${esc(i.title)}</option>`
         ).join('');
 
         $('linkA').innerHTML = opts;
@@ -2028,72 +1521,51 @@
         $('connectionList').innerHTML =
           state.connections.length
             ? state.connections.map(c => `
-              <li>
-                <span>
-                  ${
-                    esc(
-                      issueFor(c.a)?.title ||
-                      'Removed issue'
-                    )
-                  }
-                  ↔
-                  ${
-                    esc(
-                      issueFor(c.b)?.title ||
-                      'Removed issue'
-                    )
-                  }
-                </span>
-
-                <button
-                  class="button tiny"
-                  type="button"
-                  data-action="disconnect"
-                  data-id="${esc(c.id)}"
-                >
-                  Remove
-                </button>
-              </li>
-            `).join('')
+                <li>
+                  <span>
+                    ${esc(issueFor(c.a)?.title || 'Removed issue')}
+                    ↔
+                    ${esc(issueFor(c.b)?.title || 'Removed issue')}
+                  </span>
+                  <button
+                    class="button tiny"
+                    type="button"
+                    data-action="disconnect"
+                    data-id="${esc(c.id)}"
+                  >
+                    Remove
+                  </button>
+                </li>
+              `).join('')
             : '<li>No connections yet.</li>';
 
         const sorted = [...state.occurrences]
-          .sort(
-            (a, b) =>
-              new Date(b.at) - new Date(a.at)
-          )
-          .slice(0, 30);
+          .sort((a,b) => new Date(b.at) - new Date(a.at))
+          .slice(0,30);
 
-        $('events').innerHTML = sorted.map(r => {
-          const i = issueFor(r.issueId);
-          const c = catFor(i?.categoryId);
+        $('events').innerHTML =
+          sorted.map(r => {
+            const i = issueFor(r.issueId);
+            const c = catFor(i?.categoryId);
 
-          return `
-            <tr>
-              <td>${dateTime(r.at)}</td>
-              <td>
-                ${esc(i?.title || 'Removed issue')}
-              </td>
-              <td>
-                ${esc(c?.name || 'Other')}
-              </td>
-              <td>
-                ${r.rpRaised ? 'Yes' : '—'}
-              </td>
-              <td>
-                ${
-                  r.ticketUrl
+            return `
+              <tr>
+                <td>${dateTime(r.at)}</td>
+                <td>${esc(i?.title || 'Removed issue')}</td>
+                <td>${esc(c?.name || 'Other')}</td>
+                <td>${r.rpRaised ? 'Yes' : '—'}</td>
+                <td>
+                  ${r.ticketUrl
                     ? `<a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="${esc(r.ticketUrl)}"
-                      >Example link ↗</a>`
-                    : '—'
-                }
-              </td>
-            </tr>
-          `;
-        }).join('') ||
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         href="${esc(r.ticketUrl)}"
+                       >Example link ↗</a>`
+                    : '—'}
+                </td>
+              </tr>
+            `;
+          }).join('') ||
           '<tr><td colspan="5">No squeaks logged yet.</td></tr>';
       }
 
@@ -2102,9 +1574,7 @@
         renderCategoryJump();
         renderCategories();
 
-        if (
-          !$('insightsView').classList.contains('hidden')
-        ) {
+        if (!$('insightsView').classList.contains('hidden')) {
           renderInsights();
         }
       }
@@ -2114,14 +1584,10 @@
         if (!i) return;
 
         $('signalForm').reset();
-
         $('signalIssueId').value = i.id;
         $('signalIssueName').textContent = i.title;
-
         $('signalDialog').showModal();
       }
-
-      /* REPORT EXISTING ISSUE */
 
       $('board').addEventListener('click', e => {
         const b = e.target.closest('[data-action]');
@@ -2130,8 +1596,6 @@
           openSignal(b.dataset.id);
         }
       });
-
-      /* SWITCH CATEGORY */
 
       $('categoryJump').addEventListener('click', e => {
         const b = e.target.closest('[data-category]');
@@ -2144,51 +1608,35 @@
         renderBoard();
       });
 
-      /* CONFIRM A REPORT */
-
       $('signalForm').addEventListener('submit', e => {
         e.preventDefault();
 
         const issueId = $('signalIssueId').value;
-
-        const ticketUrl = safeUrl(
-          $('signalTicket').value
-        );
+        const ticketUrl = safeUrl($('signalTicket').value);
 
         if (!issueFor(issueId)) {
           return notice('Please choose a valid issue.');
         }
 
         if (ticketUrl === null) {
-          return notice(
-            'Please use a fictional example.com link only.'
-          );
+          return notice('Please use a fictional example.com link only.');
         }
 
         state.occurrences.push({
-          id: uid(),
+          id:uid(),
           issueId,
-          at: new Date().toISOString(),
+          at:new Date().toISOString(),
           ticketUrl,
-          rpRaised: $('signalRp').checked
+          rpRaised:$('signalRp').checked
         });
 
         save();
         render();
-
         $('signalDialog').close();
-
         notice('Squeak added.');
       });
 
-      /* SEARCH */
-
-      $('search').addEventListener(
-        'input',
-        renderBoard
-      );
-
-      /* OPEN ADD ISSUE */
+      $('search').addEventListener('input', renderBoard);
 
       $('addIssue').addEventListener('click', () => {
         renderCategories();
@@ -2196,40 +1644,32 @@
         $('issueDialog').showModal();
       });
 
-      /* OPEN CATEGORY EDITOR */
+      $('manageCategories').addEventListener('click', () => {
+        renderCategories();
+        $('categoriesDialog').showModal();
+      });
 
-      $('manageCategories').addEventListener(
-        'click',
-        () => {
-          renderCategories();
-          $('categoriesDialog').showModal();
-        }
+      document.querySelectorAll('[data-close]').forEach(b =>
+        b.addEventListener('click', () =>
+          $(b.dataset.close).close()
+        )
       );
 
-      /* CLOSE DIALOGS */
-
-      document.querySelectorAll('[data-close]')
-        .forEach(b =>
-          b.addEventListener('click', () =>
-            $(b.dataset.close).close()
-          )
-        );
-
-      /* CREATE NEW ISSUE */
-
+      /* NEW: Save the creator's description with the issue */
       $('issueForm').addEventListener('submit', e => {
         e.preventDefault();
 
         const title = $('newTitle').value.trim();
+        const description = $('newDescription').value.trim();
         const categoryId = $('newCategory').value;
         const url = safeUrl($('newTicket').value);
 
-        if (!title || !catFor(categoryId)) return;
+        if (!title || !description || !catFor(categoryId)) {
+          return;
+        }
 
         if (url === null) {
-          return notice(
-            'Please use only example.com links in this prototype.'
-          );
+          return notice('Please use only example.com links in this prototype.');
         }
 
         const id = uid();
@@ -2238,47 +1678,39 @@
           id,
           categoryId,
           title,
-          status: 'Tracking',
-          createdAt: new Date().toISOString()
+          description,
+          status:'Tracking',
+          createdAt:new Date().toISOString()
         });
 
         state.occurrences.push({
-          id: uid(),
-          issueId: id,
-          at: new Date().toISOString(),
-          ticketUrl: url,
-          rpRaised: $('newRp').checked
+          id:uid(),
+          issueId:id,
+          at:new Date().toISOString(),
+          ticketUrl:url,
+          rpRaised:$('newRp').checked
         });
 
         save();
         render();
-
         $('issueDialog').close();
-
         notice('Issue added.');
       });
-
-      /* ADD CATEGORY */
 
       $('categoryForm').addEventListener('submit', e => {
         e.preventDefault();
 
         const name = $('newCategoryName').value.trim();
-
         if (!name) return;
 
-        if (
-          state.categories.some(
-            c =>
-              c.name.toLowerCase() ===
-              name.toLowerCase()
-          )
-        ) {
+        if (state.categories.some(c =>
+          c.name.toLowerCase() === name.toLowerCase()
+        )) {
           return notice('That category already exists.');
         }
 
         state.categories.push({
-          id: uid(),
+          id:uid(),
           name
         });
 
@@ -2286,54 +1718,35 @@
 
         save();
         render();
-
         notice('Category added.');
       });
 
-      /* RENAME CATEGORY */
-
       $('categoryEditor').addEventListener('click', e => {
-        const b = e.target.closest(
-          '[data-action="rename"]'
-        );
-
+        const b = e.target.closest('[data-action="rename"]');
         if (!b) return;
 
         const c = catFor(b.dataset.id);
         if (!c) return;
 
-        const name = prompt(
-          'Rename category:',
-          c.name
-        );
-
+        const name = prompt('Rename category:', c.name);
         if (name === null) return;
 
-        const v = name.trim().slice(0, 35);
+        const v = name.trim().slice(0,35);
         if (!v) return;
 
-        if (
-          state.categories.some(
-            x =>
-              x.id !== c.id &&
-              x.name.toLowerCase() ===
-              v.toLowerCase()
-          )
-        ) {
-          return notice(
-            'That name is already in use.'
-          );
+        if (state.categories.some(x =>
+          x.id !== c.id &&
+          x.name.toLowerCase() === v.toLowerCase()
+        )) {
+          return notice('That name is already in use.');
         }
 
         c.name = v;
 
         save();
         render();
-
         notice('Category renamed.');
       });
-
-      /* CONNECT RELATED ISSUES */
 
       $('connectForm').addEventListener('submit', e => {
         e.preventDefault();
@@ -2342,70 +1755,43 @@
         const b = $('linkB').value;
 
         if (!a || !b || a === b) {
-          return notice(
-            'Choose two different issues.'
-          );
+          return notice('Choose two different issues.');
         }
 
-        if (
-          state.connections.some(
-            c =>
-              (c.a === a && c.b === b) ||
-              (c.a === b && c.b === a)
-          )
-        ) {
-          return notice(
-            'Those issues are already connected.'
-          );
+        if (state.connections.some(c =>
+          (c.a === a && c.b === b) ||
+          (c.a === b && c.b === a)
+        )) {
+          return notice('Those issues are already connected.');
         }
 
         state.connections.push({
-          id: uid(),
+          id:uid(),
           a,
           b
         });
 
         save();
         renderInsights();
-
         notice('Issues connected.');
       });
 
-      /* REMOVE CONNECTION */
+      $('connectionList').addEventListener('click', e => {
+        const b = e.target.closest('[data-action="disconnect"]');
+        if (!b) return;
 
-      $('connectionList').addEventListener(
-        'click',
-        e => {
-          const b = e.target.closest(
-            '[data-action="disconnect"]'
-          );
+        state.connections = state.connections.filter(
+          c => c.id !== b.dataset.id
+        );
 
-          if (!b) return;
-
-          state.connections =
-            state.connections.filter(
-              c => c.id !== b.dataset.id
-            );
-
-          save();
-          renderInsights();
-
-          notice('Connection removed.');
-        }
-      );
-
-      /* SWITCH BOARD AND INSIGHTS */
+        save();
+        renderInsights();
+        notice('Connection removed.');
+      });
 
       function showView(insights) {
-        $('boardView').classList.toggle(
-          'hidden',
-          insights
-        );
-
-        $('insightsView').classList.toggle(
-          'hidden',
-          !insights
-        );
+        $('boardView').classList.toggle('hidden', insights);
+        $('insightsView').classList.toggle('hidden', !insights);
 
         $('boardTab').setAttribute(
           'aria-pressed',
@@ -2417,22 +1803,11 @@
           String(insights)
         );
 
-        if (insights) {
-          renderInsights();
-        }
+        if (insights) renderInsights();
       }
 
-      $('boardTab').addEventListener(
-        'click',
-        () => showView(false)
-      );
-
-      $('insightsTab').addEventListener(
-        'click',
-        () => showView(true)
-      );
-
-      /* EXPORT FUNCTIONS */
+      $('boardTab').addEventListener('click', () => showView(false));
+      $('insightsTab').addEventListener('click', () => showView(true));
 
       const csvCell = (v) => {
         let s = String(v ?? '');
@@ -2441,17 +1816,11 @@
           s = "'" + s;
         }
 
-        return '"' +
-          s.replace(/"/g, '""') +
-          '"';
+        return '"' + s.replace(/"/g,'""') + '"';
       };
 
-      function download(name, contents, mime) {
-        const blob = new Blob(
-          [contents],
-          { type: mime }
-        );
-
+      function download(name,contents,mime) {
+        const blob = new Blob([contents],{type:mime});
         const u = URL.createObjectURL(blob);
         const a = document.createElement('a');
 
@@ -2462,23 +1831,16 @@
         a.click();
         a.remove();
 
-        setTimeout(
-          () => URL.revokeObjectURL(u),
-          1000
-        );
+        setTimeout(() => URL.revokeObjectURL(u),1000);
       }
 
       const exportRows = () =>
         state.occurrences.map(r => ({
-          dateTime: r.at,
-          issue:
-            issueFor(r.issueId)?.title || '',
-          category:
-            catFor(
-              issueFor(r.issueId)?.categoryId
-            )?.name || '',
-          rpRaised: !!r.rpRaised,
-          exampleTicketUrl: r.ticketUrl
+          dateTime:r.at,
+          issue:issueFor(r.issueId)?.title || '',
+          category:catFor(issueFor(r.issueId)?.categoryId)?.name || '',
+          rpRaised:!!r.rpRaised,
+          exampleTicketUrl:r.ticketUrl
         }));
 
       $('exportCsv').addEventListener('click', () => {
@@ -2497,40 +1859,23 @@
           [
             head.join(','),
             ...rows.map(r =>
-              head.map(
-                h => csvCell(r[h])
-              ).join(',')
+              head.map(h => csvCell(r[h])).join(',')
             )
           ].join('\r\n'),
           'text/csv;charset=utf-8'
         );
       });
 
-      $('exportJson').addEventListener(
-        'click',
-        () =>
-          download(
-            'squeak-export.json',
-            JSON.stringify(
-              {
-                prototype: true,
-                ...state
-              },
-              null,
-              2
-            ),
-            'application/json'
-          )
+      $('exportJson').addEventListener('click', () =>
+        download(
+          'squeak-export.json',
+          JSON.stringify({prototype:true,...state},null,2),
+          'application/json'
+        )
       );
 
-      /* RESET SAMPLE DATA */
-
       $('reset').addEventListener('click', () => {
-        if (
-          !confirm(
-            'Reset this browser to the starter issue list?'
-          )
-        ) {
+        if (!confirm('Reset this browser to the starter issue list?')) {
           return;
         }
 
@@ -2538,19 +1883,14 @@
         activeCategory = 'top';
 
         save();
-
         $('search').value = '';
-
         render();
 
         notice('Starter list restored.');
       });
 
-      /* START */
-
       save();
       render();
-
     })();
   </script>
 </body>
