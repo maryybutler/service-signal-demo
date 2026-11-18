@@ -348,10 +348,11 @@
     .plan-availability { color: #4b5357; font-size: 12px; }
     .plan-availability.has-plan { color: #155e73; font-weight: 700; }
     .button.plan-button { border-color: #a9d7e7; color: #087fa7; background: #f1fafe; padding: 6px 11px; font-size: 12px; font-weight: 700; }
-    .button.plan-button:hover { background: #dff4fc; border-color: #009dd1; }
-    .board.featured-board { grid-auto-rows: minmax(225px, 1fr); min-height: clamp(490px, calc(100dvh - 330px), 760px); }
-    .board.weighted-board { height: clamp(690px, calc(100dvh - 270px), 840px); }
-    .board.weighted-board .issue { min-height: 215px; }
+    .button.plan-button:hover { background: #dff4fc; border-color: #009dd1; }   
+    .board.featured-board {grid-auto-rows: minmax(215px, auto);min-height: 0;}
+    .board.weighted-board {height: auto;}
+    .board.weighted-board .tile-row {flex: 0 0 auto;}
+    .board.weighted-board .issue {min-height: 225px;}
     .board.weighted-board .issue-title { margin: 12px 0 9px; }
     .board.weighted-board .issue-description { margin-bottom: 9px; }
     .board.weighted-board .issue-meta { margin-bottom: 8px; }
@@ -513,7 +514,7 @@
         const categories = [
           {id:'app',name:'App'}, {id:'billing',name:'Billing'}, {id:'broadband',name:'Broadband'}, {id:'mobile',name:'Mobile'},
           {id:'power',name:'Power'}, {id:'debt',name:'Debt'}, {id:'online-account',name:'Online Account'},
-          {id:'bikkie',name:'Bikkie'}, {id:'brownie',name:'Brownie'}, {id:'flex',name:'Flex'}
+          {id:'bikkie',name:'Bikkie'}, {id:'brownie',name:'Brownie'}, {id:'flex',name:'Flex'}, {id:'AI Assist',name:'AI Assist'}
         ];
         const createdAt = new Date().toISOString();
         const issues = [
